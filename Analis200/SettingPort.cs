@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
 using System.IO.Ports;
-using System.Threading;
 namespace Analis200
 {
     public partial class SettingPort : Form
@@ -23,14 +15,31 @@ namespace Analis200
             InitializeComponent();
             this._Analis = parent;
             //CO();
-            SW();
-            InitializeTimer();
+            // SW();
+            // InitializeTimer();
+            string[] ports = SerialPort.GetPortNames();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(ports);
+            if (ports.Length != 0)
+            {
+                comboBox1.SelectedIndex = 0;
+                _Analis.nonPort = true;
+            }
+            else
+            {
+                MessageBox.Show("Подсоедините спектрофотометр и попробуйте подключиться снова!");
+                _Analis.nonPort = false;
+                Close();
+               // Dispose();
+            }
+
+
         }
-        private int counter;
+    /*    private int counter;
         private void InitializeTimer()
         {
             // Run this procedure in an appropriate event.
-            counter = 0;
+         //   counter = 0;
             timer1.Interval = 600;
             timer1.Enabled = true;
             // Hook up timer's tick event handler.
@@ -70,6 +79,7 @@ namespace Analis200
             string D7 = arr[7];
             label7.Text = D7;
         }*/
+        /*
         public void SW()
         {
             _Analis.newPort.Write("SW 300\r");
@@ -98,7 +108,7 @@ namespace Analis200
             GE1 = arr4[1];
             textBox3.Text = GE1;
 
-        }
+        }*/
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -114,8 +124,44 @@ namespace Analis200
             
 
         }
-       
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _Analis.portsName = comboBox1.SelectedItem.ToString();
+            
+            Close();
+        }
+
+        private void SettingPort_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            //   _Analis.nonPort = false;
+            //  Close();
+        /*    if (_Analis.nonPort == false)
+            {
+                _Analis.nonPort = false;
+                MessageBox.Show("Порт не выбран!");
+                // Close();
+            }
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(SettingPort_FormClosed);
+            */
+        }
+
+        private void SettingPort_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if(_Analis.nonPort == false)
+            {
+                _Analis.nonPort = false;
+                MessageBox.Show("Порт не выбран!");
+                Close();
+            }
+            else
+            {
+                _Analis.nonPort = true;
+                Close();
+            }
+            //Close();
+        }
     } 
 
 }

@@ -129,6 +129,7 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Градуировка";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // label7
             // 
@@ -189,27 +190,27 @@
             this.k2Text1.AutoSize = true;
             this.k2Text1.Location = new System.Drawing.Point(307, 175);
             this.k2Text1.Name = "k2Text1";
-            this.k2Text1.Size = new System.Drawing.Size(19, 13);
+            this.k2Text1.Size = new System.Drawing.Size(28, 13);
             this.k2Text1.TabIndex = 18;
-            this.k2Text1.Text = "k2";
+            this.k2Text1.Text = "k2 =";
             // 
             // k1Text1
             // 
             this.k1Text1.AutoSize = true;
             this.k1Text1.Location = new System.Drawing.Point(307, 151);
             this.k1Text1.Name = "k1Text1";
-            this.k1Text1.Size = new System.Drawing.Size(19, 13);
+            this.k1Text1.Size = new System.Drawing.Size(28, 13);
             this.k1Text1.TabIndex = 17;
-            this.k1Text1.Text = "k1";
+            this.k1Text1.Text = "k1 =";
             // 
             // k0Text1
             // 
             this.k0Text1.AutoSize = true;
             this.k0Text1.Location = new System.Drawing.Point(307, 127);
             this.k0Text1.Name = "k0Text1";
-            this.k0Text1.Size = new System.Drawing.Size(19, 13);
+            this.k0Text1.Size = new System.Drawing.Size(31, 13);
             this.k0Text1.TabIndex = 16;
-            this.k0Text1.Text = "k0";
+            this.k0Text1.Text = "k0 = ";
             // 
             // label16
             // 
@@ -460,6 +461,11 @@
             this.numericUpDown3.Location = new System.Drawing.Point(169, 49);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             10,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});

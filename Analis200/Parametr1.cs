@@ -3,26 +3,24 @@ using System.Windows.Forms;
 
 namespace Analis200
 {
-    public partial class New : Form
+    public partial class Parametr1 : Form
     {
         Analis _Analis;
-        public New(Analis parent)
+        public Parametr1(Analis parent)
         {
             InitializeComponent();
             this._Analis = parent;
         }
 
-        public void New_Load(object sender, EventArgs e)
+        private void Parametr1_Load(object sender, EventArgs e)
         {
-           // k0Text1.Text = "k0=";
             DLWave.Text = _Analis.wavelength1;
-            int index = Opt_dlin_cuvet.FindString(_Analis.WidthCuvette);
-            numericUpDown3.Value = 1;
-            numericUpDown4.Value = 1;
+            int index = Opt_dlin_cuvet.FindString(_Analis.Opt_dlin_cuvet.Text);
+
             //  MessageBox.Show(index.ToString());
             Opt_dlin_cuvet.SelectedIndex = index;
-            
-           
+
+
             Description.Text = _Analis.Description;
             Sozdana.Text = _Analis.DateTime;
             Zavisimost.Text = _Analis.Zavisimoct;
@@ -34,13 +32,19 @@ namespace Analis200
             label7.Text = string.Format("{0:0.0000}", _Analis.textBox6.Text);
             label12.Text = _Analis.SposobZadan;
             Ed_Izmer.Text = _Analis.edconctr;
-            dateTimePicker1.Text = _Analis.DateTime;
+            dateTimePicker1.Text = _Analis.dateTimePicker2.Text;
             Deistvie.Text = dateTimePicker1.Value.AddDays(_Analis.Days).ToString("dd.MM.yyyy");
 
             _Analis.Opt_dlin_cuvet.SelectedIndex = index;
 
-           
-           
+
+            numericUpDown3.Value = _Analis.NoCaIzm1;
+            numericUpDown4.Value = _Analis.NoCaSer1;
+            textBox2.Text = _Analis.F1Text.Text;
+            textBox3.Text = _Analis.F2Text.Text;
+            textBox4.Text = _Analis.textBox7.Text;
+        //    int index1 = Opt_dlin_cuvet.FindString(_Analis.Opt_dlin_cuvet.Text);
+            //  Opt_dlin_cuvet.SelectedIndex = index;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,9 +60,6 @@ namespace Analis200
             _Analis.WLREMOVESTR2();
             _Analis.WLADD2();
             _Analis.WLADDSTR2();
-            _Analis.IzmerenieOpen = true;
-            _Analis.параметрыToolStripMenuItem.Enabled = true;
-            _Analis.button10.Enabled = true;
             Close();
         }
 
@@ -71,7 +72,7 @@ namespace Analis200
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
             _Analis.NoCaIzm1 = Convert.ToInt32(numericUpDown3.Value);
-            
+
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -104,7 +105,7 @@ namespace Analis200
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
@@ -114,11 +115,6 @@ namespace Analis200
             {
                 e.Handled = true;
             }
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

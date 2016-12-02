@@ -371,6 +371,7 @@
             this.k2Text.Name = "k2Text";
             this.k2Text.Size = new System.Drawing.Size(151, 20);
             this.k2Text.TabIndex = 12;
+            this.k2Text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.k2Text_KeyPress);
             // 
             // k1Text
             // 
@@ -378,6 +379,7 @@
             this.k1Text.Name = "k1Text";
             this.k1Text.Size = new System.Drawing.Size(151, 20);
             this.k1Text.TabIndex = 11;
+            this.k1Text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.k1Text_KeyPress);
             // 
             // k0Text
             // 
@@ -385,6 +387,7 @@
             this.k0Text.Name = "k0Text";
             this.k0Text.Size = new System.Drawing.Size(151, 20);
             this.k0Text.TabIndex = 10;
+            this.k0Text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.k0Text_KeyPress);
             // 
             // label11
             // 
@@ -491,6 +494,7 @@
             this.groupBox6.TabIndex = 11;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Концетрации стандартных образцов";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
             // groupBox7
             // 
@@ -572,6 +576,8 @@
             this.Up.Name = "Up";
             this.Up.Size = new System.Drawing.Size(203, 20);
             this.Up.TabIndex = 1;
+            this.Up.Text = "0,00";
+            this.Up.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Up_KeyPress);
             // 
             // Down
             // 
@@ -579,15 +585,17 @@
             this.Down.Name = "Down";
             this.Down.Size = new System.Drawing.Size(202, 20);
             this.Down.TabIndex = 0;
+            this.Down.Text = "0,00";
+            this.Down.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Down_KeyPress);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(620, 381);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(102, 13);
+            this.label15.Size = new System.Drawing.Size(116, 13);
             this.label15.TabIndex = 14;
-            this.label15.Text = "Методика поверки";
+            this.label15.Text = "Методика измерений";
             // 
             // ND
             // 
@@ -711,7 +719,7 @@
         public System.Windows.Forms.NumericUpDown numericUpDown4;
         public System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.ComboBox Ed;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label19;
+        public System.Windows.Forms.TextBox textBox4;
     }
 }

@@ -35,37 +35,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.печать1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.волновойАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.приборToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.подключитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкаПортаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.калибровкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.темновойТокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.одноволновоеИзмерениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.GEText = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.GWNew = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.GAText = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.OptichPlot = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -124,6 +102,47 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.printDialog2 = new System.Windows.Forms.PrintDialog();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.эксопртВPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.подключитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкаПортаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.калибровкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.темновойТокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.одноволновоеИзмерениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GEText = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.GWNew = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.GAText = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.OptichPlot = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -152,7 +171,7 @@
             this.справкаToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(243, 16);
+            this.menuStrip1.Size = new System.Drawing.Size(178, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -163,58 +182,22 @@
             this.открытьToolStripMenuItem,
             this.сохранитьToolStripMenuItem,
             this.экспортToolStripMenuItem,
+            this.эксопртВPDFToolStripMenuItem,
             this.печатьToolStripMenuItem,
-            this.выходToolStripMenuItem});
+            this.выходToolStripMenuItem,
+            this.печать1ToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 12);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             this.файлToolStripMenuItem.Click += new System.EventHandler(this.файлToolStripMenuItem_Click);
             // 
-            // новыйToolStripMenuItem
+            // печать1ToolStripMenuItem
             // 
-            this.новыйToolStripMenuItem.Image = global::Analis200.Properties.Resources.NewSetup_btn;
-            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.новыйToolStripMenuItem.Text = "Новый";
-            this.новыйToolStripMenuItem.Click += new System.EventHandler(this.новыйToolStripMenuItem_Click);
-            // 
-            // открытьToolStripMenuItem
-            // 
-            this.открытьToolStripMenuItem.Image = global::Analis200.Properties.Resources.open_btn;
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
-            // 
-            // сохранитьToolStripMenuItem
-            // 
-            this.сохранитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.r_save_btn;
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
-            // 
-            // экспортToolStripMenuItem
-            // 
-            this.экспортToolStripMenuItem.Image = global::Analis200.Properties.Resources.export_btn;
-            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
-            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.экспортToolStripMenuItem.Text = "Экспорт";
-            this.экспортToolStripMenuItem.Click += new System.EventHandler(this.экспортToolStripMenuItem_Click);
-            // 
-            // печатьToolStripMenuItem
-            // 
-            this.печатьToolStripMenuItem.Image = global::Analis200.Properties.Resources.print_btn;
-            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.печатьToolStripMenuItem.Text = "Печать";
-            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
+            this.печать1ToolStripMenuItem.Name = "печать1ToolStripMenuItem";
+            this.печать1ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.печать1ToolStripMenuItem.Text = "Печать 1";
+            this.печать1ToolStripMenuItem.Visible = false;
+            this.печать1ToolStripMenuItem.Click += new System.EventHandler(this.печать1ToolStripMenuItem_Click);
             // 
             // анализToolStripMenuItem
             // 
@@ -223,22 +206,15 @@
             this.волновойАнализToolStripMenuItem,
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
-            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 12);
+            this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.анализToolStripMenuItem.Text = "Анализ";
-            // 
-            // параметрыToolStripMenuItem
-            // 
-            this.параметрыToolStripMenuItem.Image = global::Analis200.Properties.Resources.setup_btn;
-            this.параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
-            this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
-            this.параметрыToolStripMenuItem.Text = "Параметры";
-            this.параметрыToolStripMenuItem.Click += new System.EventHandler(this.параметрыToolStripMenuItem_Click);
             // 
             // волновойАнализToolStripMenuItem
             // 
             this.волновойАнализToolStripMenuItem.Name = "волновойАнализToolStripMenuItem";
             this.волновойАнализToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
             this.волновойАнализToolStripMenuItem.Text = "Волновой анализ";
+            this.волновойАнализToolStripMenuItem.Visible = false;
             this.волновойАнализToolStripMenuItem.Click += new System.EventHandler(this.волновойАнализToolStripMenuItem_Click);
             // 
             // графикРезультатаОдноволновогоИзмеренияToolStripMenuItem
@@ -246,6 +222,7 @@
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem.Name = "графикРезультатаОдноволновогоИзмеренияToolStripMenuItem";
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem.Text = "График результата одноволнового измерения";
+            this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem.Visible = false;
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem.Click += new System.EventHandler(this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem_Click);
             // 
             // приборToolStripMenuItem
@@ -260,68 +237,8 @@
             this.одноволновоеИзмерениеToolStripMenuItem,
             this.калибровкаДляОдноволновогоАнализаToolStripMenuItem});
             this.приборToolStripMenuItem.Name = "приборToolStripMenuItem";
-            this.приборToolStripMenuItem.Size = new System.Drawing.Size(63, 12);
+            this.приборToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.приборToolStripMenuItem.Text = "Прибор";
-            // 
-            // подключитьToolStripMenuItem
-            // 
-            this.подключитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.connect_btn;
-            this.подключитьToolStripMenuItem.Name = "подключитьToolStripMenuItem";
-            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.подключитьToolStripMenuItem.Text = "Подключить";
-            this.подключитьToolStripMenuItem.Click += new System.EventHandler(this.подключитьToolStripMenuItem_Click);
-            // 
-            // настройкаПортаToolStripMenuItem
-            // 
-            this.настройкаПортаToolStripMenuItem.Image = global::Analis200.Properties.Resources.ComSetup_btn;
-            this.настройкаПортаToolStripMenuItem.Name = "настройкаПортаToolStripMenuItem";
-            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.настройкаПортаToolStripMenuItem.Text = "Длина Волны";
-            this.настройкаПортаToolStripMenuItem.Click += new System.EventHandler(this.длинаволныToolStripMenuItem_Click);
-            // 
-            // информацияToolStripMenuItem
-            // 
-            this.информацияToolStripMenuItem.Image = global::Analis200.Properties.Resources.devinfo_btn;
-            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
-            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.информацияToolStripMenuItem.Text = "Информация";
-            // 
-            // калибровкаToolStripMenuItem
-            // 
-            this.калибровкаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
-            this.калибровкаToolStripMenuItem.Name = "калибровкаToolStripMenuItem";
-            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.калибровкаToolStripMenuItem.Text = "Калибровка";
-            this.калибровкаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаToolStripMenuItem_Click);
-            // 
-            // темновойТокToolStripMenuItem
-            // 
-            this.темновойТокToolStripMenuItem.Image = global::Analis200.Properties.Resources.Dark_btn;
-            this.темновойТокToolStripMenuItem.Name = "темновойТокToolStripMenuItem";
-            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.темновойТокToolStripMenuItem.Text = "Темновой ток";
-            // 
-            // измеритьToolStripMenuItem
-            // 
-            this.измеритьToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
-            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.измеритьToolStripMenuItem.Text = "Измерить";
-            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
-            // 
-            // одноволновоеИзмерениеToolStripMenuItem
-            // 
-            this.одноволновоеИзмерениеToolStripMenuItem.Name = "одноволновоеИзмерениеToolStripMenuItem";
-            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.одноволновоеИзмерениеToolStripMenuItem.Text = "Одноволновое измерение";
-            this.одноволновоеИзмерениеToolStripMenuItem.Click += new System.EventHandler(this.одноволновоеИзмерениеToolStripMenuItem_Click);
-            // 
-            // калибровкаДляОдноволновогоАнализаToolStripMenuItem
-            // 
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Name = "калибровкаДляОдноволновогоАнализаToolStripMenuItem";
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Text = "Калибровка для одноволнового анализа";
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДляОдноволновогоАнализаToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -329,8 +246,9 @@
             this.справкаToolStripMenuItem1,
             this.оПрограммеToolStripMenuItem});
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 12);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Visible = false;
             // 
             // справкаToolStripMenuItem1
             // 
@@ -344,83 +262,7 @@
             this.оПрограммеToolStripMenuItem.Name = "оПрограммеToolStripMenuItem";
             this.оПрограммеToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.оПрограммеToolStripMenuItem.Text = "О программе";
-            // 
-            // GEText
-            // 
-            this.GEText.Location = new System.Drawing.Point(253, 27);
-            this.GEText.Name = "GEText";
-            this.GEText.Size = new System.Drawing.Size(100, 20);
-            this.GEText.TabIndex = 8;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(198, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Энергия";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 30);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Длина волны";
-            // 
-            // GWNew
-            // 
-            this.GWNew.Location = new System.Drawing.Point(92, 27);
-            this.GWNew.Name = "GWNew";
-            this.GWNew.Size = new System.Drawing.Size(100, 20);
-            this.GWNew.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(359, 30);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(145, 13);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Коэффициент пропускания";
-            // 
-            // GAText
-            // 
-            this.GAText.Location = new System.Drawing.Point(510, 27);
-            this.GAText.Name = "GAText";
-            this.GAText.Size = new System.Drawing.Size(100, 20);
-            this.GAText.TabIndex = 13;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(616, 30);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(122, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Оптическая плотность";
-            // 
-            // OptichPlot
-            // 
-            this.OptichPlot.Location = new System.Drawing.Point(744, 27);
-            this.OptichPlot.Name = "OptichPlot";
-            this.OptichPlot.Size = new System.Drawing.Size(100, 20);
-            this.OptichPlot.TabIndex = 15;
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
             // 
             // saveFileDialog1
             // 
@@ -450,11 +292,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Location = new System.Drawing.Point(13, 53);
+            this.tabControl2.Location = new System.Drawing.Point(13, 107);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(941, 668);
+            this.tabControl2.Size = new System.Drawing.Size(965, 632);
             this.tabControl2.TabIndex = 19;
+            this.tabControl2.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl2_Selecting);
             // 
             // tabPage3
             // 
@@ -479,7 +322,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(933, 642);
+            this.tabPage3.Size = new System.Drawing.Size(957, 606);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Градуировка";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -565,6 +408,7 @@
             // 
             this.textBox6.Location = new System.Drawing.Point(42, 66);
             this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 5;
             // 
@@ -572,6 +416,7 @@
             // 
             this.textBox5.Location = new System.Drawing.Point(42, 41);
             this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 4;
             // 
@@ -579,6 +424,7 @@
             // 
             this.textBox4.Location = new System.Drawing.Point(42, 18);
             this.textBox4.Name = "textBox4";
+            this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 3;
             // 
@@ -683,6 +529,7 @@
             series1.IsVisibleInLegend = false;
             series1.Name = "Series1";
             series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.IsVisibleInLegend = false;
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
@@ -704,24 +551,28 @@
             this.Asred});
             this.Table1.Location = new System.Drawing.Point(9, 399);
             this.Table1.Name = "Table1";
-            this.Table1.Size = new System.Drawing.Size(911, 237);
+            this.Table1.Size = new System.Drawing.Size(935, 201);
             this.Table1.TabIndex = 13;
             this.Table1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table1_CellEndEdit);
+            this.Table1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table1_EditingControlShowing);
             // 
             // NoCo
             // 
             this.NoCo.HeaderText = "№ CO";
             this.NoCo.Name = "NoCo";
+            this.NoCo.ReadOnly = true;
             // 
             // Concetr
             // 
             this.Concetr.HeaderText = "Конц., %";
             this.Concetr.Name = "Concetr";
+            this.Concetr.ReadOnly = true;
             // 
             // Asred
             // 
             this.Asred.HeaderText = "A среднее";
             this.Asred.Name = "Asred";
+            this.Asred.ReadOnly = true;
             // 
             // label6
             // 
@@ -784,6 +635,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(134, 46);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(90, 20);
             this.textBox3.TabIndex = 5;
             // 
@@ -803,6 +655,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(829, 11);
             this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(90, 20);
             this.textBox2.TabIndex = 3;
             // 
@@ -819,6 +672,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(69, 11);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(600, 20);
             this.textBox1.TabIndex = 1;
             // 
@@ -849,7 +703,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(933, 642);
+            this.tabPage4.Size = new System.Drawing.Size(957, 606);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Измерение";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -918,9 +772,11 @@
             this.Obrazec});
             this.Table2.Location = new System.Drawing.Point(16, 69);
             this.Table2.Name = "Table2";
-            this.Table2.Size = new System.Drawing.Size(911, 467);
+            this.Table2.Size = new System.Drawing.Size(911, 499);
             this.Table2.TabIndex = 23;
+            this.Table2.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.Table2_CellBeginEdit);
             this.Table2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table2_CellEndEdit);
+            this.Table2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table2_EditingControlShowing);
             // 
             // Column1
             // 
@@ -996,10 +852,392 @@
             this.label18.TabIndex = 13;
             this.label18.Text = "Оптическая длина кюветы";
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // printDialog2
+            // 
+            this.printDialog2.UseEXDialog = true;
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            this.printPreviewDialog1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
+            // 
+            // button14
+            // 
+            this.button14.Image = global::Analis200.Properties.Resources.Meas_btn;
+            this.button14.Location = new System.Drawing.Point(661, 29);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(42, 35);
+            this.button14.TabIndex = 33;
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Image = global::Analis200.Properties.Resources.Dark_btn;
+            this.button13.Location = new System.Drawing.Point(616, 29);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(36, 35);
+            this.button13.TabIndex = 32;
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Visible = false;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button12
+            // 
+            this.button12.Image = global::Analis200.Properties.Resources.reziro_btn;
+            this.button12.Location = new System.Drawing.Point(571, 29);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(39, 35);
+            this.button12.TabIndex = 31;
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.Image = global::Analis200.Properties.Resources.About_btn;
+            this.button11.Location = new System.Drawing.Point(497, 30);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(40, 35);
+            this.button11.TabIndex = 30;
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
+            // 
+            // button10
+            // 
+            this.button10.Enabled = false;
+            this.button10.Image = global::Analis200.Properties.Resources.setup_btn;
+            this.button10.Location = new System.Drawing.Point(437, 29);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(40, 37);
+            this.button10.TabIndex = 29;
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Image = global::Analis200.Properties.Resources.pdfIcon;
+            this.button9.Location = new System.Drawing.Point(374, 29);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(40, 37);
+            this.button9.TabIndex = 28;
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button8
+            // 
+            this.button8.Image = global::Analis200.Properties.Resources.excelicon1;
+            this.button8.Location = new System.Drawing.Point(331, 29);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(37, 37);
+            this.button8.TabIndex = 27;
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.Image = global::Analis200.Properties.Resources.Save_btn;
+            this.button7.Location = new System.Drawing.Point(286, 29);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(39, 37);
+            this.button7.TabIndex = 26;
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Image = global::Analis200.Properties.Resources.open_btn;
+            this.button6.Location = new System.Drawing.Point(242, 29);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(38, 37);
+            this.button6.TabIndex = 25;
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Image = global::Analis200.Properties.Resources.NewSetup_btn;
+            this.button5.Location = new System.Drawing.Point(199, 29);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(37, 37);
+            this.button5.TabIndex = 24;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Image = global::Analis200.Properties.Resources.devinfo_btn;
+            this.button4.Location = new System.Drawing.Point(92, 29);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(40, 37);
+            this.button4.TabIndex = 23;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::Analis200.Properties.Resources.connect_btn;
+            this.button2.Location = new System.Drawing.Point(51, 29);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(34, 37);
+            this.button2.TabIndex = 21;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Image = global::Analis200.Properties.Resources.Exit_btn;
+            this.button1.Location = new System.Drawing.Point(13, 29);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 37);
+            this.button1.TabIndex = 20;
+            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // новыйToolStripMenuItem
+            // 
+            this.новыйToolStripMenuItem.Image = global::Analis200.Properties.Resources.NewSetup_btn;
+            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.новыйToolStripMenuItem.Text = "Новый";
+            this.новыйToolStripMenuItem.Click += new System.EventHandler(this.новыйToolStripMenuItem_Click);
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Image = global::Analis200.Properties.Resources.open_btn;
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.r_save_btn;
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // экспортToolStripMenuItem
+            // 
+            this.экспортToolStripMenuItem.Image = global::Analis200.Properties.Resources.excelicon1;
+            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
+            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.экспортToolStripMenuItem.Text = "Экспорт в Excel";
+            this.экспортToolStripMenuItem.Click += new System.EventHandler(this.экспортToolStripMenuItem_Click);
+            // 
+            // эксопртВPDFToolStripMenuItem
+            // 
+            this.эксопртВPDFToolStripMenuItem.Image = global::Analis200.Properties.Resources.pdfIcon;
+            this.эксопртВPDFToolStripMenuItem.Name = "эксопртВPDFToolStripMenuItem";
+            this.эксопртВPDFToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.эксопртВPDFToolStripMenuItem.Text = "Эксопрт в PDF";
+            // 
+            // печатьToolStripMenuItem
+            // 
+            this.печатьToolStripMenuItem.Image = global::Analis200.Properties.Resources.print_btn;
+            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.печатьToolStripMenuItem.Text = "Печать";
+            this.печатьToolStripMenuItem.Visible = false;
+            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Image = global::Analis200.Properties.Resources.exit;
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
+            // параметрыToolStripMenuItem
+            // 
+            this.параметрыToolStripMenuItem.Enabled = false;
+            this.параметрыToolStripMenuItem.Image = global::Analis200.Properties.Resources.setup_btn;
+            this.параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
+            this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
+            this.параметрыToolStripMenuItem.Text = "Параметры";
+            this.параметрыToolStripMenuItem.Click += new System.EventHandler(this.параметрыToolStripMenuItem_Click);
+            // 
+            // подключитьToolStripMenuItem
+            // 
+            this.подключитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.connect_btn;
+            this.подключитьToolStripMenuItem.Name = "подключитьToolStripMenuItem";
+            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.подключитьToolStripMenuItem.Text = "Подключить";
+            this.подключитьToolStripMenuItem.Click += new System.EventHandler(this.подключитьToolStripMenuItem_Click);
+            // 
+            // настройкаПортаToolStripMenuItem
+            // 
+            this.настройкаПортаToolStripMenuItem.Image = global::Analis200.Properties.Resources.ComSetup_btn;
+            this.настройкаПортаToolStripMenuItem.Name = "настройкаПортаToolStripMenuItem";
+            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.настройкаПортаToolStripMenuItem.Text = "Длина Волны";
+            this.настройкаПортаToolStripMenuItem.Visible = false;
+            this.настройкаПортаToolStripMenuItem.Click += new System.EventHandler(this.длинаволныToolStripMenuItem_Click);
+            // 
+            // информацияToolStripMenuItem
+            // 
+            this.информацияToolStripMenuItem.Image = global::Analis200.Properties.Resources.devinfo_btn;
+            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
+            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.информацияToolStripMenuItem.Text = "Информация";
+            this.информацияToolStripMenuItem.Visible = false;
+            this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
+            // 
+            // калибровкаToolStripMenuItem
+            // 
+            this.калибровкаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
+            this.калибровкаToolStripMenuItem.Name = "калибровкаToolStripMenuItem";
+            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаToolStripMenuItem.Text = "Калибровка";
+            this.калибровкаToolStripMenuItem.Visible = false;
+            this.калибровкаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаToolStripMenuItem_Click);
+            // 
+            // темновойТокToolStripMenuItem
+            // 
+            this.темновойТокToolStripMenuItem.Image = global::Analis200.Properties.Resources.Dark_btn;
+            this.темновойТокToolStripMenuItem.Name = "темновойТокToolStripMenuItem";
+            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.темновойТокToolStripMenuItem.Text = "Темновой ток";
+            this.темновойТокToolStripMenuItem.Visible = false;
+            // 
+            // измеритьToolStripMenuItem
+            // 
+            this.измеритьToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
+            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.измеритьToolStripMenuItem.Text = "Измерить";
+            this.измеритьToolStripMenuItem.Visible = false;
+            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
+            // 
+            // одноволновоеИзмерениеToolStripMenuItem
+            // 
+            this.одноволновоеИзмерениеToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
+            this.одноволновоеИзмерениеToolStripMenuItem.Name = "одноволновоеИзмерениеToolStripMenuItem";
+            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.одноволновоеИзмерениеToolStripMenuItem.Text = "Измерить";
+            this.одноволновоеИзмерениеToolStripMenuItem.Click += new System.EventHandler(this.одноволновоеИзмерениеToolStripMenuItem_Click);
+            // 
+            // калибровкаДляОдноволновогоАнализаToolStripMenuItem
+            // 
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Name = "калибровкаДляОдноволновогоАнализаToolStripMenuItem";
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Text = "0A/100%T";
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДляОдноволновогоАнализаToolStripMenuItem_Click);
+            // 
+            // GEText
+            // 
+            this.GEText.Location = new System.Drawing.Point(253, 73);
+            this.GEText.Name = "GEText";
+            this.GEText.ReadOnly = true;
+            this.GEText.Size = new System.Drawing.Size(100, 20);
+            this.GEText.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(198, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Энергия";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 76);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(75, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Длина волны";
+            // 
+            // GWNew
+            // 
+            this.GWNew.Location = new System.Drawing.Point(92, 73);
+            this.GWNew.Name = "GWNew";
+            this.GWNew.ReadOnly = true;
+            this.GWNew.Size = new System.Drawing.Size(100, 20);
+            this.GWNew.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(359, 76);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(145, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Коэффициент пропускания";
+            // 
+            // GAText
+            // 
+            this.GAText.Location = new System.Drawing.Point(510, 73);
+            this.GAText.Name = "GAText";
+            this.GAText.ReadOnly = true;
+            this.GAText.Size = new System.Drawing.Size(100, 20);
+            this.GAText.TabIndex = 13;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(616, 76);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(122, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Оптическая плотность";
+            // 
+            // OptichPlot
+            // 
+            this.OptichPlot.Location = new System.Drawing.Point(744, 73);
+            this.OptichPlot.Name = "OptichPlot";
+            this.OptichPlot.ReadOnly = true;
+            this.OptichPlot.Size = new System.Drawing.Size(100, 20);
+            this.OptichPlot.TabIndex = 15;
+            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(985, 733);
+            this.ClientSize = new System.Drawing.Size(1009, 741);
+            this.Controls.Add(this.button14);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.OptichPlot);
             this.Controls.Add(this.label11);
@@ -1013,7 +1251,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Analis";
-            this.Text = "Analis";
+            this.Text = "Эковью Basic v1.0";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Analis_FormClosing_1);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Analis_FormClosed_1);
@@ -1054,7 +1292,6 @@
         private System.Windows.Forms.ToolStripMenuItem печатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem анализToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem приборToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem подключитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem настройкаПортаToolStripMenuItem;
@@ -1065,14 +1302,7 @@
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
-        private System.Windows.Forms.TextBox GEText;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox GAText;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox OptichPlot;
         private System.Windows.Forms.ToolStripMenuItem волновойАнализToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.PrintDialog printDialog1;
@@ -1084,11 +1314,9 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Data.DataSet dataSet1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label14;
         public System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.RadioButton radioButton5;
         public System.Windows.Forms.RadioButton radioButton4;
@@ -1104,10 +1332,6 @@
         public System.Windows.Forms.RadioButton radioButton2;
         public System.Windows.Forms.RadioButton radioButton1;
         public System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataGridView Table1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
         private System.Windows.Forms.Label label6;
         public System.Windows.Forms.NumericUpDown numericUpDown1;
         public System.Windows.Forms.DateTimePicker dateTimePicker1;
@@ -1115,11 +1339,8 @@
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TabPage tabPage4;
         public System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label16;
@@ -1135,7 +1356,43 @@
         public System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
+        public System.Windows.Forms.DataGridView Table1;
+        public System.Windows.Forms.Label label14;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ToolStripMenuItem печать1ToolStripMenuItem;
+        private System.Windows.Forms.PrintDialog printDialog2;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.ToolStripMenuItem эксопртВPDFToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;
+        public System.Windows.Forms.Button button10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
+        public System.Windows.Forms.TabControl tabControl2;
+        public System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox GEText;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
         public System.Windows.Forms.TextBox GWNew;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox GAText;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox OptichPlot;
     }
 }
 
