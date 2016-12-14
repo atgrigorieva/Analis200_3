@@ -414,6 +414,9 @@ namespace Analis200
 
 
             }
+           // Table1.Rows[0].Cells[3].Selected = true;
+           // Table1.Rows[0].Cells[0].Selected = false;
+            Table1.CurrentCell = this.Table1[3, 0];
             // Table1.Rows.Add();
         }
         public void WLREMOVESTR1()
@@ -3752,13 +3755,27 @@ namespace Analis200
                 if (Table1.CurrentCell.ReadOnly != true)
                 {
                     Table1.CurrentCell.Value = string.Format("{0:0.0000}", OptPlot1_1);
+
+                    int curentIndex = Table1.CurrentCell.ColumnIndex;
+                    if (curentIndex != Table1.ColumnCount-1 || rowIndex != Table1.Rows.Count - 2)
+                    {
+                        if (rowIndex != Table1.Rows.Count - 2)
+                        {
+                            Table1.CurrentCell = this.Table1[curentIndex, rowIndex + 1];
+                        }
+                        else
+                        {
+                            Table1.CurrentCell = this.Table1[curentIndex + 1, 0];
+                        }
+                    }
+                   
                 }
                 else
                 {
                     MessageBox.Show("Запись запрещена!");
                 }
                 GAText.Text = string.Format("{0:0.00}", Aser);
-                for (int j = 0; j < Table1.Rows.Count; j++)
+                for (int j = 0; j < Table1.Rows.Count-1; j++)
                 {
                     {
                         for (int i = 3; i < Table1.Rows[j].Cells.Count; i++)
@@ -3772,6 +3789,8 @@ namespace Analis200
                                     if (Table1.Rows[rowIndex].Cells[l].Value == null)
                                     {
                                         cellnull++;
+                                        // Table1.Rows[rowIndex].Cells[Table1.CurrentCell.ColumnIndex + 1].Selected = true;
+                                       
                                     }
                                 }
                             }
@@ -3785,7 +3804,7 @@ namespace Analis200
 
                 if (!doNotWrite)
                 {
-                    if (Table1.Rows.Count == 1)
+                    if (Table1.Rows.Count-1 == 1)
                     {
                         radioButton1.Enabled = true;
                         radioButton4.Enabled = true;
@@ -3793,7 +3812,7 @@ namespace Analis200
                         radioButton3.Enabled = false;
                         radioButton2.Enabled = false;
                     }
-                    if (Table1.Rows.Count == 2)
+                    if (Table1.Rows.Count-1 == 2)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -3801,7 +3820,7 @@ namespace Analis200
                         radioButton5.Enabled = true;
                         radioButton3.Enabled = false;
                     }
-                    if (Table1.Rows.Count >= 3)
+                    if (Table1.Rows.Count-1 >= 3)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -3827,7 +3846,7 @@ namespace Analis200
 
                         else
                         {
-                            for (int j = 0; j < Table1.Rows.Count; j++)
+                            for (int j = 0; j < Table1.Rows.Count-1; j++)
                             {
 
                                 for (int i1 = startIndexCell + 1; i1 <= endIndexCell; ++i1)
