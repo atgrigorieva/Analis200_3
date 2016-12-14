@@ -5288,7 +5288,45 @@ namespace Analis200
 
         private void printDocument1_PrintPage_2(object sender, PrintPageEventArgs e)
         {
+            e.Graphics.DrawString("Печатаем DataGridView\n\n", new System.Drawing.Font("Times New Roman", 35, FontStyle.Bold), Brushes.Black, 180, 50);
+            int height = 150;
+            int width = 0;
+            Pen p = new Pen(Brushes.Black, 2.5f);
 
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[0].Width, Table1.Rows[0].Height, Table1.Columns[0].Width, Table1.Rows[0].Height));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[0].Width, height, Table1.Columns[0].Width, Table1.Rows[0].Height));
+            e.Graphics.DrawString(Table1.Columns[0].HeaderText, new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[0].Width + 10, height, Table1.Columns[0].Width, Table1.Rows[0].Height));
+            width = width + Table1.Columns[0].Width;
+
+            for (int i = 1; i < Table1.Columns.Count; i++)
+            {
+                e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, Table1.Rows[0].Height, Table1.Columns[i].Width, Table1.Rows[0].Height));
+                e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[0].Height));
+                e.Graphics.DrawString(Table1.Columns[i].HeaderText, new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[0].Height));
+                width = width + Table1.Columns[i].Width;
+                // height = height + Table1.Rows[i].Height;
+            }
+            height = height + Table1.Rows[0].Height;
+            width = 0;
+            for (int j = 0; j < Table1.Rows.Count; j++)
+            {
+                for (int i = 0; i < Table1.Columns.Count; i++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                    if (Table1.Rows[j].Cells[i].Value != null)
+                    {
+                        e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                    }
+                    else
+                    {
+                        e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                    }
+                    width = width + Table1.Columns[i].Width;
+                }
+                height += Table1.Rows[j].Height;
+                width = 0;
+            }
         }
 
         public string filename;
