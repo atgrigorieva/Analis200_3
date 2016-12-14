@@ -4849,11 +4849,11 @@ namespace Analis200
                     SUMX += x;
                     SUMY += y;
                     x2y += x * x * y;
-                    Table1.Rows[i].Cells["X*X"].Value = x * x;
-                    Table1.Rows[i].Cells["X*Y"].Value = x * y;
-                    Table1.Rows[i].Cells["X*X*X"].Value = x * x * x;
-                    Table1.Rows[i].Cells["X*X*X*X"].Value = x * x * x * x;
-                    Table1.Rows[i].Cells["X*X*Y"].Value = x * x * y;
+                    Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", x * x);
+                    Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", x * y);
+                    Table1.Rows[i].Cells["X*X*X"].Value = string.Format("{0:0.0000}", x * x * x);
+                    Table1.Rows[i].Cells["X*X*X*X"].Value = string.Format("{0:0.0000}", x * x * x * x);
+                    Table1.Rows[i].Cells["X*X*Y"].Value = string.Format("{0:0.0000}", x * x * y);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMX);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMY);
@@ -4911,11 +4911,11 @@ namespace Analis200
                     SUMX += x;
                     SUMY += y;
                     x2y += x * x * y;
-                    Table1.Rows[i].Cells["X*X"].Value = x * x;
-                    Table1.Rows[i].Cells["X*X*X"].Value = x * x * x;
-                    Table1.Rows[i].Cells["X*X*X*X"].Value = x * x * x * x;
-                    Table1.Rows[i].Cells["X*X*Y"].Value = x * x * y;
-                    Table1.Rows[i].Cells["X*Y"].Value = x * y;
+                    Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", x * x);
+                    Table1.Rows[i].Cells["X*X*X"].Value = string.Format("{0:0.0000}", x * x * x);
+                    Table1.Rows[i].Cells["X*X*X*X"].Value = string.Format("{0:0.0000}", x * x * x * x);
+                    Table1.Rows[i].Cells["X*X*Y"].Value = string.Format("{0:0.0000}", x * x * y);
+                    Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", x * y);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMX);
                     Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMY);
@@ -5288,45 +5288,235 @@ namespace Analis200
 
         private void printDocument1_PrintPage_2(object sender, PrintPageEventArgs e)
         {
-            e.Graphics.DrawString("Печатаем DataGridView\n\n", new System.Drawing.Font("Times New Roman", 35, FontStyle.Bold), Brushes.Black, 180, 50);
-            int height = 150;
-            int width = 0;
+            e.Graphics.DrawString("Расчет линейного градуировочного графика\n\n", new System.Drawing.Font("Times New Roman", 25, FontStyle.Bold), Brushes.Black, 100, 50);
+            e.Graphics.DrawString("Вещесво:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
+            e.Graphics.DrawString(Veshestvo1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 115, 110);
+            e.Graphics.DrawString("Длина волны:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 130);
+            e.Graphics.DrawString(wavelength1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 130);
+            e.Graphics.DrawString("Ширина кюветы:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 150);
+            e.Graphics.DrawString(WidthCuvette, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 190, 150);
+            e.Graphics.DrawString("Нижняя нраница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 170);
+            e.Graphics.DrawString(BottomLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 170);
+            e.Graphics.DrawString("Верхняя нраница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 190);
+            e.Graphics.DrawString(TopLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 190);
+            e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 450, 110);
+            e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 500, 110);
+            e.Graphics.DrawString("Примечание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 210);
+            e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 210);
+            e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
+           
+            
+           // Paragraph DateTime2 = new Paragraph("Дата: " + DateTime, font);
+          //  Paragraph Ispolnitel2 = new Paragraph("Исполнитель: " + Ispolnitel, font);
+          //  Paragraph GradYrav = new Paragraph("Градуировочное уравнение: " + label14.Text, font);
+           
+
+            int height = 300;
+            int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
-            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[0].Width, Table1.Rows[0].Height, Table1.Columns[0].Width, Table1.Rows[0].Height));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[0].Width, height, Table1.Columns[0].Width, Table1.Rows[0].Height));
-            e.Graphics.DrawString(Table1.Columns[0].HeaderText, new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[0].Width + 10, height, Table1.Columns[0].Width, Table1.Rows[0].Height));
-            width = width + Table1.Columns[0].Width;
-
-            for (int i = 1; i < Table1.Columns.Count; i++)
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width+5, Table1.Rows[0].Height*2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[0].Height*2));
+            e.Graphics.DrawString(Table1.Columns[0].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[0].Width + 5, Table1.Rows[0].Height*2));
+            width = width + Table1.Columns[0].Width + 5;
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height*2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height*2));
+            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[1].Height*2));
+            width = width + Table1.Columns[1].Width;
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height*2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height*2));
+            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height*2));
+            width = width + Table1.Columns[2].Width + 5;
+            for(int i = 3; i <= Table1.Columns.Count - NoCaIzm; i++)
             {
-                e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, Table1.Rows[0].Height, Table1.Columns[i].Width, Table1.Rows[0].Height));
-                e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[0].Height));
-                e.Graphics.DrawString(Table1.Columns[i].HeaderText, new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[0].Height));
-                width = width + Table1.Columns[i].Width;
+                e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width+10, Table1.Rows[0].Height*2));
+                e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[0].Height*2));
+                e.Graphics.DrawString(Table1.Columns[i].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[0].Height*2));
+                width = width + Table1.Columns[i].Width + 10;
+            }
+            for (int i = Table1.Columns.Count - NoCaIzm+1; i < Table1.Columns.Count; i++)
+            {
+                e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[0].Height*2));
+                e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[0].Height*2));
+                e.Graphics.DrawString(Table1.Columns[i].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[0].Height*2));
+                width = width + Table1.Columns[i].Width+10;
                 // height = height + Table1.Rows[i].Height;
             }
-            height = height + Table1.Rows[0].Height;
-            width = 0;
-            for (int j = 0; j < Table1.Rows.Count; j++)
+            height = height + Table1.Rows[0].Height*2;
+            width = 25;
+            int height1 = height;
+            int width1_1 = width;
+            if (NoCaIzm <= 3)
             {
-                for (int i = 0; i < Table1.Columns.Count; i++)
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
                 {
-                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
-                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width + Table1.Columns[i].Width, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
-                    if (Table1.Rows[j].Cells[i].Value != null)
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawString(Table1.Rows[j].Cells[0].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    // width = width + Table1.Columns[0].Width;
+                    height += Table1.Rows[j].Height;
+                }
+                height = height1;
+                width = width + Table1.Columns[0].Width + 5;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    e.Graphics.DrawString(Table1.Rows[j].Cells[1].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    // width = width + Table1.Columns[1].Width;
+                    height += Table1.Rows[j].Height;
+                }
+                height = height1;
+                width = width + Table1.Columns[1].Width;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    if (Table1.Rows[j].Cells[2].Value != null)
                     {
-                        e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                        e.Graphics.DrawString(Table1.Rows[j].Cells[2].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
                     }
                     else
                     {
-                        e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + Table1.Columns[i].Width + 10, height, Table1.Columns[i].Width, Table1.Rows[j].Height));
+                        e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
                     }
-                    width = width + Table1.Columns[i].Width;
+                    // width = width + Table1.Columns[2].Width;
+                    height += Table1.Rows[j].Height;
                 }
-                height += Table1.Rows[j].Height;
-                width = 0;
+                height = height1;
+                width = width + Table1.Columns[2].Width + 5;
+                int width1 = width;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    for (int i = 3; i <= Table1.Columns.Count - NoCaIzm; i++)
+                    {
+                        e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        if (Table1.Rows[j].Cells[i].Value != null)
+                        {
+                            e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        width = width + Table1.Columns[i].Width + 10;
+                        width1_1 = width;
+                    }
+                    height += Table1.Rows[j].Height;
+                    width = width1;
+                }
+
+                height = height1;
+                width1 = width1_1;
+                width = width1;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    for (int i = Table1.Columns.Count - NoCaIzm + 1; i < Table1.Columns.Count; i++)
+                    {
+                        e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        if (Table1.Rows[j].Cells[i].Value != null)
+                        {
+                            e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        width = width + Table1.Columns[i].Width + 10;
+                    }
+                    height += Table1.Rows[j].Height;
+                    width = width1;
+                }
             }
+
+
+            if (NoCaIzm > 3 && NoCaIzm <= 7)
+            {
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawString(Table1.Rows[j].Cells[0].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
+                    // width = width + Table1.Columns[0].Width;
+                    height += Table1.Rows[j].Height;
+                }
+                height = height1;
+                width = width + Table1.Columns[0].Width + 5;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    e.Graphics.DrawString(Table1.Rows[j].Cells[1].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[j].Height));
+                    // width = width + Table1.Columns[1].Width;
+                    height += Table1.Rows[j].Height;
+                }
+                height = height1;
+                width = width + Table1.Columns[1].Width;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    if (Table1.Rows[j].Cells[2].Value != null)
+                    {
+                        e.Graphics.DrawString(Table1.Rows[j].Cells[2].Value.ToString(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    }
+                    else
+                    {
+                        e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[j].Height));
+                    }
+                    // width = width + Table1.Columns[2].Width;
+                    height += Table1.Rows[j].Height;
+                }
+                height = height1;
+                width = width + Table1.Columns[2].Width + 5;
+                int width1 = width;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    for (int i = 3; i <= Table1.Columns.Count - NoCaIzm; i++)
+                    {
+                        e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        if (Table1.Rows[j].Cells[i].Value != null)
+                        {
+                            e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        width = width + Table1.Columns[i].Width + 10;
+                        //width1_1 = width;
+                    }
+                    height += Table1.Rows[j].Height;
+                    width = width1;
+                }
+
+                height = 30 + height;
+                width1 = 25;
+                width = 25;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+                    for (int i = Table1.Columns.Count - NoCaIzm + 1; i < Table1.Columns.Count; i++)
+                    {
+                        e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        if (Table1.Rows[j].Cells[i].Value != null)
+                        {
+                            e.Graphics.DrawString(Table1.Rows[j].Cells[i].Value.ToString(), new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        else
+                        {
+                            e.Graphics.DrawString("", new System.Drawing.Font("Times New Roman", 10, FontStyle.Regular), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[i].Width + 10, Table1.Rows[j].Height));
+                        }
+                        width = width + Table1.Columns[i].Width + 10;
+                    }
+                    height += Table1.Rows[j].Height;
+                    width = width1;
+                }
+            }
+
         }
 
         public string filename;
