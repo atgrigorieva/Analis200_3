@@ -12,6 +12,7 @@ using System.Xml;
 using SWF = System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing.Printing;
+using System.Text.RegularExpressions;
 
 namespace Analis200
 {
@@ -39,6 +40,7 @@ namespace Analis200
         public int Days;
         public bool ComPodkl = false;
         public string DLWL;
+        public string versionPribor;
         public Analis()
         {
 
@@ -74,30 +76,32 @@ namespace Analis200
 
         }
 
-  
+
         public void Analis_Load(object sender, EventArgs e)
         {
             edconctr = "%";
             SposobZadan = "По СО";
 
             dateTimePicker1.Text = DateTime;
-   
+
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
 
             chart1.Series[0].Points.Add();
-    
+
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             Zavisimoct = "A(C)";
             aproksim = "Линейная";
-        
+            Table1.AllowUserToResizeRows = false;
+
+
         }
         public int countSA;
         bool Izmerenie1 = true;
         public void LogoForm()
         {
             Form LogoForm = new Form();
-           // LogoForm.BackColor = System.Drawing.Color.White;
+            // LogoForm.BackColor = System.Drawing.Color.White;
             LogoForm.BackgroundImage = System.Drawing.Image.FromFile("Calibrovka.png");
             LogoForm.AutoScaleMode = AutoScaleMode.Font;
             LogoForm.Size = new Size(430, 107);
@@ -121,82 +125,153 @@ namespace Analis200
         public void SAGE(ref int countSA, ref string GE5_1_0)
         {
             bool message1 = true;
-            countSA = 8;
+            if (versionPribor.Contains("2"))
+            { countSA = 8; }
+            else
+            {
+                countSA = 4;
+            }
             // while (message1 == true)
             //{
             //picturebox1.Show("Калибровка");
-            LogoForm();            
+            LogoForm();
             // System.IO.FileStream fs = new System.IO.FileStream(@"Calibrovka.png", System.IO.FileMode.Open);
             //  System.Drawing.Image img = System.Drawing.Image.FromStream(fs);
             //  fs.Close();
             //  pictureBox.Image = img;
             newPort.Write("SA " + countSA + "\r");
-                int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+            // int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
+            // Thread.Sleep(100);
+            //byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
+            // newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+            string indata = newPort.ReadExisting();
+            int indata_zero = 0;
+            string indata_0;
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+
+                }
+            }
+
+            newPort.Write("GE 1\r");
+
+            string GE5_1 = "";
+            int GEbyteRecieved4_1 = newPort.ReadBufferSize;
+            byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+            newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
+
+            indata = newPort.ReadExisting();
+            indata_zero = 0;
+            indata_0 = "";
+            indata_bool = true;
+            while (indata_bool == true)
+            {
+
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+
+                    indata = newPort.ReadExisting();
+                    indata_0 += indata;
+                }
+            }
+            Regex regex = new Regex(@"\W");
+            GE5_1 = regex.Replace(indata_0, "");
+            GE5_1_0 = regex.Replace(indata_0, "");
+            GEText.Text = GE5_1_0;
+            double GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
+
+            GAText.Text = string.Format("{0:0.00}", GAText1);
+
+            double OptPlot = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1));
+
+            double OptPlot1 = OptPlot - Math.Truncate(OptPlot);
+            OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
+            while (Convert.ToInt32(GE5_1) > 30000 && countSA > 1)
+            {
+                countSA--;
+                newPort.Write("SA " + countSA + "\r");
+                int SAAnalisByteRecieved1_1_1 = newPort.ReadBufferSize;
+                // Thread.Sleep(100);
+                indata = newPort.ReadExisting();
+                indata_zero = 0;
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
+                //   byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
+                //  newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
 
                 newPort.Write("GE 1\r");
-                int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+                GEbyteRecieved4_1 = newPort.ReadBufferSize;
+                GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                 newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
-                string GE5_1 = "";
 
-                for (int i_1 = 0; i_1 <= 50; i_1++)
+                indata = newPort.ReadExisting();
+                indata_zero = 0;
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
                 {
-                    GE5_1 = GE5_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                }
-                var GEarr4_1 = GE5_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                GE5_1 = GEarr4_1[1];
-                GE5_1_0 = GEarr4_1[1];
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                regex = new Regex(@"\W");
+                GE5_1 = regex.Replace(indata_0, "");
+
+                GE5_1_0 = regex.Replace(indata_0, "");
                 GEText.Text = GE5_1_0;
-                double GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
+
+                GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
 
                 GAText.Text = string.Format("{0:0.00}", GAText1);
                 //double GAText2 = (Convert.ToDouble(GE3) / Convert.ToDouble(GE5)) * 0.01;
-                double OptPlot = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1));
+                OptPlot = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1));
                 // double OptPlot1 = (OptPlot - Math.Truncate(OptPlot))*500;
                 // OptPlot1 = (OptPlot1 - Math.Truncate(OptPlot1))*10;
                 //OptPlot1 = Math.Truncate(OptPlot1)/5000;
-                double OptPlot1 = OptPlot - Math.Truncate(OptPlot);
+                OptPlot1 = OptPlot - Math.Truncate(OptPlot);
                 OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
-                while (Convert.ToInt32(GE5_1) > 30000)
-                {
-                    countSA--;
-                    newPort.Write("SA " + countSA + "\r");
-                    int SAAnalisByteRecieved1_1_1 = newPort.ReadBufferSize;
-                    Thread.Sleep(100);
-                    byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
-                    newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
-
-                    newPort.Write("GE 1\r");
-                    int GEbyteRecieved4_1_1_1 = newPort.ReadBufferSize;
-                    Thread.Sleep(100);
-                    byte[] GEbuffer4_1_1_1 = new byte[GEbyteRecieved4_1_1_1];
-                    newPort.Read(GEbuffer4_1_1_1, 0, GEbyteRecieved4_1_1_1);
-                    for (int i_1 = 0; i_1 <= 50; i_1++)
-                    {
-                        GE5_1 = GE5_1 + Convert.ToChar(GEbuffer4_1_1_1[i_1]);
-                    }
-                    var GEarr4_1_1_1 = GE5_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-                    GE5_1 = GEarr4_1_1_1[1];
-                    GE5_1_0 = GEarr4_1_1_1[1];
-                    GEText.Text = GE5_1_0;
-
-                    GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
-
-                    GAText.Text = string.Format("{0:0.00}", GAText1);
-                    //double GAText2 = (Convert.ToDouble(GE3) / Convert.ToDouble(GE5)) * 0.01;
-                    OptPlot = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1));
-                    // double OptPlot1 = (OptPlot - Math.Truncate(OptPlot))*500;
-                    // OptPlot1 = (OptPlot1 - Math.Truncate(OptPlot1))*10;
-                    //OptPlot1 = Math.Truncate(OptPlot1)/5000;
-                    OptPlot1 = OptPlot - Math.Truncate(OptPlot);
-                    OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
-                }
+            }
             SWF.Application.OpenForms["LogoFrm"].Close();
             //  message1 = false;
             // }
@@ -229,17 +304,17 @@ namespace Analis200
                 //   this.textBox5.Text = string.Format("{0:0.0000}", 0);
                 //   this.textBox6.Text = string.Format("{0:0.0000}", 0);
                 //    Izmerenie1 = true;
-                 while (true)
-                 {
-                     int i = Table1.Columns.Count - 1;//С какого столбца начать
-                     if (Table1.Columns.Count == 3 + NoCaIzm)
-                         break;
-                     Table1.Columns.RemoveAt(i);
-                 }
-              
+                while (true)
+                {
+                    int i = Table1.Columns.Count - 1;//С какого столбца начать
+                    if (Table1.Columns.Count == 3 + NoCaIzm)
+                        break;
+                    Table1.Columns.RemoveAt(i);
+                }
+
 
                 NewGraduirovka _NewGraduirovka = new NewGraduirovka(this);
-           
+
                 _NewGraduirovka.button1.Click += (NewGraduirovka, eSlave) =>
                 {
                     Veshestvo1 = _NewGraduirovka.Veshestvo.Text;
@@ -259,9 +334,9 @@ namespace Analis200
                     label6.Text = dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy");
                     if (_NewGraduirovka.radioButton7.Checked == true)
                     {
-                       this.textBox4.Text = string.Format("{0:0.0000}", _NewGraduirovka.k0Text.Text);
-                       this.textBox5.Text = string.Format("{0:0.0000}", _NewGraduirovka.k1Text.Text);
-                       this.textBox6.Text = string.Format("{0:0.0000}", _NewGraduirovka.k2Text.Text);
+                        this.textBox4.Text = string.Format("{0:0.0000}", _NewGraduirovka.k0Text.Text);
+                        this.textBox5.Text = string.Format("{0:0.0000}", _NewGraduirovka.k1Text.Text);
+                        this.textBox6.Text = string.Format("{0:0.0000}", _NewGraduirovka.k2Text.Text);
 
 
                     }
@@ -269,9 +344,9 @@ namespace Analis200
                     {
                         if (_NewGraduirovka.radioButton6.Checked == true)
                         {
-                         //  this.textBox4.Text = string.Format("{0:0.0000}", 0);
-                        //   this.textBox5.Text = string.Format("{0:0.0000}", 0);
-                         ///   this.textBox6.Text = string.Format("{0:0.0000}", 0);
+                            //  this.textBox4.Text = string.Format("{0:0.0000}", 0);
+                            //   this.textBox5.Text = string.Format("{0:0.0000}", 0);
+                            ///   this.textBox6.Text = string.Format("{0:0.0000}", 0);
                         }
                     }
 
@@ -317,14 +392,19 @@ namespace Analis200
                 firstColumn1.HeaderText = "A; Сер" + i;
                 firstColumn1.Name = "A;Ser (" + i;
                 firstColumn1.ValueType = Type.GetType("System.Double");
+
                 Table1.Columns.Add(firstColumn1);
                 //  firstColumn1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(txt_KeyPress);
-             //   firstColumn1.EditingControlShowing
+                //   firstColumn1.EditingControlShowing
 
             }
 
+            for (int i = 1; i <= NoCaIzm; i++)
+            {
+                Table1.Columns["A;Ser (" + i].Width = 50;
+            }
             Concetr.HeaderText = "Конц " + edconctr;
-                   }
+        }
         public void WLADDSTR1()
         {
 
@@ -334,13 +414,14 @@ namespace Analis200
 
 
             }
+            // Table1.Rows.Add();
         }
         public void WLREMOVESTR1()
         {
             Table1.Rows.Clear();
 
         }
-        
+
         public void WLREMOVE2()
         {
             while (true)
@@ -409,7 +490,7 @@ namespace Analis200
 
         }
         public void WLADDSTR2()
-        {            
+        {
             count = 0;
             if (NoCaSer1 > 1)
             {
@@ -516,7 +597,7 @@ namespace Analis200
                 button14.Enabled = true;
                 ComPort = true;
                 button1.Enabled = true;
-               
+
                 wavelength1 = GWNew.Text;
             }
         }
@@ -526,16 +607,26 @@ namespace Analis200
         {
             newPort.Write("SW 550\r");
 
-            int SWbyteRecieved1 = newPort.ReadBufferSize;
-            Thread.Sleep(100);
-            byte[] SWbuffer1 = new byte[SWbyteRecieved1];
-            newPort.Read(SWbuffer1, 0, SWbyteRecieved1);
-            /*  for (int i = 0; i <= 50; i++)
-              {
-                  SW1 = SW1 + Convert.ToChar(SWbuffer1[i]);
-              }
-              var SWarr = SW1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-              //*/
+
+            string indata = newPort.ReadExisting();
+
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+                }
+            }
+
+
+
             GWNew.Text = "550";
 
         }
@@ -544,11 +635,23 @@ namespace Analis200
             LogoForm2();
             string SWText1 = wavelength1;
             newPort.Write("SW " + wavelength1 + "\r");
-            Thread.Sleep(20000);
-            int byteRecieved1 = newPort.ReadBufferSize;
-            Thread.Sleep(1500);
-            byte[] buffer1 = new byte[byteRecieved1];
-            newPort.Read(buffer1, 0, byteRecieved1);
+            //  Thread.Sleep(20000);
+            string indata = newPort.ReadExisting();
+
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+                }
+            }
             GWNew.Text = wavelength1;
             SWF.Application.OpenForms["LogoFrm2"].Close();
             // _Analis.GW();
@@ -556,7 +659,7 @@ namespace Analis200
         public void InitializeTimer()
         {
             // Run this procedure in an appropriate event.
-            if(Izmerenie1 == false)
+            if (Izmerenie1 == false)
             {
                 timer1.Interval = 6000;
                 timer1.Enabled = true;
@@ -564,9 +667,9 @@ namespace Analis200
                 this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 
             }
-           
-                //break;
-            
+
+            //break;
+
         }
         public void LogoForm2()
         {
@@ -631,65 +734,46 @@ namespace Analis200
 
             GW1_2 = GWarr[2];
             GWNew.Text = GW1_2;
+            versionPribor = GWarr[1];
         }
-        public string GE3 = "";
-        public string GE6 = "";
-        public void GE2()
-        {
-            newPort.Write("GE 1\r");
-
-            int GEbyteRecieved = newPort.ReadBufferSize;
-            Thread.Sleep(100);
-            byte[] GEbuffer = new byte[GEbyteRecieved];
-            newPort.Read(GEbuffer, 0, GEbyteRecieved);
-
-            for (int i = 0; i <= 50; i++)
-            {
-                GE3 = GE3 + Convert.ToChar(GEbuffer[i]);
-            }
-            var GEarr = GE3.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-            GE3 = GEarr[1];
 
 
-        }
-        public void GE1()
-        {
-            newPort.Write("GE 1\r");
 
-            int byteRecieved4 = newPort.ReadBufferSize;
-            Thread.Sleep(100);
-            byte[] buffer4 = new byte[byteRecieved4];
-            newPort.Read(buffer4, 0, byteRecieved4);
-            string GE6 = "";
-            for (int i = 0; i <= 50; i++)
-            {
-                GE6 = GE6 + Convert.ToChar(buffer4[i]);
-            }
-            var arr4 = GE6.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-            GE6 = arr4[1];
-            GEText.Text = GE6;
-
-        }
         public void GE4()
         {
             if (Izmerenie1 == false)
             {
                 newPort.Write("GE 1\r");
-
-                int GEbyteRecieved4 = newPort.ReadBufferSize;
-                Thread.Sleep(1500);
-                byte[] GEbuffer4 = new byte[GEbyteRecieved4];
-                newPort.Read(GEbuffer4, 0, GEbyteRecieved4);
                 string GE5 = "";
-                for (int i = 0; i <= 50; i++)
-                {
-                    GE5 = GE5 + Convert.ToChar(GEbuffer4[i]);
-                }
-                var GEarr4 = GE5.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                int GEbyteRecieved4_1 = newPort.ReadBufferSize;
+                byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+                newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                GE5 = GEarr4[1];
+                string indata = newPort.ReadExisting();
+
+                string indata_0 = "";
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+
+                Regex regex = new Regex(@"\W");
+                GE5 = regex.Replace(indata_0, "");
+
+
                 GEText.Text = GE5;
 
                 double GAText1 = (Convert.ToDouble(GE5) / Convert.ToDouble(GE5_1_0)) * 100;
@@ -704,88 +788,34 @@ namespace Analis200
                 OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
             }
         }
-        public void GW()
-        {
-           Thread.Sleep(1000);
-            newPort.Write("GW\r");
 
-            int GWbyteRecieved = newPort.ReadBufferSize;
-
-            Thread.Sleep(100);
-            byte[] GWbuffer = new byte[GWbyteRecieved];
-            Thread.Sleep(100);
-            newPort.Read(GWbuffer, 0, GWbyteRecieved);
-            string GW1 = "";
-
-            for (int i = 0; i <= 50; i++)
-            {
-                GW1 = GW1 + Convert.ToChar(GWbuffer[i]);
-            }
-            var GWarr = GW1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-
-            // GW1 = Convert.ToString(GWbuffer[0]);
-
-            GW1_2 = GWarr[1];
-            GWNew.Text = GW1_2;
-
-        }
         public void RD()
         {
             newPort.Write("RD\r");
 
-            int RDbyteRecieved = newPort.ReadBufferSize;
-
-            Thread.Sleep(100);
-            byte[] RDbuffer = new byte[RDbyteRecieved];
-            newPort.Read(RDbuffer, 0, RDbyteRecieved);
-
-        }
-        public void SA()
-        {
-            for (int i = 8; i >= 1; i--)
-            {
-                newPort.Write("SA " + i + "\r");
-
-                int SAbyteRecieved = newPort.ReadBufferSize;
-
-                Thread.Sleep(100);
-                byte[] SAbuffer = new byte[SAbyteRecieved];
-                newPort.Read(SAbuffer, 0, SAbyteRecieved);
-
-                GE1();
-            }
-            GE2();
-            if (Izmerenie1 == false)
-            {
-                InitializeTimer();
-            }
-            //GA();
-        }
-        public void GA()
-        {
-
-            newPort.Write("GA\r");
-
-            int GAbyteRecieved = newPort.ReadBufferSize;
-
             Thread.Sleep(500);
-            byte[] GAbuffer = new byte[GAbyteRecieved];
-            //Thread.Sleep(5000);
-            newPort.Read(GAbuffer, 0, GAbyteRecieved);
-            /* string GA1 = "";
+            //  byte[] buffer1 = new byte[byteRecieved1];
+            string indata = newPort.ReadExisting();
 
-             for (int i = 0; i <= 50; i++)
-             {
-                 GA1 = GA1 + Convert.ToChar(GAbuffer[i]);
-             }
-             var GAarr = GA1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
 
-             // GW1 = Convert.ToString(GWbuffer[0]);
+                    indata_bool = false;
 
-             string GA1_2 = GAarr[1];
-             GAText.Text = GA1_2;*/
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+                }
+            }
+
 
         }
+
+
         private void Analis_FormClosed_1(object sender, FormClosedEventArgs e)
         {
             //  newPort.Write("QU\r");
@@ -797,10 +827,25 @@ namespace Analis200
             {
                 char[] ClosePribor = { Convert.ToChar('Q'), Convert.ToChar('U'), Convert.ToChar('\r') };
                 newPort.Write("QU\r");
-                int QU = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] QUBuffer1 = new byte[QU];
-                newPort.Read(QUBuffer1, 0, QU);
+                Thread.Sleep(500);
+                //  byte[] buffer1 = new byte[byteRecieved1];
+                string indata = newPort.ReadExisting();
+
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
+
                 newPort.Close();
             }
             else
@@ -889,64 +934,159 @@ namespace Analis200
             massSA = new int[countWL];
             for (int i = 0; i <= countWL - 1; i++)
             {
-                int countSA1 = 8;
+                int countSA1;
+                if (versionPribor.Contains("2"))
+                { countSA1 = 8; }
+                else
+                {
+                    countSA1 = 4;
+                }
                 string SWAnalis = textBox[i].Text;
                 newPort.Write("SW " + SWAnalis + "\r");
-                int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
-                newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);
+                string indata = newPort.ReadExisting();
+
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
 
                 newPort.Write("RD\r");
-                int RDbyteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] RDbuffer1 = new byte[RDbyteRecieved1];
-                newPort.Read(RDbuffer1, 0, RDbyteRecieved1);
+                indata = newPort.ReadExisting();
+
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
 
 
                 newPort.Write("SA " + countSA1 + "\r");
-                int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                indata = newPort.ReadExisting();
+                string indata_0;
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
+
+                string GE5Izmer = "";
                 int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
                 byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                 newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                }
-                var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                indata = newPort.ReadExisting();
 
-                GE5_1_1 = GEarr4_1[1];
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                Regex regex = new Regex(@"\W");
+                GE5_1_1 = regex.Replace(indata_0, "");
+
+
                 //Thread.Sleep(1500);
 
-                while (Convert.ToInt32(GE5_1_1) > 30000)
+                while (Convert.ToInt32(GE5_1_1) > 30000 && countSA1 > 1)
                 {
                     countSA1--;
                     newPort.Write("SA " + countSA1 + "\r");
-                    int SAAnalisByteRecieved1_1_1 = newPort.ReadBufferSize;
-                    Thread.Sleep(100);
-                    byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
-                    newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
+                    indata = newPort.ReadExisting();
+                    indata_0 = "";
+                    indata_bool = true;
+                    while (indata_bool == true)
+                    {
+
+                        if (indata.Contains(">"))
+                        {
+
+                            indata_bool = false;
+
+                        }
+
+                        else {
+                            indata = newPort.ReadExisting();
+
+                        }
+                    }
 
                     newPort.Write("GE 1\r");
-                    int GEbyteRecieved4_1_1_1 = newPort.ReadBufferSize;
-                    Thread.Sleep(100);
-                    byte[] GEbuffer4_1_1_1 = new byte[GEbyteRecieved4_1_1_1];
-                    newPort.Read(GEbuffer4_1_1_1, 0, GEbyteRecieved4_1_1_1);
-                    for (int i_1 = 0; i_1 <= 50; i_1++)
-                    {
-                        GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1_1_1[i_1]);
-                    }
-                    var GEarr4_1_1_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                    GE5_1_1 = GEarr4_1_1_1[1];
-                    GE5_1_0_1 = GEarr4_1_1_1[1];
+                    GE5Izmer = "";
+                    GEbyteRecieved4_1 = newPort.ReadBufferSize;
+                    GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+                    newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
+
+                    indata = newPort.ReadExisting();
+
+                    indata_0 = "";
+                    indata_bool = true;
+                    while (indata_bool == true)
+                    {
+
+                        if (indata.Contains(">"))
+                        {
+
+                            indata_bool = false;
+
+                        }
+
+                        else {
+
+                            indata = newPort.ReadExisting();
+                            indata_0 += indata;
+                        }
+                    }
+                    regex = new Regex(@"\W");
+                    GE5_1_1 = regex.Replace(indata_0, "");
+
+
+                    GE5_1_0_1 = regex.Replace(indata_0, "");
                     resulcCountSA1 = countSA1;
 
                 }
@@ -974,41 +1114,82 @@ namespace Analis200
                 string SWAnalis = textBox[i].Text;
                 newPort.Write("SW " + SWAnalis + "\r");
 
-                int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
-                newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);
+                Thread.Sleep(500);
+
+                string indata = newPort.ReadExisting();
+
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
 
                 newPort.Write("SA " + massSA[i] + "\r");
-                int SAAnalisByteRecieved1_1_1 = newPort.ReadBufferSize;
-                Thread.Sleep(500);
-                byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
-                newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
+                indata = newPort.ReadExisting();
+                string indata_0;
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
-                int GEbyteRecieved4_1_1 = newPort.ReadBufferSize;
-                Thread.Sleep(500);
-                byte[] GEbuffer4_1_1 = new byte[GEbyteRecieved4_1_1];
-                newPort.Read(GEbuffer4_1_1, 0, GEbyteRecieved4_1_1);
-                string GE15_1 = "";
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE15_1 = GE15_1 + Convert.ToChar(GEbuffer4_1_1[i_1]);
-                }
-                var GEarr4_1_1 = GE15_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                Thread.Sleep(10);
-                GE15_1 = GEarr4_1_1[3];
-                //   MessageBox.Show(Convert.ToString(GE15_1));
-                double GAText1_1 = (Convert.ToDouble(GEarr4_1_1[3]) / Convert.ToDouble(mass0[i])) * 100;
 
-                //GAText.Text = string.Format("{0:0.00}", GAText1_1);
-                //double GAText2 = (Convert.ToDouble(GE3) / Convert.ToDouble(GE5)) * 0.01;
+                string GE15_1 = "";
+                int GEbyteRecieved4_1 = newPort.ReadBufferSize;
+                byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+                newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
+
+                indata = newPort.ReadExisting();
+
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                Regex regex = new Regex(@"\W");
+                GE15_1 = regex.Replace(indata_0, "");
+
+
+                double GAText1_1 = (Convert.ToDouble(GE15_1) / Convert.ToDouble(mass0[i])) * 100;
+
                 double OptPlot1 = Math.Log10(1 / GAText1_1);
-                // double OptPlot1 = (OptPlot - Math.Truncate(OptPlot))*500;
-                // OptPlot1 = (OptPlot1 - Math.Truncate(OptPlot1))*10;
-                //OptPlot1 = Math.Truncate(OptPlot1)/5000;
+
                 double OptPlot1_1 = OptPlot1 - Math.Truncate(OptPlot1);
-                // OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
+
                 mass1[i] = string.Format("{0:0.0000}", OptPlot1_1);
 
 
@@ -1072,15 +1253,15 @@ namespace Analis200
                 exApp.ActiveWorkbook.SaveCopyAs(saveFileDialog1.FileName.ToString());
                 exApp.ActiveWorkbook.Saved = true;
                 exApp.Visible = true;
-              //  exApp.Quit();
-                
+                //  exApp.Quit();
+
             }
         }
 
 
         public void ExportToExcel2()
         {
-           
+
             saveFileDialog1.InitialDirectory = "C";
             saveFileDialog1.Title = "Save as Excel File";
             saveFileDialog1.FileName = "";
@@ -1109,7 +1290,7 @@ namespace Analis200
 
                 exApp.ActiveWorkbook.SaveCopyAs(saveFileDialog1.FileName.ToString());
                 exApp.ActiveWorkbook.Saved = true;
-               // exApp.Quit();
+                // exApp.Quit();
                 exApp.Visible = true;
             }
         }
@@ -1122,15 +1303,15 @@ namespace Analis200
         {
             if (tabControl2.SelectedIndex == 0)
             {
-                 ExportToPDF1();
+                ExportToPDF1();
             }
-             else
-             {
-            ExportToPDF();
-             }
+            else
+            {
+                ExportToPDF();
+            }
         }
-           public void ExportToPDF()
-           {
+        public void ExportToPDF()
+        {
             string head = @"Протокол выполнения измерений";
 
             //Creating iTextSharp Table from the DataTable data
@@ -1188,7 +1369,7 @@ namespace Analis200
 
                 Paragraph FileName2 = new Paragraph("Имя файла: " + filepath2, font);
                 Paragraph Description2 = new Paragraph("Описание: " + textBox8.Text, font);
-               
+
 
                 Paragraph DateTime2 = new Paragraph("Дата: " + dateTimePicker2.Value.ToString("dd.MM.yyyy"), font);
                 Paragraph WaveLength2 = new Paragraph("Длина волны: " + wavelength1, font);
@@ -1225,7 +1406,7 @@ namespace Analis200
                 cell.BorderWidth = 0;
                 cell.Colspan = 4;
                 table.AddCell(cell);
-                
+
                 /*  cell = new PdfPCell();
                   cell.BorderWidth = 0;
                   table.AddCell(cell);*/
@@ -1331,7 +1512,7 @@ namespace Analis200
 
 
                 doc.Close();
-               // sfd.Visible = true;
+                // sfd.Visible = true;
             }
 
         }
@@ -1345,7 +1526,7 @@ namespace Analis200
             int startIndexCell = 2;
             int endIndexCell = startIndexCell + NoCaIzm;
             int rowIndex = Table1.CurrentRow.Index;
-           
+
             bool doNotWrite = false;
             if (tabControl2.SelectedIndex == 0)
             {
@@ -1359,24 +1540,57 @@ namespace Analis200
                 newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
 
                 newPort.Write("SA " + countSA + "\r");
-                int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                string indata = newPort.ReadExisting();
+                string indata_0;
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
+
+                GE5Izmer = "";
                 int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                Thread.Sleep(1500);
                 byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                 newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                }
-                var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                indata = newPort.ReadExisting();
 
-                GE5Izmer = GEarr4_1[1];
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                Regex regex = new Regex(@"\W");
+                GE5Izmer = regex.Replace(indata_0, "");
+
+
+
                 GEText.Text = GE5Izmer;
                 // MessageBox.Show(GE5Izmer);
                 double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
@@ -1519,31 +1733,61 @@ namespace Analis200
                                     string SWAnalis = WL_grad1;
                                     string GE5Izmer = "";
                                     string GE5_1_1 = "";
-                                  /*  newPort.Write("SW " + SWAnalis + "\r");
-                                    int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
-                                    Thread.Sleep(100);
-                                    byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
-                                    newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
+                                    /*  newPort.Write("SW " + SWAnalis + "\r");
+                                      int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
+                                      Thread.Sleep(100);
+                                      byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
+                                      newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
 
                                     newPort.Write("SA " + countSA + "\r");
-                                    int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                                    Thread.Sleep(100);
-                                    byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                                    newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                                    string indata = newPort.ReadExisting();
+                                    string indata_0;
+                                    bool indata_bool = true;
+                                    while (indata_bool == true)
+                                    {
+
+                                        if (indata.Contains(">"))
+                                        {
+
+                                            indata_bool = false;
+
+                                        }
+
+                                        else {
+                                            indata = newPort.ReadExisting();
+
+                                        }
+                                    }
 
                                     newPort.Write("GE 1\r");
+
+                                    GE5Izmer = "";
                                     int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                                    Thread.Sleep(1500);
                                     byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                                     newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                                    for (int i_1 = 0; i_1 <= 50; i_1++)
-                                    {
-                                        GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                                    }
-                                    var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                                    indata = newPort.ReadExisting();
 
-                                    GE5Izmer = GEarr4_1[1];
+                                    indata_0 = "";
+                                    indata_bool = true;
+                                    while (indata_bool == true)
+                                    {
+
+                                        if (indata.Contains(">"))
+                                        {
+
+                                            indata_bool = false;
+
+                                        }
+
+                                        else {
+
+                                            indata = newPort.ReadExisting();
+                                            indata_0 += indata;
+                                        }
+                                    }
+                                    Regex regex = new Regex(@"\W");
+                                    GE5Izmer = regex.Replace(indata_0, "");
                                     GEText.Text = GE5Izmer;
                                     // MessageBox.Show(GE5Izmer);
                                     double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
@@ -1554,7 +1798,7 @@ namespace Analis200
 
                                     if (Table2.Rows[rowIndex2].Cells[i1].Value != null)
                                     {
-                                        
+
                                         if (aproksim == "Линейная через 0")
                                         {
                                             serValue = Convert.ToDouble(Table2.Rows[rowIndex2].Cells[i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
@@ -1615,7 +1859,7 @@ namespace Analis200
                     sum = 0.0;
                     Table2.CurrentCell.Value = null;
                     serValue = 0;
-                   cellnull = 0;
+                    cellnull = 0;
                     El = new double[NoCaIzm1 + 1];
 
                     SredValue = 0;
@@ -1624,31 +1868,61 @@ namespace Analis200
                         string SWAnalis = WL_grad1;
                         string GE5Izmer = "";
                         string GE5_1_1 = "";
-                       /* newPort.Write("SW " + SWAnalis + "\r");
-                        int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
-                        Thread.Sleep(100);
-                        byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
-                        newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
+                        /* newPort.Write("SW " + SWAnalis + "\r");
+                         int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
+                         Thread.Sleep(100);
+                         byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
+                         newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
 
                         newPort.Write("SA " + countSA + "\r");
-                        int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                        Thread.Sleep(100);
-                        byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                        newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                        string indata = newPort.ReadExisting();
+                        string indata_0;
+                        bool indata_bool = true;
+                        while (indata_bool == true)
+                        {
+
+                            if (indata.Contains(">"))
+                            {
+
+                                indata_bool = false;
+
+                            }
+
+                            else {
+                                indata = newPort.ReadExisting();
+
+                            }
+                        }
 
                         newPort.Write("GE 1\r");
+
+                        GE5Izmer = "";
                         int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                        Thread.Sleep(1500);
                         byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                         newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                        for (int i_1 = 0; i_1 <= 50; i_1++)
-                        {
-                            GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                        }
-                        var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        indata = newPort.ReadExisting();
 
-                        GE5Izmer = GEarr4_1[1];
+                        indata_0 = "";
+                        indata_bool = true;
+                        while (indata_bool == true)
+                        {
+
+                            if (indata.Contains(">"))
+                            {
+
+                                indata_bool = false;
+
+                            }
+
+                            else {
+
+                                indata = newPort.ReadExisting();
+                                indata_0 += indata;
+                            }
+                        }
+                        Regex regex = new Regex(@"\W");
+                        GE5Izmer = regex.Replace(indata_0, "");
                         GEText.Text = GE5Izmer;
                         // MessageBox.Show(GE5Izmer);
                         double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
@@ -1725,61 +1999,160 @@ namespace Analis200
         {
             string GE5Calibr1 = "";
             string SWAnalis = WL_grad1;
-            countSA = 8;
+            if (versionPribor.Contains("2"))
+            { countSA = 8; }
+            else
+            {
+                countSA = 4;
+            }
             newPort.Write("SW " + SWAnalis + "\r");
-            int SWAnalisByteRecieved1 = newPort.ReadBufferSize;
-            Thread.Sleep(100);
-            byte[] SWAnalisBuffer1 = new byte[SWAnalisByteRecieved1];
-            newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);
-            newPort.Write("RD\r");
-            int RDbyteRecieved1 = newPort.ReadBufferSize;
             Thread.Sleep(500);
-            byte[] RDbuffer1 = new byte[RDbyteRecieved1];
-            newPort.Read(RDbuffer1, 0, RDbyteRecieved1);
+            //  byte[] buffer1 = new byte[byteRecieved1];
+            string indata = newPort.ReadExisting();
+
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+                }
+            }
+
+            newPort.Write("RD\r");
+            Thread.Sleep(500);
+            //  byte[] buffer1 = new byte[byteRecieved1];
+            indata = newPort.ReadExisting();
+
+            indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+                }
+            }
+
 
 
             newPort.Write("SA " + countSA + "\r");
-            int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-            Thread.Sleep(500);
-            byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-            newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+            indata = newPort.ReadExisting();
+            string indata_0;
+            indata_bool = true;
+            while (indata_bool == true)
+            {
+
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = newPort.ReadExisting();
+
+                }
+            }
 
             newPort.Write("GE 1\r");
-            int GEbyteRecievedCalibr = newPort.ReadBufferSize;
-            Thread.Sleep(1500);
-            byte[] GEbufferCalibr = new byte[GEbyteRecievedCalibr];
-            newPort.Read(GEbufferCalibr, 0, GEbyteRecievedCalibr);
 
-            for (int i_1 = 0; i_1 <= 50; i_1++)
+            string GE5Izmer = "";
+            int GEbyteRecieved4_1 = newPort.ReadBufferSize;
+            byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+            newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
+
+            indata = newPort.ReadExisting();
+
+            indata_0 = "";
+            indata_bool = true;
+            while (indata_bool == true)
             {
-                GE5Calibr1 = GE5Calibr1 + Convert.ToChar(GEbufferCalibr[i_1]);
-            }
-            var GEarr4_1 = GE5Calibr1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-            GE5Calibr1 = GEarr4_1[1];
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+
+                    indata = newPort.ReadExisting();
+                    indata_0 += indata;
+                }
+            }
+            Regex regex = new Regex(@"\W");
+            GE5Calibr1 = regex.Replace(indata_0, "");
+
+
             //Thread.Sleep(1500);
 
-            while (Convert.ToInt32(GE5Calibr1) > 30000)
+            while (Convert.ToInt32(GE5Calibr1) > 30000 && countSA > 1)
             {
                 countSA--;
                 newPort.Write("SA " + countSA + "\r");
-                int SAAnalisByteRecieved1_1_1 = newPort.ReadBufferSize;
-                Thread.Sleep(500);
-                byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
-                newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
+                indata = newPort.ReadExisting();
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
-                int GEbyteRecieved4_1_1_1 = newPort.ReadBufferSize;
-                Thread.Sleep(1500);
-                byte[] GEbuffer4_1_1_1 = new byte[GEbyteRecieved4_1_1_1];
-                newPort.Read(GEbuffer4_1_1_1, 0, GEbyteRecieved4_1_1_1);
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE5Calibr1 = GE5Calibr1 + Convert.ToChar(GEbuffer4_1_1_1[i_1]);
-                }
-                var GEarr4_1_1_1 = GE5Calibr1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-                GE5Calibr1 = GEarr4_1_1_1[1];
+
+                GEbyteRecieved4_1 = newPort.ReadBufferSize;
+                GEbuffer4_1 = new byte[GEbyteRecieved4_1];
+                newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
+
+                indata = newPort.ReadExisting();
+
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                regex = new Regex(@"\W");
+                GE5Calibr1 = regex.Replace(indata_0, "");
+
                 //GE5_1_0_1 = GEarr4_1_1_1[1];
                 resulcCountSA1 = countSA;
 
@@ -1807,7 +2180,7 @@ namespace Analis200
             {
                 MessageBox.Show("Запись запрещена!");
             }
-          
+
             double sum;
             sum = 0.0;
             int startIndexCell = 2;
@@ -1815,7 +2188,7 @@ namespace Analis200
             int rowIndex = Table1.CurrentRow.Index;
             bool doNotWrite = false;
             int rownull = 0;
-           
+
             for (int j = 0; j < Table1.Rows.Count - 1; j++)
             {
                 {
@@ -1832,15 +2205,15 @@ namespace Analis200
                                     cellnull++;
                                 }
                             }
-                        }     
-                                                
+                        }
+
 
                     }
                 }
             }
-                              
-                
-            
+
+
+
             if (!doNotWrite)
             {
                 //MessageBox.Show(NoCaIzm.ToString());
@@ -1853,7 +2226,7 @@ namespace Analis200
                     radioButton3.Enabled = false;
                     radioButton2.Enabled = false;
                 }
-                if(Table1.Rows.Count - 1 == 2)
+                if (Table1.Rows.Count - 1 == 2)
                 {
                     radioButton1.Enabled = true;
                     radioButton2.Enabled = true;
@@ -1861,7 +2234,7 @@ namespace Analis200
                     radioButton5.Enabled = true;
                     radioButton3.Enabled = false;
                 }
-                if(Table1.Rows.Count - 1 >= 3)
+                if (Table1.Rows.Count - 1 >= 3)
                 {
                     radioButton1.Enabled = true;
                     radioButton2.Enabled = true;
@@ -1878,7 +2251,7 @@ namespace Analis200
                          break;
                      //Table1.Columns.RemoveAt(i);
                  }*/
-                
+
                 for (int l = startIndexCell + NoCaIzm; l <= endIndexCell; ++l)
                 {
                     if (Table1.Rows[rowIndex].Cells[l].Value == null)
@@ -1890,7 +2263,7 @@ namespace Analis200
                     {
                         for (int j = 0; j < Table1.Rows.Count - 1; j++)
                         {
-                            
+
                             for (int i1 = startIndexCell + 1; i1 <= endIndexCell; ++i1)
                             {
                                 sum += Convert.ToDouble(Table1.Rows[j].Cells[i1].Value);
@@ -1922,7 +2295,7 @@ namespace Analis200
                         Table1.Columns.RemoveAt(ml);
                     }
                     functionAsred();
-                 
+
                 }
 
             }
@@ -1930,6 +2303,7 @@ namespace Analis200
         }
         public void functionAsred()
         {
+            //Table1.Rows.Add();
             while (true)
             {
                 int ml = Table1.Columns.Count - 1;//С какого столбца начать
@@ -1999,14 +2373,14 @@ namespace Analis200
                  }*/
             if (radioButton1.Checked == true)
             {
-              /*  while (true)
-                {
-                    int i = Table1.Columns.Count - 1;//С какого столбца начать
-                    if (Table1.Columns[i].Name == "Asred")
-                        break;
-                    Table1.Columns.RemoveAt(i);
-                }
-                */
+                /*  while (true)
+                  {
+                      int i = Table1.Columns.Count - 1;//С какого столбца начать
+                      if (Table1.Columns[i].Name == "Asred")
+                          break;
+                      Table1.Columns.RemoveAt(i);
+                  }
+                  */
                 lineinaya0();
             }
             else
@@ -2043,23 +2417,23 @@ namespace Analis200
               }*/
             if (radioButton1.Checked == true)
             {
-                
 
-            //  Table1.Columns.Add("X*X", "Concetr*Concetr");
-             // Table1.Columns.Add("X*Y", "Asred*Concetr");
+
+                //  Table1.Columns.Add("X*X", "Concetr*Concetr");
+                // Table1.Columns.Add("X*Y", "Asred*Concetr");
                 lineinaya0();
             }
             else
             {
                 if (radioButton2.Checked == true)
                 {
-                   /* while (true)
-                    {
-                        int i = Table1.Columns.Count - 1;//С какого столбца начать
-                        if (Table1.Columns[i].Name == "Asred")
-                            break;
-                        Table1.Columns.RemoveAt(i);
-                    }*/
+                    /* while (true)
+                     {
+                         int i = Table1.Columns.Count - 1;//С какого столбца начать
+                         if (Table1.Columns[i].Name == "Asred")
+                             break;
+                         Table1.Columns.RemoveAt(i);
+                     }*/
                     lineinaya();
                 }
                 else
@@ -2103,9 +2477,9 @@ namespace Analis200
             }
             else
             {
-               SaveAs2();
+                SaveAs2();
             }
-           
+
         }
         public void SaveAs1()
         {
@@ -2223,7 +2597,7 @@ namespace Analis200
                     TypeYravn1.InnerText = "Квадратичное";
                 }
             }
-            
+
             Izmerenie.AppendChild(TypeYravn1); // и указываем кому принадлежит
 
             XmlNode TypeIzmer1 = xd.CreateElement("TypeIzmer"); // Тип уравнения
@@ -2234,7 +2608,7 @@ namespace Analis200
             else
             {
                 TypeIzmer1.InnerText = "C (A) - расчетное уравнение (прибор)";
-            }                         
+            }
 
             Izmerenie.AppendChild(TypeIzmer1); // и указываем кому принадлежит
 
@@ -2345,7 +2719,7 @@ namespace Analis200
                 Cells2.Attributes.Append(attribute1); // добавляем атрибут
                 for (int j = 0; j < this.Table2.Columns.Count; j++)
                 {
-                   
+
                     Cells1[i, j] = Convert.ToString(this.Table2.Rows[i].Cells[j].Value);
 
                     HeaderCells[j] = this.Table2.Columns[j].HeaderText;
@@ -2471,14 +2845,14 @@ namespace Analis200
                                 if ("Veshestvo".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     Veshestvo1 = k.FirstChild.Value; //Вещество
-                                
+
                                 }
                                 if ("wavelength".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     wavelength1 = k.FirstChild.Value; //Длина волны
-                                    
-                                   
-                                 }
+
+
+                                }
                                 if ("WidthCuvet".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     WidthCuvette = k.FirstChild.Value; //Ширина кюветы
@@ -2543,25 +2917,35 @@ namespace Analis200
                                     TimeIzmer1 = k.FirstChild.Value;
 
                                 }
-                                    if ("TypeYravn".Equals(k.Name) && k.FirstChild != null)
+                                if ("TypeYravn".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     TypeYravn1 = k.FirstChild.Value; //Исполнитель
                                     if (TypeYravn1 == "Линейное через 0" || TypeYravn1 == "Линейное")
                                     {
                                         //  MessageBox.Show("Линейное");
-                                        Table1.Columns.Add("X*X", "Concetr*Concetr");
-                                        Table1.Columns.Add("X*Y", "Asred*Concetr");
+                                        Table1.Columns.Add("X*X", "Конц*Конц");
+                                        Table1.Columns.Add("X*Y", "Асред*Конц");
+                                        /*  Table1.Columns["X*X"].Width = 50;
+                                          Table1.Columns["X*Y"].Width = 50;
+                                          Table1.Columns["X*X*X"].Width = 50;
+                                          Table1.Columns["X*X*X*X"].Width = 50;
+                                          Table1.Columns["X*X*Y"].Width = 50;*/
                                     }
                                     else
                                     {
                                         // MessageBox.Show("Квадратичное");
-                                        Table1.Columns.Add("X*X", "Concetr*Concetr");
-                                        Table1.Columns.Add("X*Y", "Asred*Concetr");
-                                        Table1.Columns.Add("X*X*X", "Asred*Asred*Asred");
-                                        Table1.Columns.Add("X*X*X*X", "Asred*Asred*Asred*Asred");
-                                        Table1.Columns.Add("X*X*Y", "Asred*Asred*Concetr");
+                                        Table1.Columns.Add("X*X", "Конц* Конц");
+                                        Table1.Columns.Add("X*Y", "Асред* Конц");
+                                        Table1.Columns.Add("X*X*X", "Асред ^3");
+                                        Table1.Columns.Add("X*X*X*X", "Асред ^4");
+                                        Table1.Columns.Add("X*X*Y", "Асред ^2*Конц");
+                                        /*    Table1.Columns["X*X"].Width = 50;
+                                            Table1.Columns["X*Y"].Width = 50;
+                                            Table1.Columns["X*X*X"].Width = 50;
+                                            Table1.Columns["X*X*X*X"].Width = 50;
+                                            Table1.Columns["X*X*Y"].Width = 50;*/
                                     }
-                                    
+
                                 }
                                 if ("CountSeriyal".Equals(k.Name) && k.FirstChild != null)
                                 {
@@ -2583,13 +2967,16 @@ namespace Analis200
                                         firstColumn2.Name = "A;Ser (" + i;
                                         Table1.Columns.Add(firstColumn2);
                                     }
-
+                                    for (int i = 1; i <= Convert.ToInt32(CountSeriya2); i++)
+                                    {
+                                        Table1.Columns["A;Ser (" + i].Width = 50;
+                                    }
                                 }
                                 if ("CountInSeriyal".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     CountInSeriya2 = k.FirstChild.Value; //Количество строк
                                     CountInSeriya = CountInSeriya2;
-        
+
                                     for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
                                     {
                                         Table1.Rows.Add();
@@ -2649,7 +3036,7 @@ namespace Analis200
             }
             else
             {
-             //   GWNew.Text = wavelength1;
+                //   GWNew.Text = wavelength1;
             }
 
         }
@@ -2658,7 +3045,7 @@ namespace Analis200
 
         public void openFile2(ref string filepath2)
         {
-           WLREMOVE2();
+            WLREMOVE2();
             WLREMOVESTR2();
             filepath2 = openFileDialog1.FileName;
             параметрыToolStripMenuItem.Enabled = true;
@@ -2682,8 +3069,8 @@ namespace Analis200
                         {
                             //Можно, например, в этом цикле, да и не только..., взять какие-то данные
                             for (XmlNode k = d.FirstChild; k != null; k = k.NextSibling)
-                            {                            
-                                
+                            {
+
                                 if ("WidthCuvet".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     WidthCuvette = k.FirstChild.Value; //Ширина кюветы
@@ -2691,7 +3078,7 @@ namespace Analis200
                                     //  MessageBox.Show(index.ToString());
                                     Opt_dlin_cuvet.SelectedIndex = index;
                                 }
-                               
+
                                 if ("Description".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     Description = k.FirstChild.Value; //Примечание
@@ -2702,7 +3089,7 @@ namespace Analis200
                                     DateTime = k.FirstChild.Value; //Дата
                                     dateTimePicker2.Text = DateTime;
                                 }
-                               
+
                                 if ("Pogreshnost".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     Pogreshnost2 = k.FirstChild.Value; //Дата
@@ -2718,7 +3105,7 @@ namespace Analis200
                                     F2 = k.FirstChild.Value; //F1
                                     F2Text.Text = F2;
                                 }
-                            
+
                                 if ("CountSeriyal".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     CountSeriya2 = k.FirstChild.Value; //Количество столбцов
@@ -2933,7 +3320,7 @@ namespace Analis200
                     {
                         SposobZadan = "По СО";
                     }
-                    else 
+                    else
                     {
                         SposobZadan = "Ввод коэффициентов";
                     }
@@ -2974,12 +3361,12 @@ namespace Analis200
                 New _New = new New(this);
                 _New.ShowDialog();
             }
-            
+
 
         }
         public bool IzmerenieOpen = false;
-   
-     
+
+
         public double[] El;
 
         private void Table2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -2996,54 +3383,54 @@ namespace Analis200
             double serValue = 0;
             int cellnull = 0;
             for (int i = 2; i < Table2.Rows[Table2.CurrentCell.RowIndex].Cells.Count - 1; i++)
-              {
-                  if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells[i].Value == null)
-                  {
-                  El = new double[NoCaIzm1 + 1];
-
-                      doNotWrite = true;
-       
-              
-           // El = new double[NoCaIzm1 + 1];
-            for (int j = 0; j < Table2.Rows.Count - 1; j++)
             {
-                       // El = new double[NoCaIzm1 + 1];
-                        double SredValue = 0;
-                for (int i1 = 1; i1 <= NoCaIzm1; i1++)
+                if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells[i].Value == null)
                 {
-                    if (Table2.Rows[j].Cells["A;Ser" + i1].Value == null)
+                    El = new double[NoCaIzm1 + 1];
+
+                    doNotWrite = true;
+
+
+                    // El = new double[NoCaIzm1 + 1];
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
                     {
-                        cellnull++;
-                    }
-                    else
-                    {
-                        if (aproksim == "Линейная через 0")
+                        // El = new double[NoCaIzm1 + 1];
+                        double SredValue = 0;
+                        for (int i1 = 1; i1 <= NoCaIzm1; i1++)
                         {
-                            serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
-                        }
-                        if (aproksim == "Линейная")
-                        {
-                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString())-Convert.ToDouble(textBox4.Text)))/ Convert.ToDouble(textBox5.Text);
-                        }
-                        if (aproksim == "Квадратичная")
-                        {
-                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text)+ Convert.ToDouble(textBox6.Text));
-                        }
-                        double CValue1 = Convert.ToDouble(F1Text.Text);
-                        double CValue2 = Convert.ToDouble(F2Text.Text);
-                        
-                        Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value = string.Format("{0:0.0000}", serValue * CValue1 * CValue2);
-                        SredValue += Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
-                       
-                        CCR = SredValue / NoCaIzm1;
-                        if(Convert.ToDouble(textBox7.Text) >= 1)
-                        {
-                            Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR) + "±" + string.Format("{0:0.00}", (CCR /Convert.ToDouble(textBox7.Text)));
-                        }
-                        else Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR);
-                        //Table2.Rows[j].Cells["d%"].Value = El.Max();
-                      //  El[i1] = Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
-                    }
+                            if (Table2.Rows[j].Cells["A;Ser" + i1].Value == null)
+                            {
+                                cellnull++;
+                            }
+                            else
+                            {
+                                if (aproksim == "Линейная через 0")
+                                {
+                                    serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                }
+                                if (aproksim == "Линейная")
+                                {
+                                    serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                }
+                                if (aproksim == "Квадратичная")
+                                {
+                                    serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                }
+                                double CValue1 = Convert.ToDouble(F1Text.Text);
+                                double CValue2 = Convert.ToDouble(F2Text.Text);
+
+                                Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value = string.Format("{0:0.0000}", serValue * CValue1 * CValue2);
+                                SredValue += Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
+
+                                CCR = SredValue / NoCaIzm1;
+                                if (Convert.ToDouble(textBox7.Text) >= 1)
+                                {
+                                    Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR) + "±" + string.Format("{0:0.00}", (CCR / Convert.ToDouble(textBox7.Text)));
+                                }
+                                else Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR);
+                                //Table2.Rows[j].Cells["d%"].Value = El.Max();
+                                //  El[i1] = Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
+                            }
                             //El = new double[NoCaIzm1 + 1];
                             if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value == null)
                             {
@@ -3054,25 +3441,25 @@ namespace Analis200
                                 El[i1] = Convert.ToDouble(Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value.ToString());
                             }
                         }
-                        
-                        Array.Sort(El);
-                    maxEl = El[El.Length - 1];
-                    minEl = El[1];
-                    double a = ((maxEl- minEl) * 100) / Convert.ToDouble(CCR);
-                    double b = a;
-                   // b = b * 10;
 
-                   
-                    if(minEl == 0)
+                        Array.Sort(El);
+                        maxEl = El[El.Length - 1];
+                        minEl = El[1];
+                        double a = ((maxEl - minEl) * 100) / Convert.ToDouble(CCR);
+                        double b = a;
+                        // b = b * 10;
+
+
+                        if (minEl == 0)
                         {
                             Table2.Rows[Table2.CurrentCell.RowIndex].Cells["d%"].Value = 0.0000;
                         }
-                    else
+                        else
                         {
                             Table2.Rows[Table2.CurrentCell.RowIndex].Cells["d%"].Value = string.Format("{0:0.00}", b);
 
                         }
-                        
+
                     }
                 }
             }
@@ -3154,7 +3541,7 @@ namespace Analis200
         public bool nonPort = false;
         private void button2_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show(Izmerenie1.ToString());
+            // MessageBox.Show(Izmerenie1.ToString());
             SettingPort _SettingPort = new SettingPort(this);
             if (nonPort == true)
             {
@@ -3232,20 +3619,35 @@ namespace Analis200
 
         private void button1_Click(object sender, EventArgs e)
         {
-           if (ComPort == true)
+            if (ComPort == true)
             {
                 char[] ClosePribor = { Convert.ToChar('Q'), Convert.ToChar('U'), Convert.ToChar('\r') };
                 newPort.Write("QU\r");
-                int QU = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] QUBuffer1 = new byte[QU];
-                newPort.Read(QUBuffer1, 0, QU);
+                Thread.Sleep(500);
+                //  byte[] buffer1 = new byte[byteRecieved1];
+                string indata = newPort.ReadExisting();
+
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
+
                 GWNew.Text = null;
                 GEText.Text = null;
                 GAText.Text = null;
                 OptichPlot.Text = null;
                 Izmerenie1 = true;
-                
+
                 this.подключитьToolStripMenuItem.Enabled = true;
                 button2.Enabled = true;
                 button13.Enabled = false;
@@ -3291,24 +3693,57 @@ namespace Analis200
                 newPort.Read(SWAnalisBuffer1, 0, SWAnalisByteRecieved1);*/
 
                 newPort.Write("SA " + countSA + "\r");
-                int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                string indata = newPort.ReadExisting();
+                string indata_0;
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
+
+                GE5Izmer = "";
                 int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                Thread.Sleep(1500);
                 byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                 newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                }
-                var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                indata = newPort.ReadExisting();
 
-                GE5Izmer = GEarr4_1[1];
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                Regex regex = new Regex(@"\W");
+                GE5Izmer = regex.Replace(indata_0, "");
+
+
+
                 GEText.Text = GE5Izmer;
                 // MessageBox.Show(GE5Izmer);
                 double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
@@ -3323,7 +3758,7 @@ namespace Analis200
                     MessageBox.Show("Запись запрещена!");
                 }
                 GAText.Text = string.Format("{0:0.00}", Aser);
-                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                for (int j = 0; j < Table1.Rows.Count; j++)
                 {
                     {
                         for (int i = 3; i < Table1.Rows[j].Cells.Count; i++)
@@ -3350,7 +3785,7 @@ namespace Analis200
 
                 if (!doNotWrite)
                 {
-                    if (Table1.Rows.Count - 1 == 1)
+                    if (Table1.Rows.Count == 1)
                     {
                         radioButton1.Enabled = true;
                         radioButton4.Enabled = true;
@@ -3358,7 +3793,7 @@ namespace Analis200
                         radioButton3.Enabled = false;
                         radioButton2.Enabled = false;
                     }
-                    if (Table1.Rows.Count - 1 == 2)
+                    if (Table1.Rows.Count == 2)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -3366,7 +3801,7 @@ namespace Analis200
                         radioButton5.Enabled = true;
                         radioButton3.Enabled = false;
                     }
-                    if (Table1.Rows.Count - 1 >= 3)
+                    if (Table1.Rows.Count >= 3)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -3392,7 +3827,7 @@ namespace Analis200
 
                         else
                         {
-                            for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                            for (int j = 0; j < Table1.Rows.Count; j++)
                             {
 
                                 for (int i1 = startIndexCell + 1; i1 <= endIndexCell; ++i1)
@@ -3446,24 +3881,54 @@ namespace Analis200
                 string GE5Izmer = "";
                 string GE5_1_1 = "";
                 newPort.Write("SA " + countSA + "\r");
-                int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-                newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+                string indata = newPort.ReadExisting();
+                string indata_0;
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+
+                    }
+                }
 
                 newPort.Write("GE 1\r");
+
+                GE5Izmer = "";
                 int GEbyteRecieved4_1 = newPort.ReadBufferSize;
-                Thread.Sleep(1500);
                 byte[] GEbuffer4_1 = new byte[GEbyteRecieved4_1];
                 newPort.Read(GEbuffer4_1, 0, GEbyteRecieved4_1);
 
-                for (int i_1 = 0; i_1 <= 50; i_1++)
-                {
-                    GE5_1_1 = GE5_1_1 + Convert.ToChar(GEbuffer4_1[i_1]);
-                }
-                var GEarr4_1 = GE5_1_1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                indata = newPort.ReadExisting();
 
-                GE5Izmer = GEarr4_1[1];
+                indata_0 = "";
+                indata_bool = true;
+                while (indata_bool == true)
+                {
+
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+
+                        indata = newPort.ReadExisting();
+                        indata_0 += indata;
+                    }
+                }
+                Regex regex = new Regex(@"\W");
+                GE5Izmer = regex.Replace(indata_0, "");
                 GEText.Text = GE5Izmer;
                 // MessageBox.Show(GE5Izmer);
                 double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
@@ -3525,7 +3990,7 @@ namespace Analis200
                                     }
                                     else Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR);
                                     //Table2.Rows[j].Cells["d%"].Value = El.Max();
-                                   // El[i1] = Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
+                                    // El[i1] = Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
                                 }
 
                                 if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value == null)
@@ -3537,7 +4002,7 @@ namespace Analis200
                                     El[i1] = Convert.ToDouble(Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value.ToString());
                                 }
                             }
-                           
+
                             Array.Sort(El);
                             maxEl = El[El.Length - 1];
                             minEl = El[1];
@@ -3694,7 +4159,7 @@ namespace Analis200
                         if (Table1.Rows[j].Cells[i].Value == null)
                         {
                             doNotWrite = true;
-                           break;
+                            break;
 
                         }
                     }
@@ -3804,7 +4269,7 @@ namespace Analis200
 
         public void lineinaya0()
         {
-           
+
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
             k0 = 0; k1 = 0; k2 = 0;
@@ -3814,9 +4279,9 @@ namespace Analis200
             textBox4.Text = string.Format("{0:0.0000}", 0);
             textBox5.Text = string.Format("{0:0.0000}", 0);
             textBox6.Text = string.Format("{0:0.0000}", 0);
-            
-                if (radioButton4.Checked == true)
-                {
+
+            if (radioButton4.Checked == true)
+            {
                 try
                 {
                     Table1.Columns.Remove("X*X");
@@ -3824,41 +4289,45 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
-
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
                 }
                 catch
                 {
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+
 
                 }
-                    chart1.Series[0].Points.Clear();
-                    chart1.Series[1].Points.Clear();
-                    k0 = 0; k1 = 0; k2 = 0;
-                    circle = 0;
-                    XY = 0;
-                    SUMMY2 = 0;
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
+                k0 = 0; k1 = 0; k2 = 0;
+                circle = 0;
+                XY = 0;
+                SUMMY2 = 0;
 
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
-                    {
-                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                {
+                    double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                    double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                        XY += x * y;
-                        SUMMY2 += y * y;
+                    XY += x * y;
+                    SUMMY2 += y * y;
 
-                        Table1.Rows[i].Cells["X*X"].Value = y * y;
-                        Table1.Rows[i].Cells["X*Y"].Value = x * y;
-                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "";
-                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "";
-                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
-                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
-                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    Table1.Rows[i].Cells["X*X"].Value = y * y;
+                    Table1.Rows[i].Cells["X*Y"].Value = x * y;
+                    Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "";
+                    Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "";
+                    Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
+                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
 
-                    }
-                } 
+                }
+            }
             else
             {
                 try
@@ -3868,13 +4337,18 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Асред* Асред");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
                 }
                 catch
                 {
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Асред* Асред");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+
                 }
                 chart1.Series[0].Points.Clear();
                 chart1.Series[1].Points.Clear();
@@ -3904,11 +4378,12 @@ namespace Analis200
             textBox4.Text = string.Format("{0:0.0000}", 0);
             textBox5.Text = string.Format("{0:0.0000}", k1);
             textBox4.Text = string.Format("{0:0.0000}", 0);
-            
+
             if (radioButton4.Checked == true)
             {
                 if (textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
+                    int Table1_Asred = 0;
                     label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
                     {
@@ -3925,22 +4400,32 @@ namespace Analis200
                         // chart1.Series[0].IsValueShownAsLabel = true;
                         //chart1.Series[0].IsXValueIndexed = true;
                         // circle++;
-                       // double x2 = 0.1 * i;
-                       // double y2 = x2 / k1;
-                        double y2 = y1*25;
-                        double x2 = y2 * k1;
-                        chart1.Series[1].Points.AddXY(y2, x2);
+                        // double x2 = 0.1 * i;
+                        // double y2 = x2 / k1;
+                        double x2 = 0;
+                        if (Table1_Asred == 0)
+                        {
+                            x2 = 0;
+                        }
+                        else
+                        {
+                            x2 = x1;
+                        }
+                        Table1_Asred++;
+                        double y2 = x2 * k1;
+                        chart1.Series[1].Points.AddXY(x2, y2);
                         chart1.Series[1].ChartType = SeriesChartType.Line;
                         chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + edconctr;
                         chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
-                       chart1.ChartAreas[0].AxisX.Minimum = 0;
-                     //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                        chart1.ChartAreas[0].AxisX.Minimum = 0;
+                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
                         chart1.ChartAreas[0].AxisY.Minimum = 0;
-                     //   chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2;
+                        //   chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2;
                         //    chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
-                     //   chart1.ChartAreas[0].AxisX.Interval = 5;
+                        //   chart1.ChartAreas[0].AxisX.Interval = 5;
                     }
                 }
+
             }
             else
             {
@@ -3964,18 +4449,19 @@ namespace Analis200
                         // circle++;
                         //double y2 = 0.5 * i;
                         //double x2 = y2 / k1;
-                       double  x2 = x1;
+
+                        double x2 = x1;
                         double y2 = x1 * k1;
                         chart1.Series[1].Points.AddXY(x2, y2);
                         chart1.Series[1].ChartType = SeriesChartType.Line;
                         chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
                         chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
                         chart1.ChartAreas[0].AxisX.Minimum = 0;
-                    //   chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                        //   chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
                         chart1.ChartAreas[0].AxisY.Minimum = 0;
-                     // chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                        // chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
                         // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
-                    //    chart1.ChartAreas[0].AxisX.Interval = 5;
+                        //    chart1.ChartAreas[0].AxisX.Interval = 5;
                     }
                 }
             }
@@ -3984,7 +4470,7 @@ namespace Analis200
 
         public void lineinaya()
         {
-            
+
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
             k0 = 0; k1 = 0; k2 = 0;
@@ -4003,16 +4489,21 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
                 }
 
 
-                
+
                 catch
                 {
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+
                 }
 
                 chart1.Series[0].Points.Clear();
@@ -4049,14 +4540,18 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Асред* Асред");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
 
                 }
                 catch
                 {
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
+                    Table1.Columns.Add("X*X", "Асред* Асред");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
 
                 }
                 chart1.Series[0].Points.Clear();
@@ -4120,7 +4615,7 @@ namespace Analis200
                         //   chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(string.Format("{0:0.0000}", Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2);
                         //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
 
-                 //       chart1.ChartAreas[0].AxisX.Interval = 5;
+                        //       chart1.ChartAreas[0].AxisX.Interval = 5;
                     }
                 }
             }
@@ -4150,11 +4645,11 @@ namespace Analis200
                         chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
                         chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
                         chart1.ChartAreas[0].AxisX.Minimum = 0;
-                    //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                        //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
                         chart1.ChartAreas[0].AxisY.Minimum = 0;
-                    //      chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                     //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
-                   //     chart1.ChartAreas[0].AxisX.Interval = 5;
+                        //      chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                        //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
+                        //     chart1.ChartAreas[0].AxisX.Interval = 5;
                     }
                 }
             }
@@ -4250,7 +4745,7 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-                
+
             }
             else
             {
@@ -4284,15 +4779,15 @@ namespace Analis200
         {
 
             filepath = openFileDialog1.FileName;
-           // printPreviewDialog1.Document = @"filepath";
+            // printPreviewDialog1.Document = @"filepath";
             Graphics g = e.Graphics;
             g.DrawString(@filepath, Font, new SolidBrush(System.Drawing.Color.Black), 0, 0);
-            
+
         }
         Bitmap bitmap;
         private void printPreviewDialog1_Load(object sender, EventArgs e)
         {
-          
+
         }
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
@@ -4317,23 +4812,33 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "А сред*Конц");
-                    Table1.Columns.Add("X*X*X", "А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*X*X", "А сред*А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*Y", "А сред*А сред*Конц");
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Асред* Конц");
+                    Table1.Columns.Add("X*X*X", "Асред ^3");
+                    Table1.Columns.Add("X*X*X*X", "Асред ^4");
+                    Table1.Columns.Add("X*X*Y", "Асред ^2*Конц");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+                    Table1.Columns["X*X*X"].Width = 50;
+                    Table1.Columns["X*X*X*X"].Width = 50;
+                    Table1.Columns["X*X*Y"].Width = 50;
                 }
                 catch
                 {
-                    Table1.Columns.Add("X*X", "Конц*Конц");
-                    Table1.Columns.Add("X*Y", "А сред*Конц");
-                    Table1.Columns.Add("X*X*X", "А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*X*X", "А сред*А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*Y", "А сред*А сред*Конц");
+                    Table1.Columns.Add("X*X", "Конц* Конц");
+                    Table1.Columns.Add("X*Y", "Асред* Конц");
+                    Table1.Columns.Add("X*X*X", "Асред ^3");
+                    Table1.Columns.Add("X*X*X*X", "Асред ^4");
+                    Table1.Columns.Add("X*X*Y", "Асред ^2*Конц");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+                    Table1.Columns["X*X*X"].Width = 50;
+                    Table1.Columns["X*X*X*X"].Width = 50;
+                    Table1.Columns["X*X*Y"].Width = 50;
                 }
                 for (int i = 0; i < Table1.Rows.Count - 1; i++)
                 {
-                   
+
                     double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                     double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
@@ -4369,19 +4874,30 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
-                    Table1.Columns.Add("X*X*X", "А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*X*X", "А сред*А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*Y", "А сред*А сред*А сред");
+                    Table1.Columns.Add("X*X", "Асред ^2");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns.Add("X*X*X", "Асред ^3");
+                    Table1.Columns.Add("X*X*X*X", "Асред ^4");
+                    Table1.Columns.Add("X*X*Y", "Асред ^2*Конц");
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+                    Table1.Columns["X*X*X"].Width = 50;
+                    Table1.Columns["X*X*X*X"].Width = 50;
+                    Table1.Columns["X*X*Y"].Width = 50;
                 }
                 catch
                 {
-                    Table1.Columns.Add("X*X", "А сред*А сред");
-                    Table1.Columns.Add("X*Y", "Конц*А сред");
-                    Table1.Columns.Add("X*X*X", "А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*X*X", "А сред*А сред*А сред*А сред");
-                    Table1.Columns.Add("X*X*Y", "А сред*А сред*А сред");
+                    Table1.Columns.Add("X*X", "Асред ^2");
+                    Table1.Columns.Add("X*Y", "Конц* Асред");
+                    Table1.Columns.Add("X*X*X", "Асред ^3");
+                    Table1.Columns.Add("X*X*X*X", "Асред ^4");
+                    Table1.Columns.Add("X*X*Y", "Асред ^2*Конц");
+
+                    Table1.Columns["X*X"].Width = 50;
+                    Table1.Columns["X*Y"].Width = 50;
+                    Table1.Columns["X*X*X"].Width = 50;
+                    Table1.Columns["X*X*X*X"].Width = 50;
+                    Table1.Columns["X*X*Y"].Width = 50;
                 }
                 for (int i = 0; i < Table1.Rows.Count - 1; i++)
                 {
@@ -4445,9 +4961,9 @@ namespace Analis200
                         chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + edconctr;
                         chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
                         chart1.ChartAreas[0].AxisX.Minimum = 0;
-                      //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + x2_1;
+                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + x2_1;
                         chart1.ChartAreas[0].AxisY.Minimum = 0;
-                     //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
+                        //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
                         //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
                     }
                 }
@@ -4456,7 +4972,7 @@ namespace Analis200
             {
                 if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0) && textBox6.Text != string.Format("{0:0.0000}", 0))
                 {
-                    label14.Text = "C(A) = " +  k0.ToString("0.0000 ;- 0.0000 ")  + k1.ToString("+ 0.0000;- 0.0000") + "*A " + k2.ToString("+ 0.0000;- 0.0000") + "*A^2";
+                    label14.Text = "C(A) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000;- 0.0000") + "*A " + k2.ToString("+ 0.0000;- 0.0000") + "*A^2";
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
                     {
                         double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
@@ -4468,17 +4984,17 @@ namespace Analis200
                         chart1.ChartAreas[0].AxisX.Crossing = 0;
                         double x2_1 = x;
                         double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
-                        
+
                         chart1.Series[1].Points.AddXY(x2_1, y2_1);
                         chart1.Series[1].ChartType = SeriesChartType.Line;
                         chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
                         chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
                         chart1.ChartAreas[0].AxisX.Minimum = 0;
-                      //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2_1), 2);
+                        //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2_1), 2);
                         chart1.ChartAreas[0].AxisY.Minimum = 0;
-                     //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2_1), 2);
+                        //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2_1), 2);
                         //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)+ (Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value))), 2);
-                      //  chart1.ChartAreas[0].AxisX.Interval = 5;
+                        //  chart1.ChartAreas[0].AxisX.Interval = 5;
                     }
                 }
             }
@@ -4575,10 +5091,25 @@ namespace Analis200
                 Izmerenie1 = true;
                 char[] ClosePribor = { Convert.ToChar('Q'), Convert.ToChar('U'), Convert.ToChar('\r') };
                 newPort.Write("QU\r");
-                int QU = newPort.ReadBufferSize;
-                Thread.Sleep(100);
-                byte[] QUBuffer1 = new byte[QU];
-                newPort.Read(QUBuffer1, 0, QU);
+                Thread.Sleep(500);
+                //  byte[] buffer1 = new byte[byteRecieved1];
+                string indata = newPort.ReadExisting();
+
+                bool indata_bool = true;
+                while (indata_bool == true)
+                {
+                    if (indata.Contains(">"))
+                    {
+
+                        indata_bool = false;
+
+                    }
+
+                    else {
+                        indata = newPort.ReadExisting();
+                    }
+                }
+
                 newPort.Close();
                 ComPort = false;
                 SWF.Application.Exit();
@@ -4587,7 +5118,7 @@ namespace Analis200
             {
                 SWF.Application.Exit();
             }
-            
+
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -4685,7 +5216,7 @@ namespace Analis200
                 TextBox Table2 = (TextBox)e.Control;
                 Table2.KeyPress -= tb_KeyPress1;
             }
-            if(Table2.CurrentCell.ReadOnly == true)
+            if (Table2.CurrentCell.ReadOnly == true)
             {
                 MessageBox.Show("Редактирование ячейки запрещено!");
             }
@@ -4699,13 +5230,72 @@ namespace Analis200
                 MessageBox.Show("Только цифры!");
             }
         }
-    
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+
+        }
+
+        private void printDocument1_PrintPage_1(object sender, PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString("Расчет линейного градуировочного графика\n", new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 15, FontStyle.Bold), Brushes.Black, new Point(170, 60));
+            e.Graphics.DrawString("Вещество: " + Veshestvo1, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 90));
+            e.Graphics.DrawString("Длина волны: " + wavelength1, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 120));
+            e.Graphics.DrawString("Ширина кюветы: " + WidthCuvette, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 150));
+            e.Graphics.DrawString("Нижняя нраница обнаружения: " + BottomLine, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 180));
+            e.Graphics.DrawString("Верхняя нраница обнаружения: " + TopLine, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 210));
+            e.Graphics.DrawString("НД: " + ND, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(500, 90));
+            e.Graphics.DrawString("Примечание: " + Description, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 240));
+            e.Graphics.DrawString("Таблица исходных данных\n\n", new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 270));
+
+
+            int height = Table1.Height;
+            Table1.Height = (Table1.RowCount * Table1.RowTemplate.Height) + 90;
+            Bitmap Table1bmp = new Bitmap(Table1.Width, Table1.Height);
+            Table1.DrawToBitmap(Table1bmp, new System.Drawing.Rectangle(0, 0, Table1.Width, Table1.Height));
+            Table1.Height = height;
+            e.Graphics.DrawImage(Table1bmp, 50, 300);
+
+            e.Graphics.DrawString("Градуировочное уравнение: " + label14.Text, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 430));
+            Bitmap Chart1bmp = new Bitmap(chart1.Size.Width + 10, chart1.Size.Height + 70);
+            chart1.DrawToBitmap(Chart1bmp, chart1.Bounds);
+            e.Graphics.DrawImage(Chart1bmp, 50, 460);
+
+            e.Graphics.DrawString("Дата: " + DateTime, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 930));
+            e.Graphics.DrawString("Исполнитель: " + Ispolnitel, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 960));
+
+
+
+        }
+
+        private void printPreviewDialog1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //Dispose();
+        }
+
+        private void Table1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage_2(object sender, PrintPageEventArgs e)
+        {
+
+        }
 
         public string filename;
         public void ExportToPDF1()
         {
             string head = @"Расчет линейного градуировочного графика";
-            
+
             //Creating iTextSharp Table from the DataTable data
             PdfPTable pdfTable = new PdfPTable(Table1.ColumnCount);
 
@@ -4719,7 +5309,7 @@ namespace Analis200
             iTextSharp.text.Font fontBold = new iTextSharp.text.Font(baseFont, 18f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font fontBold1 = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font font1 = new iTextSharp.text.Font(baseFont, 5f, iTextSharp.text.Font.BOLD);
-           // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
+            // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
 
             //Adding Header row
             foreach (DataGridViewColumn column in Table1.Columns)
@@ -4734,18 +5324,18 @@ namespace Analis200
                 pdfTable.AddCell(cell);
 
             }
-            
+
             //Adding DataRow
             foreach (DataGridViewRow row in Table1.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
                     pdfTable.AddCell(new Phrase(Convert.ToString(cell.Value), font));
-                   
-                    
+
+
                 }
             }
-         
+
 
 
 
@@ -4754,7 +5344,7 @@ namespace Analis200
             iTextSharp.text.Image Chart_Image = iTextSharp.text.Image.GetInstance(chartimage.GetBuffer());
             Chart_Image.ScalePercent(70f);
 
-           
+
 
 
             SaveFileDialog sfd = new SaveFileDialog();
@@ -4771,8 +5361,8 @@ namespace Analis200
                 welcomeParagraph.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
                 Paragraph Veshestvo2 = new Paragraph("Вещество: " + Veshestvo1, font);
                 Paragraph wavelength2 = new Paragraph("Длина волны: " + wavelength1, font);
-                Paragraph WidthCuvette2 = new Paragraph("Ширина кюветы: " + WidthCuvette, font);                               ;
-                Paragraph BottomLine2 = new Paragraph("Нижняя нраница обнаружения: "+ BottomLine, font);
+                Paragraph WidthCuvette2 = new Paragraph("Ширина кюветы: " + WidthCuvette, font); ;
+                Paragraph BottomLine2 = new Paragraph("Нижняя нраница обнаружения: " + BottomLine, font);
                 Paragraph TopLine2 = new Paragraph("Верхняя нраница обнаружения: " + TopLine, font);
                 Paragraph ND2 = new Paragraph("НД: " + ND, font);
                 Paragraph Description2 = new Paragraph("Примечание: " + Description, font);
@@ -4841,15 +5431,15 @@ namespace Analis200
                 // doc.Add(BottomLine2);
                 //  doc.Add(TopLine2);
                 doc.Add(Description2);
-               // doc.Add(welcomeParagraph1);
+                // doc.Add(welcomeParagraph1);
                 doc.Add(Table1);
-              //  doc.Add(welcomeParagraph1);
+                //  doc.Add(welcomeParagraph1);
                 doc.Add(pdfTable);
                 doc.Add(welcomeParagraph1);
                 doc.Add(GradYrav);
                 doc.Add(welcomeParagraph1);
                 doc.Add(Chart_Image);
-              //  doc.Add(welcomeParagraph1);
+                //  doc.Add(welcomeParagraph1);
                 doc.Add(table1);
                 //  doc.Add(ND2);
 
@@ -4857,18 +5447,18 @@ namespace Analis200
                 // doc.Add(Ispolnitel2);
 
                 doc.Close();
-             /*   string filename = Application.StartupPath;
-                filename = Path.GetFullPath(Path.Combine(filename, ".\\Test.pdf"));
-                wbrPdf.Navigate(filename);*/
+                /*   string filename = Application.StartupPath;
+                   filename = Path.GetFullPath(Path.Combine(filename, ".\\Test.pdf"));
+                   wbrPdf.Navigate(filename);*/
                 filename = sfd.FileName;
 
             }
 
-         /*   Spire.Pdf.PdfDocument pdfdocument = new Spire.Pdf.PdfDocument();
-            pdfdocument.LoadFromFile(filename);        
-            pdfdocument.PrintDocument.Print();
-            pdfdocument.Dispose();
-            */
+            /*   Spire.Pdf.PdfDocument pdfdocument = new Spire.Pdf.PdfDocument();
+               pdfdocument.LoadFromFile(filename);        
+               pdfdocument.PrintDocument.Print();
+               pdfdocument.Dispose();
+               */
         }
     }
 }

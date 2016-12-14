@@ -29,17 +29,33 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.эксопртВPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.печать1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.волновойАнализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.графикРезультатаОдноволновогоИзмеренияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.приборToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.подключитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкаПортаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.калибровкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.темновойТокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.одноволновоеИзмерениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,22 +135,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.открытьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.экспортToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.эксопртВPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.подключитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкаПортаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.калибровкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.темновойТокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.измеритьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.одноволновоеИзмерениеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GEText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -143,6 +143,7 @@
             this.GAText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.OptichPlot = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -191,6 +192,62 @@
             this.файлToolStripMenuItem.Text = "Файл";
             this.файлToolStripMenuItem.Click += new System.EventHandler(this.файлToolStripMenuItem_Click);
             // 
+            // новыйToolStripMenuItem
+            // 
+            this.новыйToolStripMenuItem.Image = global::Analis200.Properties.Resources.NewSetup_btn;
+            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.новыйToolStripMenuItem.Text = "Новый";
+            this.новыйToolStripMenuItem.Click += new System.EventHandler(this.новыйToolStripMenuItem_Click);
+            // 
+            // открытьToolStripMenuItem
+            // 
+            this.открытьToolStripMenuItem.Image = global::Analis200.Properties.Resources.open_btn;
+            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.открытьToolStripMenuItem.Text = "Открыть";
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.r_save_btn;
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // экспортToolStripMenuItem
+            // 
+            this.экспортToolStripMenuItem.Image = global::Analis200.Properties.Resources.excelicon1;
+            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
+            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.экспортToolStripMenuItem.Text = "Экспорт в Excel";
+            this.экспортToolStripMenuItem.Click += new System.EventHandler(this.экспортToolStripMenuItem_Click);
+            // 
+            // эксопртВPDFToolStripMenuItem
+            // 
+            this.эксопртВPDFToolStripMenuItem.Image = global::Analis200.Properties.Resources.pdfIcon;
+            this.эксопртВPDFToolStripMenuItem.Name = "эксопртВPDFToolStripMenuItem";
+            this.эксопртВPDFToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.эксопртВPDFToolStripMenuItem.Text = "Эксопрт в PDF";
+            // 
+            // печатьToolStripMenuItem
+            // 
+            this.печатьToolStripMenuItem.Image = global::Analis200.Properties.Resources.print_btn;
+            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.печатьToolStripMenuItem.Text = "Печать";
+            this.печатьToolStripMenuItem.Visible = false;
+            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
+            // 
+            // выходToolStripMenuItem
+            // 
+            this.выходToolStripMenuItem.Image = global::Analis200.Properties.Resources.exit;
+            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+            // 
             // печать1ToolStripMenuItem
             // 
             this.печать1ToolStripMenuItem.Name = "печать1ToolStripMenuItem";
@@ -208,6 +265,15 @@
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
             this.анализToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.анализToolStripMenuItem.Text = "Анализ";
+            // 
+            // параметрыToolStripMenuItem
+            // 
+            this.параметрыToolStripMenuItem.Enabled = false;
+            this.параметрыToolStripMenuItem.Image = global::Analis200.Properties.Resources.setup_btn;
+            this.параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
+            this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
+            this.параметрыToolStripMenuItem.Text = "Параметры";
+            this.параметрыToolStripMenuItem.Click += new System.EventHandler(this.параметрыToolStripMenuItem_Click);
             // 
             // волновойАнализToolStripMenuItem
             // 
@@ -239,6 +305,74 @@
             this.приборToolStripMenuItem.Name = "приборToolStripMenuItem";
             this.приборToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.приборToolStripMenuItem.Text = "Прибор";
+            // 
+            // подключитьToolStripMenuItem
+            // 
+            this.подключитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.connect_btn;
+            this.подключитьToolStripMenuItem.Name = "подключитьToolStripMenuItem";
+            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.подключитьToolStripMenuItem.Text = "Подключить";
+            this.подключитьToolStripMenuItem.Click += new System.EventHandler(this.подключитьToolStripMenuItem_Click);
+            // 
+            // настройкаПортаToolStripMenuItem
+            // 
+            this.настройкаПортаToolStripMenuItem.Image = global::Analis200.Properties.Resources.ComSetup_btn;
+            this.настройкаПортаToolStripMenuItem.Name = "настройкаПортаToolStripMenuItem";
+            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.настройкаПортаToolStripMenuItem.Text = "Длина Волны";
+            this.настройкаПортаToolStripMenuItem.Visible = false;
+            this.настройкаПортаToolStripMenuItem.Click += new System.EventHandler(this.длинаволныToolStripMenuItem_Click);
+            // 
+            // информацияToolStripMenuItem
+            // 
+            this.информацияToolStripMenuItem.Image = global::Analis200.Properties.Resources.devinfo_btn;
+            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
+            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.информацияToolStripMenuItem.Text = "Информация";
+            this.информацияToolStripMenuItem.Visible = false;
+            this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
+            // 
+            // калибровкаToolStripMenuItem
+            // 
+            this.калибровкаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
+            this.калибровкаToolStripMenuItem.Name = "калибровкаToolStripMenuItem";
+            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаToolStripMenuItem.Text = "Калибровка";
+            this.калибровкаToolStripMenuItem.Visible = false;
+            this.калибровкаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаToolStripMenuItem_Click);
+            // 
+            // темновойТокToolStripMenuItem
+            // 
+            this.темновойТокToolStripMenuItem.Image = global::Analis200.Properties.Resources.Dark_btn;
+            this.темновойТокToolStripMenuItem.Name = "темновойТокToolStripMenuItem";
+            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.темновойТокToolStripMenuItem.Text = "Темновой ток";
+            this.темновойТокToolStripMenuItem.Visible = false;
+            // 
+            // измеритьToolStripMenuItem
+            // 
+            this.измеритьToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
+            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.измеритьToolStripMenuItem.Text = "Измерить";
+            this.измеритьToolStripMenuItem.Visible = false;
+            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
+            // 
+            // одноволновоеИзмерениеToolStripMenuItem
+            // 
+            this.одноволновоеИзмерениеToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
+            this.одноволновоеИзмерениеToolStripMenuItem.Name = "одноволновоеИзмерениеToolStripMenuItem";
+            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.одноволновоеИзмерениеToolStripMenuItem.Text = "Измерить";
+            this.одноволновоеИзмерениеToolStripMenuItem.Click += new System.EventHandler(this.одноволновоеИзмерениеToolStripMenuItem_Click);
+            // 
+            // калибровкаДляОдноволновогоАнализаToolStripMenuItem
+            // 
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Name = "калибровкаДляОдноволновогоАнализаToolStripMenuItem";
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Text = "0A/100%T";
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДляОдноволновогоАнализаToolStripMenuItem_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -504,42 +638,43 @@
             // 
             // chart1
             // 
-            chartArea1.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.MinorGrid.Enabled = true;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.MinorTickMark.Enabled = true;
-            chartArea1.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.Title = "Оптическая плотность, А";
-            chartArea1.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.Title = "Концетрация";
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX.MinorGrid.Enabled = true;
+            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX.MinorTickMark.Enabled = true;
+            chartArea2.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX.Title = "Оптическая плотность, А";
+            chartArea2.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea2.AxisY.Title = "Концетрация";
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.chart1.Location = new System.Drawing.Point(9, 72);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "Series2";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series3.IsVisibleInLegend = false;
+            series3.Name = "Series1";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.IsVisibleInLegend = false;
+            series4.Name = "Series2";
+            this.chart1.Series.Add(series3);
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(566, 321);
             this.chart1.TabIndex = 14;
             this.chart1.Text = "chart1";
             // 
             // Table1
             // 
+            this.Table1.AllowUserToOrderColumns = true;
             this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -561,18 +696,21 @@
             this.NoCo.HeaderText = "№ CO";
             this.NoCo.Name = "NoCo";
             this.NoCo.ReadOnly = true;
+            this.NoCo.Width = 45;
             // 
             // Concetr
             // 
             this.Concetr.HeaderText = "Конц., %";
             this.Concetr.Name = "Concetr";
             this.Concetr.ReadOnly = true;
+            this.Concetr.Width = 75;
             // 
             // Asred
             // 
             this.Asred.HeaderText = "A среднее";
             this.Asred.Name = "Asred";
             this.Asred.ReadOnly = true;
+            this.Asred.Width = 90;
             // 
             // label6
             // 
@@ -772,6 +910,7 @@
             this.Obrazec});
             this.Table2.Location = new System.Drawing.Point(16, 69);
             this.Table2.Name = "Table2";
+            this.Table2.RowHeadersVisible = false;
             this.Table2.Size = new System.Drawing.Size(911, 499);
             this.Table2.TabIndex = 23;
             this.Table2.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.Table2_CellBeginEdit);
@@ -861,6 +1000,10 @@
             // printDialog2
             // 
             this.printDialog2.UseEXDialog = true;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage_2);
             // 
             // printPreviewDialog1
             // 
@@ -1007,139 +1150,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // новыйToolStripMenuItem
-            // 
-            this.новыйToolStripMenuItem.Image = global::Analis200.Properties.Resources.NewSetup_btn;
-            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.новыйToolStripMenuItem.Text = "Новый";
-            this.новыйToolStripMenuItem.Click += new System.EventHandler(this.новыйToolStripMenuItem_Click);
-            // 
-            // открытьToolStripMenuItem
-            // 
-            this.открытьToolStripMenuItem.Image = global::Analis200.Properties.Resources.open_btn;
-            this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
-            // 
-            // сохранитьToolStripMenuItem
-            // 
-            this.сохранитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.r_save_btn;
-            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
-            // 
-            // экспортToolStripMenuItem
-            // 
-            this.экспортToolStripMenuItem.Image = global::Analis200.Properties.Resources.excelicon1;
-            this.экспортToolStripMenuItem.Name = "экспортToolStripMenuItem";
-            this.экспортToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.экспортToolStripMenuItem.Text = "Экспорт в Excel";
-            this.экспортToolStripMenuItem.Click += new System.EventHandler(this.экспортToolStripMenuItem_Click);
-            // 
-            // эксопртВPDFToolStripMenuItem
-            // 
-            this.эксопртВPDFToolStripMenuItem.Image = global::Analis200.Properties.Resources.pdfIcon;
-            this.эксопртВPDFToolStripMenuItem.Name = "эксопртВPDFToolStripMenuItem";
-            this.эксопртВPDFToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.эксопртВPDFToolStripMenuItem.Text = "Эксопрт в PDF";
-            // 
-            // печатьToolStripMenuItem
-            // 
-            this.печатьToolStripMenuItem.Image = global::Analis200.Properties.Resources.print_btn;
-            this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.печатьToolStripMenuItem.Text = "Печать";
-            this.печатьToolStripMenuItem.Visible = false;
-            this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
-            // 
-            // выходToolStripMenuItem
-            // 
-            this.выходToolStripMenuItem.Image = global::Analis200.Properties.Resources.exit;
-            this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.выходToolStripMenuItem.Text = "Выход";
-            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
-            // 
-            // параметрыToolStripMenuItem
-            // 
-            this.параметрыToolStripMenuItem.Enabled = false;
-            this.параметрыToolStripMenuItem.Image = global::Analis200.Properties.Resources.setup_btn;
-            this.параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
-            this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(329, 22);
-            this.параметрыToolStripMenuItem.Text = "Параметры";
-            this.параметрыToolStripMenuItem.Click += new System.EventHandler(this.параметрыToolStripMenuItem_Click);
-            // 
-            // подключитьToolStripMenuItem
-            // 
-            this.подключитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.connect_btn;
-            this.подключитьToolStripMenuItem.Name = "подключитьToolStripMenuItem";
-            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.подключитьToolStripMenuItem.Text = "Подключить";
-            this.подключитьToolStripMenuItem.Click += new System.EventHandler(this.подключитьToolStripMenuItem_Click);
-            // 
-            // настройкаПортаToolStripMenuItem
-            // 
-            this.настройкаПортаToolStripMenuItem.Image = global::Analis200.Properties.Resources.ComSetup_btn;
-            this.настройкаПортаToolStripMenuItem.Name = "настройкаПортаToolStripMenuItem";
-            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.настройкаПортаToolStripMenuItem.Text = "Длина Волны";
-            this.настройкаПортаToolStripMenuItem.Visible = false;
-            this.настройкаПортаToolStripMenuItem.Click += new System.EventHandler(this.длинаволныToolStripMenuItem_Click);
-            // 
-            // информацияToolStripMenuItem
-            // 
-            this.информацияToolStripMenuItem.Image = global::Analis200.Properties.Resources.devinfo_btn;
-            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
-            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.информацияToolStripMenuItem.Text = "Информация";
-            this.информацияToolStripMenuItem.Visible = false;
-            this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
-            // 
-            // калибровкаToolStripMenuItem
-            // 
-            this.калибровкаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
-            this.калибровкаToolStripMenuItem.Name = "калибровкаToolStripMenuItem";
-            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.калибровкаToolStripMenuItem.Text = "Калибровка";
-            this.калибровкаToolStripMenuItem.Visible = false;
-            this.калибровкаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаToolStripMenuItem_Click);
-            // 
-            // темновойТокToolStripMenuItem
-            // 
-            this.темновойТокToolStripMenuItem.Image = global::Analis200.Properties.Resources.Dark_btn;
-            this.темновойТокToolStripMenuItem.Name = "темновойТокToolStripMenuItem";
-            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.темновойТокToolStripMenuItem.Text = "Темновой ток";
-            this.темновойТокToolStripMenuItem.Visible = false;
-            // 
-            // измеритьToolStripMenuItem
-            // 
-            this.измеритьToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
-            this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.измеритьToolStripMenuItem.Text = "Измерить";
-            this.измеритьToolStripMenuItem.Visible = false;
-            this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
-            // 
-            // одноволновоеИзмерениеToolStripMenuItem
-            // 
-            this.одноволновоеИзмерениеToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
-            this.одноволновоеИзмерениеToolStripMenuItem.Name = "одноволновоеИзмерениеToolStripMenuItem";
-            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.одноволновоеИзмерениеToolStripMenuItem.Text = "Измерить";
-            this.одноволновоеИзмерениеToolStripMenuItem.Click += new System.EventHandler(this.одноволновоеИзмерениеToolStripMenuItem_Click);
-            // 
-            // калибровкаДляОдноволновогоАнализаToolStripMenuItem
-            // 
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Name = "калибровкаДляОдноволновогоАнализаToolStripMenuItem";
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Text = "0A/100%T";
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДляОдноволновогоАнализаToolStripMenuItem_Click);
-            // 
             // GEText
             // 
             this.GEText.Location = new System.Drawing.Point(253, 73);
@@ -1221,10 +1231,21 @@
             this.OptichPlot.Size = new System.Drawing.Size(100, 20);
             this.OptichPlot.TabIndex = 15;
             // 
+            // button3
+            // 
+            this.button3.Image = global::Analis200.Properties.Resources.print_btn;
+            this.button3.Location = new System.Drawing.Point(734, 30);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(42, 35);
+            this.button3.TabIndex = 34;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1009, 741);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -1380,9 +1401,6 @@
         private System.Windows.Forms.ToolStripMenuItem эксопртВPDFToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;
         public System.Windows.Forms.Button button10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
         public System.Windows.Forms.TabControl tabControl2;
         public System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox GEText;
@@ -1393,6 +1411,10 @@
         private System.Windows.Forms.TextBox GAText;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox OptichPlot;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
     }
 }
 

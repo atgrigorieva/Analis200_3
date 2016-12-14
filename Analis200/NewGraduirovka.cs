@@ -738,11 +738,22 @@ namespace Analis200
             LogoForm();
             string SWText1 = WL_grad.Text;
             _Analis.newPort.Write("SW " + WL_grad.Text + "\r");
-            Thread.Sleep(20000);
-            int byteRecieved1 = _Analis.newPort.ReadBufferSize;
-            Thread.Sleep(1500);
-            byte[] buffer1 = new byte[byteRecieved1];
-            _Analis.newPort.Read(buffer1, 0, byteRecieved1);
+            string indata = _Analis.newPort.ReadExisting();
+
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = _Analis.newPort.ReadExisting();
+                }
+            }
             _Analis.GWNew.Text = WL_grad.Text;
             SWF.Application.OpenForms["LogoFrm"].Close();
             // _Analis.GW();
@@ -909,6 +920,46 @@ namespace Analis200
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
+            }
+        }
+
+        private void WL_grad_Leave(object sender, EventArgs e)
+        {
+            if (_Analis.versionPribor.Contains("V"))
+            {
+                if(Convert.ToInt32(WL_grad.Text) < 315)
+                {
+                    WL_grad.Text = Convert.ToString(315);
+                }
+                if(Convert.ToInt32(WL_grad.Text) > 1050)
+                {
+                    WL_grad.Text = Convert.ToString(1050);
+                }
+            }
+            else
+            {
+                if(_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
+                {
+                    if (Convert.ToInt32(WL_grad.Text) < 190)
+                    {
+                        WL_grad.Text = Convert.ToString(190);
+                    }
+                    if (Convert.ToInt32(WL_grad.Text) > 1050)
+                    {
+                        WL_grad.Text = Convert.ToString(1050);
+                    }
+                }
+                else
+                {
+                    if (Convert.ToInt32(WL_grad.Text) < 200)
+                    {
+                        WL_grad.Text = Convert.ToString(200);
+                    }
+                    if (Convert.ToInt32(WL_grad.Text) > 1050)
+                    {
+                        WL_grad.Text = Convert.ToString(1050);
+                    }
+                }
             }
         }
     }

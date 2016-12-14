@@ -23,11 +23,22 @@ namespace Analis200
         {
             string SWText1 = SWText.Text;
             _Analis.newPort.Write("SW " + SWText.Text + "\r");
-            Thread.Sleep(60000);
-            int byteRecieved1 = _Analis.newPort.ReadBufferSize;
-            Thread.Sleep(1500);
-           byte[] buffer1 = new byte[byteRecieved1];
-            _Analis.newPort.Read(buffer1, 0, byteRecieved1);
+            string indata = _Analis.newPort.ReadExisting();
+
+            bool indata_bool = true;
+            while (indata_bool == true)
+            {
+                if (indata.Contains(">"))
+                {
+
+                    indata_bool = false;
+
+                }
+
+                else {
+                    indata = _Analis.newPort.ReadExisting();
+                }
+            }
             _Analis.GWNew.Text = SWText.Text;
             
             // _Analis.GW();
