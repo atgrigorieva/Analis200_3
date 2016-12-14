@@ -5282,56 +5282,98 @@ namespace Analis200
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            printPreviewDialog1.Document = printDocument1;
-            printPreviewDialog1.ShowDialog();
-        }
-
-        private void printDocument1_PrintPage_2(object sender, PrintPageEventArgs e)
-        {
-            e.Graphics.DrawString("Расчет линейного градуировочного графика\n\n", new System.Drawing.Font("Times New Roman", 25, FontStyle.Bold), Brushes.Black, 100, 50);
-            e.Graphics.DrawString("Вещесво:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
-            e.Graphics.DrawString(Veshestvo1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 115, 110);
-            e.Graphics.DrawString("Длина волны:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 130);
-            e.Graphics.DrawString(wavelength1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 130);
-            e.Graphics.DrawString("Ширина кюветы:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 150);
-            e.Graphics.DrawString(WidthCuvette, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 190, 150);
-            e.Graphics.DrawString("Нижняя нраница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 170);
-            e.Graphics.DrawString(BottomLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 170);
-            e.Graphics.DrawString("Верхняя нраница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 190);
-            e.Graphics.DrawString(TopLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 190);
-            e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 450, 110);
-            e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 500, 110);
-            e.Graphics.DrawString("Примечание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 210);
-            e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 210);
-            e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
-
-
-            // Paragraph DateTime2 = new Paragraph("Дата: " + DateTime, font);
-            //  Paragraph Ispolnitel2 = new Paragraph("Исполнитель: " + Ispolnitel, font);
-            //  Paragraph GradYrav = new Paragraph("Градуировочное уравнение: " + label14.Text, font);
-            if (NoCaIzm <= 3)
+            if (tabControl2.SelectedIndex == 0)
             {
-                Table1PrintViewer1(sender, e);
-            }
-            else
-            {
-                if (NoCaIzm > 3 && NoCaIzm <= 7)
+                bool doNotWrite = false;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
                 {
-                    Table1PrintViewer2(sender, e);
+
+                    for (int i = 3; i < Table1.Rows[j].Cells.Count; i++)
+                    {
+                        if (Table1.Rows[j].Cells[i].Value == null)
+                        {
+                            doNotWrite = true;
+                            break;
+
+                        }
+                    }
+                }
+                if (doNotWrite == true)
+                {
+                    MessageBox.Show("Не вся поля таблицы были заполнены!");
                 }
                 else
                 {
-                    Table1PrintViewer3(sender, e);
+                    printPreviewDialog1.Document = printDocument1;
+                    printPreviewDialog1.ShowDialog();
                 }
             }
+        }
+        int cordY = 0;
 
+        private void printDocument1_PrintPage_2(object sender, PrintPageEventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 0)
+            {
+                e.Graphics.DrawString("Расчет линейного градуировочного графика\n\n", new System.Drawing.Font("Times New Roman", 20, FontStyle.Bold), Brushes.Black, 100, 50);
+                e.Graphics.DrawString("Вещесво:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
+                e.Graphics.DrawString(Veshestvo1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 115, 110);
+                e.Graphics.DrawString("Длина волны:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 130);
+                e.Graphics.DrawString(wavelength1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 130);
+                e.Graphics.DrawString("Ширина кюветы:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 150);
+                e.Graphics.DrawString(WidthCuvette, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 190, 150);
+                e.Graphics.DrawString("Нижняя граница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 170);
+                e.Graphics.DrawString(BottomLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 170);
+                e.Graphics.DrawString("Верхняя граница обнаружения:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 190);
+                e.Graphics.DrawString(TopLine, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 315, 190);
+                e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 450, 110);
+                e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 500, 110);
+                e.Graphics.DrawString("Примечание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 210);
+                e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 210);
+                e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
+
+
+                
+                if (NoCaIzm <= 3)
+                {
+                    Table1PrintViewer1(sender, e);
+                }
+                else
+                {
+                    if (NoCaIzm > 3 && NoCaIzm <= 7)
+                    {
+                        Table1PrintViewer2(sender, e);
+                    }
+                    else
+                    {
+                        Table1PrintViewer3(sender, e);
+                    }
+                }
+
+           
+
+                e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY+30);
+                e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 285, cordY+30);
+                int height = chart1.Height;
+                Bitmap bmp = new Bitmap(chart1.Width, chart1.Height);
+                chart1.DrawToBitmap(bmp, new System.Drawing.Rectangle(0,0, chart1.Width, chart1.Height));
+                e.Graphics.DrawImage(bmp, 25, cordY+60);
+                cordY = cordY + chart1.Height + 60;
+                e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY);
+                e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 80, cordY);
+                e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
+                e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
+
+                //  Paragraph Ispolnitel2 = new Paragraph("Исполнитель: " + Ispolnitel, font);
+
+            }
 
 
         }
         ///Если меньше или равно 3
         public void Table1PrintViewer1(object sender, PrintPageEventArgs e)
         {
-            int height = 300;
+            int height = 270;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -5339,13 +5381,13 @@ namespace Analis200
             e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[0].Height * 2));
             e.Graphics.DrawString(Table1.Columns[0].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[0].Width + 5, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[0].Width + 5;
-            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[1].Width;
-            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[2].Width + 5;
             for (int i = 3; i <= Table1.Columns.Count - NoCaIzm; i++)
             {
@@ -5366,8 +5408,7 @@ namespace Analis200
             width = 25;
             int height1 = height;
             int width1_1 = width;
-            if (NoCaIzm <= 3)
-            {
+           
                 for (int j = 0; j < Table1.Rows.Count - 1; j++)
                 {
                     e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[0].Width + 5, Table1.Rows[j].Height));
@@ -5446,16 +5487,17 @@ namespace Analis200
                         }
                         width = width + Table1.Columns[i].Width + 10;
                     }
+                    cordY = height;
                     height += Table1.Rows[j].Height;
                     width = width1;
                 }
-            }
+            
 
         }
         ///Если больше 3 и меньше или равно 7
         public void Table1PrintViewer2(object sender, PrintPageEventArgs e)
         {
-            int height = 300;
+            int height = 270;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -5464,12 +5506,12 @@ namespace Analis200
             e.Graphics.DrawString(Table1.Columns[0].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[0].Width + 5, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[0].Width + 5;
             e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[1].Width;
-            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[2].Width + 5;
             int k = 3;
             for (int i = 0; i < NoCaIzm; i++)
@@ -5585,6 +5627,7 @@ namespace Analis200
                     width = width + Table1.Columns[k].Width + 10;
                     k++;
                 }
+                cordY = height;
                 height += Table1.Rows[j].Height;
                 width = width1;
                 k = NoCaIzm + 3;
@@ -5597,7 +5640,7 @@ namespace Analis200
         /*Если больше 7*/
         public void Table1PrintViewer3(object sender, PrintPageEventArgs e)
         {
-            int height = 300;
+            int height = 270;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -5607,11 +5650,11 @@ namespace Analis200
             width = width + Table1.Columns[0].Width + 5;
             e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
             e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[1].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[1].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[1].Width, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[1].Width;
-            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
-            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[2].Height * 2));
+            e.Graphics.FillRectangle(Brushes.White, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawRectangle(p, new System.Drawing.Rectangle(width, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
+            e.Graphics.DrawString(Table1.Columns[2].HeaderText, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new System.Drawing.Rectangle(width + 10, height, Table1.Columns[2].Width + 5, Table1.Rows[0].Height * 2));
             width = width + Table1.Columns[2].Width + 5;
             int k = 3;
             for (int i = 0; i < 7; i++)
@@ -5767,6 +5810,7 @@ namespace Analis200
                     width = width + Table1.Columns[k].Width + 10;
                     k++;
                 }
+                cordY = height;
                 height += Table1.Rows[j].Height;
                 width = width1;
                 k = 10 + NoCaIzm - 7;
@@ -5847,8 +5891,8 @@ namespace Analis200
                 Paragraph Veshestvo2 = new Paragraph("Вещество: " + Veshestvo1, font);
                 Paragraph wavelength2 = new Paragraph("Длина волны: " + wavelength1, font);
                 Paragraph WidthCuvette2 = new Paragraph("Ширина кюветы: " + WidthCuvette, font); ;
-                Paragraph BottomLine2 = new Paragraph("Нижняя нраница обнаружения: " + BottomLine, font);
-                Paragraph TopLine2 = new Paragraph("Верхняя нраница обнаружения: " + TopLine, font);
+                Paragraph BottomLine2 = new Paragraph("Нижняя граница обнаружения: " + BottomLine, font);
+                Paragraph TopLine2 = new Paragraph("Верхняя граница обнаружения: " + TopLine, font);
                 Paragraph ND2 = new Paragraph("НД: " + ND, font);
                 Paragraph Description2 = new Paragraph("Примечание: " + Description, font);
                 Paragraph DateTime2 = new Paragraph("Дата: " + DateTime, font);
