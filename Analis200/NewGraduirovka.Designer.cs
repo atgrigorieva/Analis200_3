@@ -175,8 +175,8 @@
             this.WL_grad.Name = "WL_grad";
             this.WL_grad.Size = new System.Drawing.Size(202, 20);
             this.WL_grad.TabIndex = 4;
-            this.WL_grad.Text = "400";
             this.WL_grad.TextChanged += new System.EventHandler(this.WL_grad_TextChanged);
+            this.WL_grad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Down_KeyPress);
             this.WL_grad.Leave += new System.EventHandler(this.WL_grad_Leave);
             // 
             // groupBox2

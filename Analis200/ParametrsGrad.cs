@@ -33,6 +33,7 @@ namespace Analis200
 
         private void ParametrsGrad_Load(object sender, EventArgs e)
         {
+            _Analis.countOpenGrad++;
             _Analis.SposobZadan = "По СО";
             var height = 22;
             var labelx = 6;
@@ -109,7 +110,7 @@ namespace Analis200
             k2Text.Text = string.Format("{0:0.0000}", 0);
 
             _Analis.Veshestvo1 = Veshestvo.Text;
-          //  _Analis.wavelength1 = WL_grad.Text;
+            //  _Analis.wavelength1 = WL_grad.Text;
             _Analis.WidthCuvette = Opt_dlin_cuvet.Text;
             _Analis.textBox3.Text = Opt_dlin_cuvet.Text;
             _Analis.textBox1.Text = Description.Text;
@@ -131,7 +132,7 @@ namespace Analis200
                 k1Text.Text = string.Format("{0:0.0000}", 0);
             }
             _Analis.textBox4.Text = k0Text.Text;
-            _Analis.textBox5.Text =  k1Text.Text;
+            _Analis.textBox5.Text = k1Text.Text;
             _Analis.textBox6.Text = k2Text.Text;
             //  _Analis.GWNew.Text
             if (_Analis.ComPodkl == true)
@@ -173,7 +174,7 @@ namespace Analis200
             k0Text.Text = string.Format("{0:0.0000}", 0);
             k1Text.Text = string.Format("{0:0.0000}", 0);
             k2Text.Text = string.Format("{0:0.0000}", 0);
-      
+
             _Analis.SposobZadan = "По СО";
         }
 
@@ -244,202 +245,210 @@ namespace Analis200
         {
             _Analis.aproksim = "Линейная через 0";
             _Analis.radioButton1.Checked = true;
-          /*  if (radioButton7.Checked == true)
-            {
-                if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
-                {
-                    k0Text.Enabled = false;
-                    k1Text.Enabled = true;
-                    k2Text.Enabled = false;
-                    k0Text.Text = string.Format("{0:0.0000}", 0);
-                    k2Text.Text = string.Format("{0:0.0000}", 0);
-                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                    double k0 = Convert.ToDouble(k0Text.Text);
-                    double k1 = Convert.ToDouble(k1Text.Text);
-                    double k2 = Convert.ToDouble(k2Text.Text);
-                    _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
-                }
-                else
-                {
-                    if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = false;
+            /*  if (radioButton7.Checked == true)
+              {
+                  if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
+                  {
+                      k0Text.Enabled = false;
+                      k1Text.Enabled = true;
+                      k2Text.Enabled = false;
+                      k0Text.Text = string.Format("{0:0.0000}", 0);
+                      k2Text.Text = string.Format("{0:0.0000}", 0);
+                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                      double k0 = Convert.ToDouble(k0Text.Text);
+                      double k1 = Convert.ToDouble(k1Text.Text);
+                      double k2 = Convert.ToDouble(k2Text.Text);
+                      _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
+                  }
+                  else
+                  {
+                      if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = false;
 
-                        k2Text.Text = string.Format("{0:0.0000}", 0);
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
-                    }
-                    else
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = true;
+                          k2Text.Text = string.Format("{0:0.0000}", 0);
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
+                      }
+                      else
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = true;
 
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
-                    }
-                }
-            }*/
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
+                      }
+                  }
+              }*/
 
         }
         public void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             _Analis.aproksim = "Линейная";
             _Analis.radioButton2.Checked = true;
-          /*  if (radioButton7.Checked == true)
-            {
-                if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
-                {
-                    k0Text.Enabled = false;
-                    k1Text.Enabled = true;
-                    k2Text.Enabled = false;
-                    k0Text.Text = string.Format("{0:0.0000}", 0);
-                    k2Text.Text = string.Format("{0:0.0000}", 0);
-                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                    double k0 = Convert.ToDouble(k0Text.Text);
-                    double k1 = Convert.ToDouble(k1Text.Text);
-                    double k2 = Convert.ToDouble(k2Text.Text);
-                    _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
-                }
-                else
-                {
-                    if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = false;
+            /*  if (radioButton7.Checked == true)
+              {
+                  if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
+                  {
+                      k0Text.Enabled = false;
+                      k1Text.Enabled = true;
+                      k2Text.Enabled = false;
+                      k0Text.Text = string.Format("{0:0.0000}", 0);
+                      k2Text.Text = string.Format("{0:0.0000}", 0);
+                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                      double k0 = Convert.ToDouble(k0Text.Text);
+                      double k1 = Convert.ToDouble(k1Text.Text);
+                      double k2 = Convert.ToDouble(k2Text.Text);
+                      _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
+                  }
+                  else
+                  {
+                      if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = false;
 
-                        k2Text.Text = string.Format("{0:0.0000}", 0);
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
-                    }
-                    else
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = true;
+                          k2Text.Text = string.Format("{0:0.0000}", 0);
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
+                      }
+                      else
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = true;
 
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
-                    }
-                }
-            }*/
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
+                      }
+                  }
+              }*/
         }
 
         public void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             _Analis.aproksim = "Квадратичная";
             _Analis.radioButton3.Checked = true;
-          /*  if (radioButton7.Checked == true)
-            {
-                if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
-                {
-                    k0Text.Enabled = false;
-                    k1Text.Enabled = true;
-                    k2Text.Enabled = false;
-                    k0Text.Text = string.Format("{0:0.0000}", 0);
-                    k2Text.Text = string.Format("{0:0.0000}", 0);
-                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                    double k0 = Convert.ToDouble(k0Text.Text);
-                    double k1 = Convert.ToDouble(k1Text.Text);
-                    double k2 = Convert.ToDouble(k2Text.Text);
-                    _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
-                }
-                else
-                {
-                    if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = false;
+            /*  if (radioButton7.Checked == true)
+              {
+                  if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
+                  {
+                      k0Text.Enabled = false;
+                      k1Text.Enabled = true;
+                      k2Text.Enabled = false;
+                      k0Text.Text = string.Format("{0:0.0000}", 0);
+                      k2Text.Text = string.Format("{0:0.0000}", 0);
+                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                      double k0 = Convert.ToDouble(k0Text.Text);
+                      double k1 = Convert.ToDouble(k1Text.Text);
+                      double k2 = Convert.ToDouble(k2Text.Text);
+                      _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
+                  }
+                  else
+                  {
+                      if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = false;
 
-                        k2Text.Text = string.Format("{0:0.0000}", 0);
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
-                    }
-                    else
-                    {
-                        k0Text.Enabled = true;
-                        k1Text.Enabled = true;
-                        k2Text.Enabled = true;
+                          k2Text.Text = string.Format("{0:0.0000}", 0);
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" 0.0000 ;- 0.0000 ");
+                      }
+                      else
+                      {
+                          k0Text.Enabled = true;
+                          k1Text.Enabled = true;
+                          k2Text.Enabled = true;
 
-                        _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                        _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                        _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                        double k0 = Convert.ToDouble(k0Text.Text);
-                        double k1 = Convert.ToDouble(k1Text.Text);
-                        double k2 = Convert.ToDouble(k2Text.Text);
-                        _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
-                    }
-                }
-            }*/
+                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                          double k0 = Convert.ToDouble(k0Text.Text);
+                          double k1 = Convert.ToDouble(k1Text.Text);
+                          double k2 = Convert.ToDouble(k2Text.Text);
+                          _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
+                      }
+                  }
+              }*/
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-           
-                bool Save = false;
 
-                double f = 0.0;
-                for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
+
+            bool Save = false;
+
+            double f = 0.0;
+            for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
+            {
+                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
                 {
-                    if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
-                    {
-                        MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
-                        Save = false;
-                        break;
-                    }
-                    else
-                    {
-                        Save = true;
-
-                    }
+                    MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
+                    Save = false;
+                    break;
                 }
-           
-                if (Save != false)
+                else
                 {
-                    DialogResult result = MessageBox.Show(
-            "Все текущие параметры и данные измерений будут потеряны. Продолжить?",
-            "Подтверждение",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Information,
-            MessageBoxDefaultButton.Button1,
-            MessageBoxOptions.DefaultDesktopOnly);
+                    Save = true;
+
+                }
+            }
+
+            if (Save != false)
+            {
+                bool saveOpen = false;
+                //if (_Analis.countOpenGrad > 1)
+                // {
+                DialogResult result = MessageBox.Show(
+                "Все текущие параметры и данные градуировки будут потеряны. Продолжить?",
+                "Подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
+                // if (result == DialogResult.Yes)
+                //{
+                //     saveOpen = true;
+                // }
+                // }
                 if (result == DialogResult.Yes)
                 {
                     WL();
@@ -734,7 +743,7 @@ namespace Analis200
                     Close();
                 }
             }
-         
+
 
 
         }
@@ -951,24 +960,13 @@ namespace Analis200
 
         private void WL_grad_Leave(object sender, EventArgs e)
         {
-            if (_Analis.versionPribor.Contains("V"))
+            if (_Analis.ComPort == true)
             {
-                if (Convert.ToInt32(WL_grad.Text) < 315)
+                if (_Analis.versionPribor.Contains("V"))
                 {
-                    WL_grad.Text = Convert.ToString(315);
-                }
-                if (Convert.ToInt32(WL_grad.Text) > 1050)
-                {
-                    WL_grad.Text = Convert.ToString(1050);
-                }
-            }
-            else
-            {
-                if (_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
-                {
-                    if (Convert.ToInt32(WL_grad.Text) < 190)
+                    if (Convert.ToInt32(WL_grad.Text) < 315)
                     {
-                        WL_grad.Text = Convert.ToString(190);
+                        WL_grad.Text = Convert.ToString(315);
                     }
                     if (Convert.ToInt32(WL_grad.Text) > 1050)
                     {
@@ -977,13 +975,27 @@ namespace Analis200
                 }
                 else
                 {
-                    if (Convert.ToInt32(WL_grad.Text) < 200)
+                    if (_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
                     {
-                        WL_grad.Text = Convert.ToString(200);
+                        if (Convert.ToInt32(WL_grad.Text) < 190)
+                        {
+                            WL_grad.Text = Convert.ToString(190);
+                        }
+                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        {
+                            WL_grad.Text = Convert.ToString(1050);
+                        }
                     }
-                    if (Convert.ToInt32(WL_grad.Text) > 1050)
+                    else
                     {
-                        WL_grad.Text = Convert.ToString(1050);
+                        if (Convert.ToInt32(WL_grad.Text) < 200)
+                        {
+                            WL_grad.Text = Convert.ToString(200);
+                        }
+                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        {
+                            WL_grad.Text = Convert.ToString(1050);
+                        }
                     }
                 }
             }

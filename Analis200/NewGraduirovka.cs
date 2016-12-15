@@ -21,10 +21,10 @@ namespace Analis200
             k0Text.Text = string.Format("{0:0.0000}", _Analis.textBox4.Text);
             _Analis.chart1.Series[0].Points.Clear();
             _Analis.chart1.Series[1].Points.Clear();
-           
-           // radioButton1.Checked = true;
-          //  radioButton4.Checked = true;
-          //  radioButton6.Checked = true;
+
+            // radioButton1.Checked = true;
+            //  radioButton4.Checked = true;
+            //  radioButton6.Checked = true;
             this.radioButton1.CheckedChanged += new EventHandler(radioButton1_CheckedChanged);
             this.radioButton2.CheckedChanged += new EventHandler(radioButton2_CheckedChanged);
             this.radioButton3.CheckedChanged += new EventHandler(radioButton3_CheckedChanged);
@@ -36,12 +36,12 @@ namespace Analis200
             {
                 WL_grad.Text = _Analis.DLWL;
             }
-           
+
         }
 
         private void NewGraduirovka_Load(object sender, EventArgs e)
         {
-    
+
             //_Analis.SposobZadan = "По СО";
             var height = 22;
             var labelx = 6;
@@ -57,8 +57,8 @@ namespace Analis200
             }
             var height1 = 19;
             var textBoxx = 52;
-            
-           
+
+
             for (int i = 0; i <= 9; i++)
             {
                 _Analis.textBoxCO[i] = new TextBox();
@@ -102,21 +102,21 @@ namespace Analis200
                 groupBox6.Controls.Add(_Analis.textBoxCO[i]);
                 _Analis.textBoxCO[i].KeyPress += new System.Windows.Forms.KeyPressEventHandler(txt_KeyPress);
             }
-            
+
             numericUpDown4.Value = 3;
             for (int i = Convert.ToInt32(numericUpDown4.Value) - 1; i >= 0; i--)
             {
                 this._Analis.textBoxCO[i].Enabled = true;
 
             }
-            
+
             Veshestvo.Text = _Analis.Veshestvo1;
             WL_grad.Text = _Analis.wavelength1;
             index1 = Ed.FindString(_Analis.edconctr);
 
             Ed.SelectedIndex = index1;
-            int index = Opt_dlin_cuvet.FindString(_Analis.WidthCuvette);          
-           
+            int index = Opt_dlin_cuvet.FindString(_Analis.WidthCuvette);
+
 
             Opt_dlin_cuvet.SelectedIndex = index;
             Down.Text = _Analis.BottomLine;
@@ -126,10 +126,10 @@ namespace Analis200
             dateTimePicker1.Text = _Analis.DateTime;
             numericUpDown1.Value = _Analis.Days;
             Ispolnitel.Text = _Analis.Ispolnitel;
-           numericUpDown3.Value = Convert.ToInt32(_Analis.CountSeriya);
-           numericUpDown4.Value = Convert.ToInt32(_Analis.CountInSeriya);
+            numericUpDown3.Value = Convert.ToInt32(_Analis.CountSeriya);
+            numericUpDown4.Value = Convert.ToInt32(_Analis.CountInSeriya);
             textBox4.Text = _Analis.textBox3.Text;
-     
+
             for (int j = 0; j < numericUpDown4.Value; j++)
             {
 
@@ -208,7 +208,7 @@ namespace Analis200
 
         }
 
-       
+
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
@@ -228,9 +228,9 @@ namespace Analis200
             groupBox6.Enabled = true;
             numericUpDown3.Enabled = true;
             numericUpDown4.Enabled = true;
-          //  k0Text.Text = string.Format("{0:0.0000}", 0);
-         //   k1Text.Text = string.Format("{0:0.0000}", 0);
-         //   k2Text.Text = string.Format("{0:0.0000}", 0);
+            //  k0Text.Text = string.Format("{0:0.0000}", 0);
+            //   k1Text.Text = string.Format("{0:0.0000}", 0);
+            //   k2Text.Text = string.Format("{0:0.0000}", 0);
             _Analis.SposobZadan = "По СО";
         }
 
@@ -250,8 +250,8 @@ namespace Analis200
                 k0Text.Enabled = false;
                 k1Text.Enabled = true;
                 k2Text.Enabled = false;
-             //   k0Text.Text = string.Format("{0:0.0000}", 0);
-            //    k2Text.Text = string.Format("{0:0.0000}", 0);
+                //   k0Text.Text = string.Format("{0:0.0000}", 0);
+                //    k2Text.Text = string.Format("{0:0.0000}", 0);
                 _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                 _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                 _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -264,7 +264,7 @@ namespace Analis200
                     k1Text.Enabled = true;
                     k2Text.Enabled = false;
 
-                  //  k2Text.Text = string.Format("{0:0.0000}", 0);
+                    //  k2Text.Text = string.Format("{0:0.0000}", 0);
                     _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                     _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                     _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -293,8 +293,8 @@ namespace Analis200
                     k0Text.Enabled = false;
                     k1Text.Enabled = true;
                     k2Text.Enabled = false;
-                 //   k0Text.Text = string.Format("{0:0.0000}", 0);
-                //    k2Text.Text = string.Format("{0:0.0000}", 0);
+                    //   k0Text.Text = string.Format("{0:0.0000}", 0);
+                    //    k2Text.Text = string.Format("{0:0.0000}", 0);
                     _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                     _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                     _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -307,7 +307,7 @@ namespace Analis200
                         k1Text.Enabled = true;
                         k2Text.Enabled = false;
 
-                //        k2Text.Text = string.Format("{0:0.0000}", 0);
+                        //        k2Text.Text = string.Format("{0:0.0000}", 0);
                         _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                         _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                         _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -337,8 +337,8 @@ namespace Analis200
                     k0Text.Enabled = false;
                     k1Text.Enabled = true;
                     k2Text.Enabled = false;
-                   // k0Text.Text = string.Format("{0:0.0000}", 0);
-                  //  k2Text.Text = string.Format("{0:0.0000}", 0);
+                    // k0Text.Text = string.Format("{0:0.0000}", 0);
+                    //  k2Text.Text = string.Format("{0:0.0000}", 0);
                     _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                     _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                     _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -368,7 +368,7 @@ namespace Analis200
                     }
                 }
             }
-  
+
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -382,8 +382,8 @@ namespace Analis200
                     k0Text.Enabled = false;
                     k1Text.Enabled = true;
                     k2Text.Enabled = false;
-                 //   k0Text.Text = string.Format("{0:0.0000}", 0);
-                  //  k2Text.Text = string.Format("{0:0.0000}", 0);
+                    //   k0Text.Text = string.Format("{0:0.0000}", 0);
+                    //  k2Text.Text = string.Format("{0:0.0000}", 0);
                     _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                     _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                     _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -396,7 +396,7 @@ namespace Analis200
                         k1Text.Enabled = true;
                         k2Text.Enabled = false;
 
-                     //   k2Text.Text = string.Format("{0:0.0000}", 0);
+                        //   k2Text.Text = string.Format("{0:0.0000}", 0);
                         _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                         _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
                         _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
@@ -446,29 +446,29 @@ namespace Analis200
         }
         private void button1_Click(object sender, EventArgs e)
         {
-           
-            
-                bool Save = false;
-                double f = 0.0;
-                for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
-                {
-                    if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
-                    {
-                        MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
-                        Save = false;
-                        break;
-                    }
-                    else
-                    {
-                        Save = true;
 
-                    }
-                }
-          
-                if (Save != false)
+
+            bool Save = false;
+            double f = 0.0;
+            for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
+            {
+                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
                 {
+                    MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
+                    Save = false;
+                    break;
+                }
+                else
+                {
+                    Save = true;
+
+                }
+            }
+
+            if (Save != false)
+            {
                 DialogResult result = MessageBox.Show(
-          "Все текущие параметры и данные измерений будут потеряны. Продолжить?",
+          "Все текущие параметры и данные градуировки будут потеряны. Продолжить?",
           "Подтверждение",
           MessageBoxButtons.YesNo,
           MessageBoxIcon.Information,
@@ -766,7 +766,7 @@ namespace Analis200
 
                 }
             }
-            
+
 
 
 
@@ -816,7 +816,7 @@ namespace Analis200
 
         private void numericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-           // _Analis.radioButton5.Checked = true;
+            // _Analis.radioButton5.Checked = true;
         }
 
         private void numericUpDown4_ValueChanged(object sender, EventArgs e)
@@ -828,27 +828,27 @@ namespace Analis200
                 radioButton3.Enabled = false;
             }
             if (numericUpDown4.Value == 2)
-                {
+            {
                 radioButton2.Enabled = true;
                 radioButton3.Enabled = false;
-                }
+            }
             if (numericUpDown4.Value >= 3)
             {
                 radioButton2.Enabled = true;
                 radioButton3.Enabled = true;
             }
 
-            
+
 
             if (this.oldValue > numericUpDown4.Value)
             {
-                                
-                        for (int i1 = 0; i1 <=19; i1++)
-                        {
-                        _Analis.textBoxCO[i1].Enabled = false;
-                        }
 
-                for (int i = _Analis.NoCoIzmer-1; i >= 0; i--)
+                for (int i1 = 0; i1 <= 19; i1++)
+                {
+                    _Analis.textBoxCO[i1].Enabled = false;
+                }
+
+                for (int i = _Analis.NoCoIzmer - 1; i >= 0; i--)
                 {
                     _Analis.textBoxCO[i].Enabled = true;
 
@@ -856,7 +856,7 @@ namespace Analis200
             }
             else
             {
-                for (int i = _Analis.NoCoIzmer-1; i >= 1; i--)
+                for (int i = _Analis.NoCoIzmer - 1; i >= 1; i--)
                 {
                     _Analis.textBoxCO[i].Enabled = true;
 
@@ -878,7 +878,7 @@ namespace Analis200
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
 
-          
+
             _Analis.Days = Convert.ToInt32(numericUpDown1.Value);
             _Analis.numericUpDown1.Value = numericUpDown1.Value;
         }
@@ -963,24 +963,13 @@ namespace Analis200
 
         private void WL_grad_Leave(object sender, EventArgs e)
         {
-            if (_Analis.versionPribor.Contains("V"))
+            if (_Analis.ComPort == true)
             {
-                if(Convert.ToInt32(WL_grad.Text) < 315)
+                if (_Analis.versionPribor.Contains("V"))
                 {
-                    WL_grad.Text = Convert.ToString(315);
-                }
-                if(Convert.ToInt32(WL_grad.Text) > 1050)
-                {
-                    WL_grad.Text = Convert.ToString(1050);
-                }
-            }
-            else
-            {
-                if(_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
-                {
-                    if (Convert.ToInt32(WL_grad.Text) < 190)
+                    if (Convert.ToInt32(WL_grad.Text) < 315)
                     {
-                        WL_grad.Text = Convert.ToString(190);
+                        WL_grad.Text = Convert.ToString(315);
                     }
                     if (Convert.ToInt32(WL_grad.Text) > 1050)
                     {
@@ -989,13 +978,27 @@ namespace Analis200
                 }
                 else
                 {
-                    if (Convert.ToInt32(WL_grad.Text) < 200)
+                    if (_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
                     {
-                        WL_grad.Text = Convert.ToString(200);
+                        if (Convert.ToInt32(WL_grad.Text) < 190)
+                        {
+                            WL_grad.Text = Convert.ToString(190);
+                        }
+                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        {
+                            WL_grad.Text = Convert.ToString(1050);
+                        }
                     }
-                    if (Convert.ToInt32(WL_grad.Text) > 1050)
+                    else
                     {
-                        WL_grad.Text = Convert.ToString(1050);
+                        if (Convert.ToInt32(WL_grad.Text) < 200)
+                        {
+                            WL_grad.Text = Convert.ToString(200);
+                        }
+                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        {
+                            WL_grad.Text = Convert.ToString(1050);
+                        }
                     }
                 }
             }

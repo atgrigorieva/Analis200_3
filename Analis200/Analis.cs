@@ -286,7 +286,7 @@ namespace Analis200
             // Process.Start();
         }
         public string Veshestvo1;
-        public string wavelength1;
+        public string wavelength1 = Convert.ToString(0);
         public string WidthCuvette;
         public string BottomLine;
         public string TopLine;
@@ -594,6 +594,7 @@ namespace Analis200
                 //SA();
                 Izmerenie1 = false;
                 ComPodkl = true;
+
                 SAGE(ref countSA, ref GE5_1_0);
                 this.подключитьToolStripMenuItem.Enabled = false;
                 this.настройкаПортаToolStripMenuItem.Enabled = true;
@@ -610,15 +611,16 @@ namespace Analis200
                 button14.Enabled = true;
                 ComPort = true;
                 button1.Enabled = true;
+               
 
-                wavelength1 = GWNew.Text;
             }
         }
 
         string SW1 = "";
         public void SW()
         {
-            newPort.Write("SW 550\r");
+            LogoForm2();
+            newPort.Write("SW" + wavelength1 + "\r");
 
 
             string indata = newPort.ReadExisting();
@@ -639,8 +641,8 @@ namespace Analis200
             }
 
 
-
-            GWNew.Text = "550";
+            SWF.Application.OpenForms["LogoFrm2"].Close();
+            GWNew.Text = wavelength1;
 
         }
         public void SW2()
@@ -748,6 +750,62 @@ namespace Analis200
             GW1_2 = GWarr[2];
             GWNew.Text = GW1_2;
             versionPribor = GWarr[1];
+            if (wavelength1 == Convert.ToString(0))
+            {
+                wavelength1 = GW1_2;
+            }
+            else
+            {
+                bool dlinavoln = true;
+               
+                    if (versionPribor.Contains("V"))
+                    {
+                        if (Convert.ToInt32(wavelength1) < 315)
+                        {
+                            MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                            dlinavoln = false;
+                        }
+                        if (Convert.ToInt32(wavelength1) > 1050)
+                        {
+                            MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                            dlinavoln = false;
+                        }
+                    }
+                    else
+                    {
+                        if (versionPribor.Contains("U") && versionPribor.Contains("2"))
+                        {
+                            if (Convert.ToInt32(wavelength1) < 190)
+                            {
+                                MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                                dlinavoln = false;
+                            }
+                            if (Convert.ToInt32(wavelength1) > 1050)
+                            {
+                                MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                                dlinavoln = false;
+                            }
+                        }
+                        else
+                        {
+                            if (Convert.ToInt32(wavelength1) < 200)
+                            {
+                                MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                                dlinavoln = false;
+                            }
+                            if (Convert.ToInt32(wavelength1) > 1050)
+                            {
+                                MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
+                                dlinavoln = false;
+                            }
+                        }
+                    }
+                
+                if (dlinavoln == true)
+                {
+                    SW();
+                }
+            }
         }
 
 
@@ -3613,6 +3671,7 @@ namespace Analis200
                 //SA();
                 Izmerenie1 = false;
                 ComPodkl = true;
+                
                 SAGE(ref countSA, ref GE5_1_0);
                 this.подключитьToolStripMenuItem.Enabled = false;
                 this.настройкаПортаToolStripMenuItem.Enabled = true;
@@ -3629,9 +3688,9 @@ namespace Analis200
                 button12.Enabled = true;
                 button14.Enabled = true;
                 ComPort = true;
-                wavelength1 = GWNew.Text;
+               
             }
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -4703,7 +4762,7 @@ namespace Analis200
                 }
             }
         }
-
+        public int countOpenGrad = 0;
         private void button5_Click(object sender, EventArgs e)
         {
             Izmerenie1 = true;
