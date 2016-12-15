@@ -497,6 +497,7 @@ namespace Analis200
             Table2.Columns.Add(firstColumn5);
             firstColumn4.Width = 100;
             firstColumn5.Width = 50;
+            
 
         }
         public void WLADDSTR2()
@@ -3385,7 +3386,7 @@ namespace Analis200
 
         private void Table2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (Table1.CurrentCell.ReadOnly == true)
+            if (Table2.CurrentCell.ReadOnly == true)
             {
                 MessageBox.Show("Запись запрещена!");
             }
@@ -5235,7 +5236,7 @@ namespace Analis200
 
         private void Table2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-           /* if (Table2.CurrentCell.ColumnIndex >= 3 && Table2.CurrentCell.ReadOnly != true)
+            if (Table2.CurrentCell.ColumnIndex >= 2 && Table2.CurrentCell.ReadOnly != true)
 
             {
                 TextBox Table2 = (TextBox)e.Control;
@@ -5249,16 +5250,16 @@ namespace Analis200
             if (Table2.CurrentCell.ReadOnly == true)
             {
                 MessageBox.Show("Редактирование ячейки запрещено!");
-            }*/
+            }
         }
         private void tb_KeyPress1(object sender, KeyPressEventArgs e)
         {
-            /*char number = e.KeyChar;
+            char number = e.KeyChar;
             if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
-            }*/
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
