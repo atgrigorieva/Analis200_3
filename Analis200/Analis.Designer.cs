@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,8 +110,6 @@
             this.F2Text = new System.Windows.Forms.Label();
             this.F1Text = new System.Windows.Forms.Label();
             this.Table2 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Obrazec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Opt_dlin_cuvet = new System.Windows.Forms.ComboBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -120,8 +118,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.printDialog2 = new System.Windows.Forms.PrintDialog();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.printTable1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewTable1 = new System.Windows.Forms.PrintPreviewDialog();
             this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -144,6 +142,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.OptichPlot = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.printTable2 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Obrazec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -638,43 +640,43 @@
             // 
             // chart1
             // 
-            chartArea2.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX.MinorGrid.Enabled = true;
-            chartArea2.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX.MinorTickMark.Enabled = true;
-            chartArea2.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX.Title = "Оптическая плотность, А";
-            chartArea2.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisY.Title = "Концетрация";
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea5.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX.MinorGrid.Enabled = true;
+            chartArea5.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX.MinorTickMark.Enabled = true;
+            chartArea5.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX.Title = "Оптическая плотность, А";
+            chartArea5.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea5.AxisY.Title = "Концетрация";
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.chart1.Location = new System.Drawing.Point(9, 72);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.IsVisibleInLegend = false;
-            series3.Name = "Series1";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.IsVisibleInLegend = false;
-            series4.Name = "Series2";
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series9.IsVisibleInLegend = false;
+            series9.Name = "Series1";
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.IsVisibleInLegend = false;
+            series10.Name = "Series2";
+            this.chart1.Series.Add(series9);
+            this.chart1.Series.Add(series10);
             this.chart1.Size = new System.Drawing.Size(566, 321);
             this.chart1.TabIndex = 14;
             this.chart1.Text = "chart1";
             // 
             // Table1
             // 
-            this.Table1.AllowUserToOrderColumns = true;
+            this.Table1.AllowUserToResizeColumns = false;
             this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -917,16 +919,6 @@
             this.Table2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table2_CellEndEdit);
             this.Table2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table2_EditingControlShowing);
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "№ Изм";
-            this.Column1.Name = "Column1";
-            // 
-            // Obrazec
-            // 
-            this.Obrazec.HeaderText = "Образец";
-            this.Obrazec.Name = "Obrazec";
-            // 
             // Opt_dlin_cuvet
             // 
             this.Opt_dlin_cuvet.FormattingEnabled = true;
@@ -1001,20 +993,20 @@
             // 
             this.printDialog2.UseEXDialog = true;
             // 
-            // printDocument1
+            // printTable1
             // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage_2);
+            this.printTable1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage_2);
             // 
-            // printPreviewDialog1
+            // printPreviewTable1
             // 
-            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-            this.printPreviewDialog1.Enabled = true;
-            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Name = "printPreviewDialog1";
-            this.printPreviewDialog1.Visible = false;
-            this.printPreviewDialog1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
+            this.printPreviewTable1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewTable1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewTable1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewTable1.Enabled = true;
+            this.printPreviewTable1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewTable1.Icon")));
+            this.printPreviewTable1.Name = "printPreviewDialog1";
+            this.printPreviewTable1.Visible = false;
+            this.printPreviewTable1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
             // 
             // button14
             // 
@@ -1241,6 +1233,31 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
+            // printTable2
+            // 
+            this.printTable2.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printTable2_PrintPage);
+            // 
+            // printPreviewTable2
+            // 
+            this.printPreviewTable2.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewTable2.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewTable2.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewTable2.Enabled = true;
+            this.printPreviewTable2.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewTable2.Icon")));
+            this.printPreviewTable2.Name = "printPreviewTable2";
+            this.printPreviewTable2.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "№ Изм";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 45;
+            // 
+            // Obrazec
+            // 
+            this.Obrazec.HeaderText = "Образец";
+            this.Obrazec.Name = "Obrazec";
+            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1369,8 +1386,6 @@
         public System.Windows.Forms.Label F2Text;
         public System.Windows.Forms.Label F1Text;
         public System.Windows.Forms.DataGridView Table2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Obrazec;
         public System.Windows.Forms.ComboBox Opt_dlin_cuvet;
         public System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label19;
@@ -1396,8 +1411,8 @@
         public System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.ToolStripMenuItem печать1ToolStripMenuItem;
         private System.Windows.Forms.PrintDialog printDialog2;
-        private System.Drawing.Printing.PrintDocument printDocument1;
-        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Drawing.Printing.PrintDocument printTable1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewTable1;
         private System.Windows.Forms.ToolStripMenuItem эксопртВPDFToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;
         public System.Windows.Forms.Button button10;
@@ -1415,6 +1430,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
+        private System.Drawing.Printing.PrintDocument printTable2;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewTable2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Obrazec;
     }
 }
 
