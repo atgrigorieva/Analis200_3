@@ -527,6 +527,8 @@ namespace Analis200
                     i--;
                 }
             }
+            //Table2.Rows.Add();
+            Table2.CurrentCell = this.Table2[2, 0];
         }
         public void WLREMOVESTR2()
         {
@@ -3962,17 +3964,21 @@ namespace Analis200
                 GE5Izmer = regex.Replace(indata_0, "");
                 GEText.Text = GE5Izmer;
                 // MessageBox.Show(GE5Izmer);
+                int curentIndex = Table2.CurrentCell.ColumnIndex;
                 double Aser = Convert.ToDouble(GE5Izmer) / Convert.ToDouble(GE5_1_0) * 100;
                 double OptPlot1 = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5Izmer));
                 double OptPlot1_1 = OptPlot1 - Math.Truncate(OptPlot1);
                 if (Table2.CurrentCell.ReadOnly != true)
                 {
                     Table2.CurrentCell.Value = string.Format("{0:0.0000}", OptPlot1_1);
+                    
+
                 }
                 else
                 {
                     MessageBox.Show("Запись запрещена!");
                 }
+                
                 GAText.Text = string.Format("{0:0.00}", Aser);
                 double SredValue = 0;
                 for (int i = 2; i < Table2.Rows[Table2.CurrentCell.RowIndex].Cells.Count - 1; i++)
@@ -4050,8 +4056,20 @@ namespace Analis200
                                 Table2.Rows[Table2.CurrentCell.RowIndex].Cells["d%"].Value = string.Format("{0:0.00}", b);
 
                             }
-
+                            
+                            
                         }
+                    }
+                }
+                if (curentIndex != Table2.ColumnCount - 2 || Table2.CurrentCell.RowIndex != Table2.Rows.Count - 2)
+                {
+                    if (Table2.CurrentCell.RowIndex != Table2.Rows.Count - 2)
+                    {
+                        Table2.CurrentCell = this.Table2[curentIndex, Table2.CurrentCell.RowIndex + 1];
+                    }
+                    else
+                    {
+                        Table2.CurrentCell = this.Table2[curentIndex + 2, 0];
                     }
                 }
 
@@ -4115,7 +4133,7 @@ namespace Analis200
                             Table2.Rows[Table2.CurrentCell.RowIndex].Cells["d%"].Value = string.Format("{0:0.00}", b);
 
                         }
-
+                       
                     }
                 }
             }
