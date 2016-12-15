@@ -260,7 +260,7 @@ namespace Analis200
 
                 GE5_1_0 = regex.Replace(indata_0, "");
                 GEText.Text = GE5_1_0;
-
+           //     GE5_1_0 = double.Parse(",", ".")
                 GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
 
                 GAText.Text = string.Format("{0:0.00}", GAText1);
@@ -619,8 +619,10 @@ namespace Analis200
         string SW1 = "";
         public void SW()
         {
+            double wevelenght1_double = Convert.ToDouble(wavelength1);
+            
             LogoForm2();
-            newPort.Write("SW" + Convert.ToDouble(string.Format("{0:0.00}", wavelength1)) + "\r");
+            newPort.Write("SW " + wevelenght1_double.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "\r");
 
 
             string indata = newPort.ReadExisting();
@@ -642,7 +644,7 @@ namespace Analis200
 
 
             SWF.Application.OpenForms["LogoFrm2"].Close();
-            GWNew.Text = wavelength1;
+            GWNew.Text = string.Format("{0:0.00}", wavelength1);
 
         }
         public void SW2()

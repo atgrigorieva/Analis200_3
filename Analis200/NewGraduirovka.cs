@@ -775,7 +775,8 @@ namespace Analis200
         {
             LogoForm();
             string SWText1 = WL_grad.Text;
-            _Analis.newPort.Write("SW " + WL_grad.Text + "\r");
+            double Wl_grad_double = Convert.ToDouble(WL_grad.Text);
+            _Analis.newPort.Write("SW " + Wl_grad_double.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "\r");
             string indata = _Analis.newPort.ReadExisting();
 
             bool indata_bool = true;
