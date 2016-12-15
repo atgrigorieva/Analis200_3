@@ -3174,7 +3174,7 @@ namespace Analis200
                                     {
                                         Table2.Rows.Add();
                                     }
-
+                                    Table2.Rows.Add();
 
                                 }
 
@@ -5895,7 +5895,7 @@ namespace Analis200
 
         private void printTable2_PrintPage(object sender, PrintPageEventArgs e)
         {
-            cordY = 0;
+            cordY = 480;
             e.Graphics.DrawString("Протокол выполнения измерений\n\n", new System.Drawing.Font("Times New Roman", 20, FontStyle.Bold), Brushes.Black, 100, 50);
             e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
             e.Graphics.DrawString(filepath2, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 130, 110);
@@ -5922,10 +5922,10 @@ namespace Analis200
             e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 170, 290);
             e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 320);
             e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 120, 320);
-            e.Graphics.DrawString("Действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 250, 320);
-            e.Graphics.DrawString(dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 430, 320);
-            e.Graphics.DrawString("Погрешность методики:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 530, 320);
-            e.Graphics.DrawString(textBox3.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 760, 320);
+            e.Graphics.DrawString("Действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 230, 320);
+            e.Graphics.DrawString(dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 405, 320);
+            e.Graphics.DrawString("Погрешность методики:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 505, 320);
+            e.Graphics.DrawString(textBox3.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 730, 320);
             e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 350);
             e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 330, 350);
             e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 380);
