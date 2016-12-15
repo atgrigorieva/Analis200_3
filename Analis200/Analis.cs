@@ -620,7 +620,7 @@ namespace Analis200
         public void SW()
         {
             LogoForm2();
-            newPort.Write("SW" + wavelength1 + "\r");
+            newPort.Write("SW" + Convert.ToDouble(string.Format("{0:0.00}", wavelength1)) + "\r");
 
 
             string indata = newPort.ReadExisting();
@@ -760,12 +760,12 @@ namespace Analis200
                
                     if (versionPribor.Contains("V"))
                     {
-                        if (Convert.ToInt32(wavelength1) < 315)
+                        if (Convert.ToDouble(wavelength1) < 315)
                         {
                             MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                             dlinavoln = false;
                         }
-                        if (Convert.ToInt32(wavelength1) > 1050)
+                        if (Convert.ToDouble(wavelength1) > 1050)
                         {
                             MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                             dlinavoln = false;
@@ -775,12 +775,12 @@ namespace Analis200
                     {
                         if (versionPribor.Contains("U") && versionPribor.Contains("2"))
                         {
-                            if (Convert.ToInt32(wavelength1) < 190)
+                            if (Convert.ToDouble(wavelength1) < 190)
                             {
                                 MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                                 dlinavoln = false;
                             }
-                            if (Convert.ToInt32(wavelength1) > 1050)
+                            if (Convert.ToDouble(wavelength1) > 1050)
                             {
                                 MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                                 dlinavoln = false;
@@ -788,12 +788,12 @@ namespace Analis200
                         }
                         else
                         {
-                            if (Convert.ToInt32(wavelength1) < 200)
+                            if (Convert.ToDouble(wavelength1) < 200)
                             {
                                 MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                                 dlinavoln = false;
                             }
-                            if (Convert.ToInt32(wavelength1) > 1050)
+                            if (Convert.ToDouble(wavelength1) > 1050)
                             {
                                 MessageBox.Show("Установленая длина волны выходит за пределы диапазона спектрофотометра, измените настройки градуировки!");
                                 dlinavoln = false;
@@ -4784,7 +4784,7 @@ namespace Analis200
                 _ParametrsGrad.button1.Click += (ParametrsGrad, eSlave) =>
                 {
                     Veshestvo1 = _ParametrsGrad.Veshestvo.Text;
-                    wavelength1 = _ParametrsGrad.WL_grad.Text;
+                    wavelength1 = string.Format("{0:0.00}", _ParametrsGrad.WL_grad.Text);
                     WidthCuvette = _ParametrsGrad.Opt_dlin_cuvet.Text;
                     BottomLine = _ParametrsGrad.Down.Text;
                     TopLine = _ParametrsGrad.Up.Text;

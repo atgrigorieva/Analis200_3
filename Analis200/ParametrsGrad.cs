@@ -964,11 +964,11 @@ namespace Analis200
             {
                 if (_Analis.versionPribor.Contains("V"))
                 {
-                    if (Convert.ToInt32(WL_grad.Text) < 315)
+                    if (Convert.ToDouble(WL_grad.Text) < 315)
                     {
                         WL_grad.Text = Convert.ToString(315);
                     }
-                    if (Convert.ToInt32(WL_grad.Text) > 1050)
+                    if (Convert.ToDouble(WL_grad.Text) > 1050)
                     {
                         WL_grad.Text = Convert.ToString(1050);
                     }
@@ -977,22 +977,22 @@ namespace Analis200
                 {
                     if (_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
                     {
-                        if (Convert.ToInt32(WL_grad.Text) < 190)
+                        if (Convert.ToDouble(WL_grad.Text) < 190)
                         {
                             WL_grad.Text = Convert.ToString(190);
                         }
-                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        if (Convert.ToDouble(WL_grad.Text) > 1050)
                         {
                             WL_grad.Text = Convert.ToString(1050);
                         }
                     }
                     else
                     {
-                        if (Convert.ToInt32(WL_grad.Text) < 200)
+                        if (Convert.ToDouble(WL_grad.Text) < 200)
                         {
                             WL_grad.Text = Convert.ToString(200);
                         }
-                        if (Convert.ToInt32(WL_grad.Text) > 1050)
+                        if (Convert.ToDouble(WL_grad.Text) > 1050)
                         {
                             WL_grad.Text = Convert.ToString(1050);
                         }
