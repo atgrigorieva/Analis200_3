@@ -3484,7 +3484,7 @@ namespace Analis200
                 for (int j = 0; j < Table2.Rows.Count - 1; j++)
                 {
                     double SredValue = 0;
-                    for (int i1 = 1; i1 <= NoCaIzm1; i1++)
+                    for (int i1 = 2; i1 <= NoCaIzm1; i1++)
                     {
                         if (Table2.Rows[j].Cells["A;Ser" + i1].Value == null)
                         {
@@ -5395,7 +5395,7 @@ namespace Analis200
                 }
                 else
                 {
-                    if (NoCaIzm > 3 && NoCaIzm <= 7)
+                    if (NoCaIzm > 3 && NoCaIzm <= 5)
                     {
                         Table1PrintViewer2(sender, e);
                     }
@@ -5876,6 +5876,7 @@ namespace Analis200
 
         private void printTable2_PrintPage(object sender, PrintPageEventArgs e)
         {
+            cordY = 0;
             e.Graphics.DrawString("Протокол выполнения измерений\n\n", new System.Drawing.Font("Times New Roman", 20, FontStyle.Bold), Brushes.Black, 100, 50);
             e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
             e.Graphics.DrawString(filepath2, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 130, 110);
@@ -5926,38 +5927,25 @@ namespace Analis200
                     Table2PrintViewer3(sender, e);
                 }
             }
-                /* 
+            e.Graphics.DrawString("Измерения выполнил(а):", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 60);
+            e.Graphics.DrawString(" ____________________________________________________", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 250, cordY + 60);
+            /* 
 
 
-                 Paragraph DateIzmer2 = new Paragraph("Данные измерений: ", font);
 
 
-                 Paragraph Spectrofotometr2 = new Paragraph("Спектфотометр: ", font);
-                 Paragraph Model2 = new Paragraph("Модель: __________________________", font);
-                 Paragraph Date3 = new Paragraph("Поверка действительна до: __________________________", font);
-                 Paragraph SerNom2 = new Paragraph("Серийный номер: __________________________", font);
-                 Paragraph InventarNo2 = new Paragraph("Инветарный номер: __________________________", font);
-
-                 Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________________________", font);
-                 Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
+             Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________________________", font);
+             Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
 
 
-                
 
 
-                 e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
-                 e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 285, cordY + 30);
-                 int height = chart1.Height;
-                 Bitmap bmp = new Bitmap(chart1.Width, chart1.Height);
-                 chart1.DrawToBitmap(bmp, new System.Drawing.Rectangle(0, 0, chart1.Width, chart1.Height));
-                 e.Graphics.DrawImage(bmp, 25, cordY + 60);
-                 cordY = cordY + chart1.Height + 60;
-                 e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY);
-                 e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 80, cordY);
-                 e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
-                 e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
-                 */
-            }
+
+
+             e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
+             e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
+             */
+        }
                     ///Если меньше или равно 3
         public void Table2PrintViewer1(object sender, PrintPageEventArgs e)
         {
