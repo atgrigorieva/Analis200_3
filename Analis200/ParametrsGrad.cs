@@ -411,74 +411,53 @@ namespace Analis200
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool Save = false;
             
-            double f = 0.0;
-            for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
-            {
-                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
-                {
-                    MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
-                    Save = false;
-                    break;
-                }
-                else
-                {
-                    Save = true;
+           
+                bool Save = false;
 
-                }
-            }
-            if (Save != false)
-            {
-                WL();
-                _Analis.textBox1.Text = Description.Text;
-                _Analis.textBox2.Text = Opt_dlin_cuvet.Text;
-                _Analis.textBox3.Text = textBox4.Text;
-                _Analis.tabPage4.Parent = null;
-                if (radioButton4.Checked == true)
+                double f = 0.0;
+                for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
                 {
-                    if (radioButton7.Checked == true)
+                    if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
                     {
-                        _Analis.groupBox2.Visible = false;
-                        if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
-                        {
-                            k0Text.Enabled = false;
-                            k1Text.Enabled = true;
-                            k2Text.Enabled = false;
-                            k0Text.Text = string.Format("{0:0.0000}", 0);
-                            k2Text.Text = string.Format("{0:0.0000}", 0);
-                            _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                            _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                            _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                            double k0 = Convert.ToDouble(k0Text.Text);
-                            double k1 = Convert.ToDouble(k1Text.Text);
-                            double k2 = Convert.ToDouble(k2Text.Text);
-                            _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
+                        MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
+                        Save = false;
+                        break;
+                    }
+                    else
+                    {
+                        Save = true;
 
-                            for (double i = 0; i <= 3; i++)
-                            {
-                                double x2 = i;
-                                double y2 = i * k1;
-                                _Analis.chart1.Series[1].Points.AddXY(x2, y2);
-                                //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
-                                _Analis.chart1.Series[0].Enabled = false;
-                                _Analis.chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + Ed.Text;
-                                _Analis.chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
-                                _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
-                                //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                                _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
-                            }
-                            // _Analis.chart1
-                        }
-                        else
+                    }
+                }
+           
+                if (Save != false)
+                {
+                    DialogResult result = MessageBox.Show(
+            "Все текущие параметры и данные измерений будут потеряны. Продолжить?",
+            "Подтверждение",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Information,
+            MessageBoxDefaultButton.Button1,
+            MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                {
+                    WL();
+                    _Analis.textBox1.Text = Description.Text;
+                    _Analis.textBox2.Text = Opt_dlin_cuvet.Text;
+                    _Analis.textBox3.Text = textBox4.Text;
+                    _Analis.tabPage4.Parent = null;
+                    if (radioButton4.Checked == true)
+                    {
+                        if (radioButton7.Checked == true)
                         {
-                            if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
+                            _Analis.groupBox2.Visible = false;
+                            if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
-
-                                k0Text.Enabled = true;
+                                k0Text.Enabled = false;
                                 k1Text.Enabled = true;
                                 k2Text.Enabled = false;
-
+                                k0Text.Text = string.Format("{0:0.0000}", 0);
                                 k2Text.Text = string.Format("{0:0.0000}", 0);
                                 _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                                 _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
@@ -486,135 +465,137 @@ namespace Analis200
                                 double k0 = Convert.ToDouble(k0Text.Text);
                                 double k1 = Convert.ToDouble(k1Text.Text);
                                 double k2 = Convert.ToDouble(k2Text.Text);
-                                _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" + 0.0000 ;- 0.0000 ");
+                                _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
+
                                 for (double i = 0; i <= 3; i++)
                                 {
                                     double x2 = i;
-                                    double y2 = i * k1 + k0;
+                                    double y2 = i * k1;
                                     _Analis.chart1.Series[1].Points.AddXY(x2, y2);
-                                    _Analis.chart1.Series[0].Enabled = false;
                                     //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                    _Analis.chart1.Series[0].Enabled = false;
                                     _Analis.chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + Ed.Text;
                                     _Analis.chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
                                     _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
                                     //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
                                     _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
                                 }
+                                // _Analis.chart1
                             }
                             else
                             {
-                                k0Text.Enabled = true;
-                                k1Text.Enabled = true;
-                                k2Text.Enabled = true;
-
-                                _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                                _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                                _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                                double k0 = Convert.ToDouble(k0Text.Text);
-                                double k1 = Convert.ToDouble(k1Text.Text);
-                                double k2 = Convert.ToDouble(k2Text.Text);
-                                _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString(" + 0.0000 ;- 0.0000 ") + "*C" + k2.ToString(" + 0.0000 ;- 0.0000 ") + "*C^2";
-                                for (double i = 0; i <= 3; i++)
+                                if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
                                 {
-                                    double x2 = i;
-                                    double y2 = i * k1 + k0 + i * k2 * k2;
-                                    _Analis.chart1.Series[0].Enabled = false;
-                                    _Analis.chart1.Series[1].Points.AddXY(x2, y2);
-                                    //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
-                                    _Analis.chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + Ed.Text;
-                                    _Analis.chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
-                                    _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
-                                    //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                                    _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+
+                                    k0Text.Enabled = true;
+                                    k1Text.Enabled = true;
+                                    k2Text.Enabled = false;
+
+                                    k2Text.Text = string.Format("{0:0.0000}", 0);
+                                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                                    double k0 = Convert.ToDouble(k0Text.Text);
+                                    double k1 = Convert.ToDouble(k1Text.Text);
+                                    double k2 = Convert.ToDouble(k2Text.Text);
+                                    _Analis.label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k0.ToString(" + 0.0000 ;- 0.0000 ");
+                                    for (double i = 0; i <= 3; i++)
+                                    {
+                                        double x2 = i;
+                                        double y2 = i * k1 + k0;
+                                        _Analis.chart1.Series[1].Points.AddXY(x2, y2);
+                                        _Analis.chart1.Series[0].Enabled = false;
+                                        //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                        _Analis.chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + Ed.Text;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
+                                        _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
+                                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    k0Text.Enabled = true;
+                                    k1Text.Enabled = true;
+                                    k2Text.Enabled = true;
+
+                                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                                    double k0 = Convert.ToDouble(k0Text.Text);
+                                    double k1 = Convert.ToDouble(k1Text.Text);
+                                    double k2 = Convert.ToDouble(k2Text.Text);
+                                    _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString(" + 0.0000 ;- 0.0000 ") + "*C" + k2.ToString(" + 0.0000 ;- 0.0000 ") + "*C^2";
+                                    for (double i = 0; i <= 3; i++)
+                                    {
+                                        double x2 = i;
+                                        double y2 = i * k1 + k0 + i * k2 * k2;
+                                        _Analis.chart1.Series[0].Enabled = false;
+                                        _Analis.chart1.Series[1].Points.AddXY(x2, y2);
+                                        //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                        _Analis.chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + Ed.Text;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
+                                        _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
+                                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+                                    }
                                 }
                             }
-                        }
-                        if (radioButton6.Checked == true)
-                        {
-                            _Analis.SposobZadan = "По СО";
+                            if (radioButton6.Checked == true)
+                            {
+                                _Analis.SposobZadan = "По СО";
+                            }
+                            else
+                            {
+                                _Analis.SposobZadan = "Ввод коэффициентов";
+                            }
                         }
                         else
                         {
-                            _Analis.SposobZadan = "Ввод коэффициентов";
+                            if (radioButton4.Checked == true)
+                            {
+                                _Analis.radioButton4.Checked = true;
+                            }
+                            else
+                            {
+                                _Analis.radioButton5.Checked = true;
+                            }
+                            if (radioButton4.Checked == true)
+                            {
+                                _Analis.Zavisimoct = "A(C)";
+                            }
+                            else
+                            {
+                                _Analis.Zavisimoct = "C(A)";
+                            }
+                            if (radioButton1.Checked == true)
+                            {
+                                _Analis.aproksim = "Линейная через 0";
+                            }
+                            else
+                            {
+                                if (radioButton2.Checked == true)
+                                {
+                                    _Analis.aproksim = "Линейная";
+                                }
+                                else
+                                {
+                                    _Analis.aproksim = "Квадратичная";
+                                }
+                            }
                         }
                     }
                     else
                     {
-                        if (radioButton4.Checked == true)
+                        if (radioButton7.Checked == true)
                         {
-                            _Analis.radioButton4.Checked = true;
-                        }
-                        else
-                        {
-                            _Analis.radioButton5.Checked = true;
-                        }
-                        if (radioButton4.Checked == true)
-                        {
-                            _Analis.Zavisimoct = "A(C)";
-                        }
-                        else
-                        {
-                            _Analis.Zavisimoct = "C(A)";
-                        }
-                        if (radioButton1.Checked == true)
-                        {
-                            _Analis.aproksim = "Линейная через 0";
-                        }
-                        else
-                        {
-                            if (radioButton2.Checked == true)
+                            _Analis.groupBox2.Visible = false;
+                            if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
-                                _Analis.aproksim = "Линейная";
-                            }
-                            else
-                            {
-                                _Analis.aproksim = "Квадратичная";
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (radioButton7.Checked == true)
-                    {
-                        _Analis.groupBox2.Visible = false;
-                        if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
-                        {
-                            k0Text.Enabled = false;
-                            k1Text.Enabled = true;
-                            k2Text.Enabled = false;
-                            k0Text.Text = string.Format("{0:0.0000}", 0);
-                            k2Text.Text = string.Format("{0:0.0000}", 0);
-                            _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                            _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                            _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                            double k0 = Convert.ToDouble(k0Text.Text);
-                            double k1 = Convert.ToDouble(k1Text.Text);
-                            double k2 = Convert.ToDouble(k2Text.Text);
-                            _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
-                            for (double i = 0; i <= 3; i++)
-                            {
-                                double x2 = i;
-                                double y2 = i * k1;
-                                _Analis.chart1.Series[1].Points.AddXY(y2, x2);
-                                //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
-                                _Analis.chart1.Series[0].Enabled = false;
-                                _Analis.chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + Ed.Text;
-                                _Analis.chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
-                                _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
-                                //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                                _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
-                            }
-                        }
-                        else
-                        {
-                            if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
-                            {
-
-                                k0Text.Enabled = true;
+                                k0Text.Enabled = false;
                                 k1Text.Enabled = true;
                                 k2Text.Enabled = false;
-
+                                k0Text.Text = string.Format("{0:0.0000}", 0);
                                 k2Text.Text = string.Format("{0:0.0000}", 0);
                                 _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
                                 _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
@@ -622,14 +603,14 @@ namespace Analis200
                                 double k0 = Convert.ToDouble(k0Text.Text);
                                 double k1 = Convert.ToDouble(k1Text.Text);
                                 double k2 = Convert.ToDouble(k2Text.Text);
-                                _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A" + k0.ToString(" + 0.0000 ;- 0.0000 ");
+                                _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
                                 for (double i = 0; i <= 3; i++)
                                 {
                                     double x2 = i;
-                                    double y2 = i * k1 + k0;
+                                    double y2 = i * k1;
                                     _Analis.chart1.Series[1].Points.AddXY(y2, x2);
-                                    _Analis.chart1.Series[0].Enabled = false;
                                     //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                    _Analis.chart1.Series[0].Enabled = false;
                                     _Analis.chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + Ed.Text;
                                     _Analis.chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
                                     _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
@@ -639,86 +620,123 @@ namespace Analis200
                             }
                             else
                             {
-                                k0Text.Enabled = true;
-                                k1Text.Enabled = true;
-                                k2Text.Enabled = true;
-
-                                _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                                _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                                _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
-                                double k0 = Convert.ToDouble(k0Text.Text);
-                                double k1 = Convert.ToDouble(k1Text.Text);
-                                double k2 = Convert.ToDouble(k2Text.Text);
-                                _Analis.label14.Text = "C(A) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString(" + 0.0000 ;- 0.0000 ") + "*A" + k2.ToString(" + 0.0000 ;- 0.0000 ") + "*A^2";
-                                for (double i = 0; i <= 3; i++)
+                                if (radioButton2.Checked == true && radioButton1.Checked == false && radioButton3.Checked == false)
                                 {
-                                    double x2 = i;
-                                    double y2 = i * k1 + k0 + i * k2 * k2;
-                                    _Analis.chart1.Series[0].Enabled = false;
-                                    _Analis.chart1.Series[1].Points.AddXY(y2, x2);
-                                    //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
-                                    _Analis.chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + Ed.Text;
-                                    _Analis.chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
-                                    _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
-                                    //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                                    _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+
+                                    k0Text.Enabled = true;
+                                    k1Text.Enabled = true;
+                                    k2Text.Enabled = false;
+
+                                    k2Text.Text = string.Format("{0:0.0000}", 0);
+                                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                                    double k0 = Convert.ToDouble(k0Text.Text);
+                                    double k1 = Convert.ToDouble(k1Text.Text);
+                                    double k2 = Convert.ToDouble(k2Text.Text);
+                                    _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A" + k0.ToString(" + 0.0000 ;- 0.0000 ");
+                                    for (double i = 0; i <= 3; i++)
+                                    {
+                                        double x2 = i;
+                                        double y2 = i * k1 + k0;
+                                        _Analis.chart1.Series[1].Points.AddXY(y2, x2);
+                                        _Analis.chart1.Series[0].Enabled = false;
+                                        //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + Ed.Text;
+                                        _Analis.chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                                        _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
+                                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    k0Text.Enabled = true;
+                                    k1Text.Enabled = true;
+                                    k2Text.Enabled = true;
+
+                                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
+                                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
+                                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                                    double k0 = Convert.ToDouble(k0Text.Text);
+                                    double k1 = Convert.ToDouble(k1Text.Text);
+                                    double k2 = Convert.ToDouble(k2Text.Text);
+                                    _Analis.label14.Text = "C(A) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString(" + 0.0000 ;- 0.0000 ") + "*A" + k2.ToString(" + 0.0000 ;- 0.0000 ") + "*A^2";
+                                    for (double i = 0; i <= 3; i++)
+                                    {
+                                        double x2 = i;
+                                        double y2 = i * k1 + k0 + i * k2 * k2;
+                                        _Analis.chart1.Series[0].Enabled = false;
+                                        _Analis.chart1.Series[1].Points.AddXY(y2, x2);
+                                        //  _Analis.chart1.Series[1].ChartType = SeriesChartType.Line;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + Ed.Text;
+                                        _Analis.chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                                        _Analis.chart1.ChartAreas[0].AxisX.Minimum = 0;
+                                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                                        _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
+                                    }
                                 }
                             }
-                        }
-                        if (radioButton6.Checked == true)
-                        {
-                            _Analis.SposobZadan = "По СО";
-                        }
-                        else
-                        {
-                            _Analis.SposobZadan = "Ввод коэффициентов";
-                        }
-                    }
-                    else
-                    {
-                        if (radioButton4.Checked == true)
-                        {
-                            _Analis.radioButton4.Checked = true;
-                        }
-                        else
-                        {
-                            _Analis.radioButton5.Checked = true;
-                        }
-                        if (radioButton4.Checked == true)
-                        {
-                            _Analis.Zavisimoct = "A(C)";
-                        }
-                        else
-                        {
-                            _Analis.Zavisimoct = "C(A)";
-                        }
-                        if (radioButton1.Checked == true)
-                        {
-                            _Analis.aproksim = "Линейная через 0";
-                        }
-                        else
-                        {
-                            if (radioButton2.Checked == true)
+                            if (radioButton6.Checked == true)
                             {
-                                _Analis.aproksim = "Линейная";
+                                _Analis.SposobZadan = "По СО";
                             }
                             else
                             {
-                                _Analis.aproksim = "Квадратичная";
+                                _Analis.SposobZadan = "Ввод коэффициентов";
+                            }
+                        }
+                        else
+                        {
+                            if (radioButton4.Checked == true)
+                            {
+                                _Analis.radioButton4.Checked = true;
+                            }
+                            else
+                            {
+                                _Analis.radioButton5.Checked = true;
+                            }
+                            if (radioButton4.Checked == true)
+                            {
+                                _Analis.Zavisimoct = "A(C)";
+                            }
+                            else
+                            {
+                                _Analis.Zavisimoct = "C(A)";
+                            }
+                            if (radioButton1.Checked == true)
+                            {
+                                _Analis.aproksim = "Линейная через 0";
+                            }
+                            else
+                            {
+                                if (radioButton2.Checked == true)
+                                {
+                                    _Analis.aproksim = "Линейная";
+                                }
+                                else
+                                {
+                                    _Analis.aproksim = "Квадратичная";
+                                }
                             }
                         }
                     }
+                    _Analis.edconctr = Ed.Text;
+                    if (_Analis.ComPodkl == true)
+                    {
+                        SW();
+                        _Analis.SAGE(ref _Analis.countSA, ref _Analis.GE5_1_0);
+                    }
+                    _Analis.параметрыToolStripMenuItem.Enabled = true;
+                    _Analis.button10.Enabled = true;
+                    //this.TopMost = true;
+                    this.TopMost = true;
+                    Close();
                 }
-                _Analis.edconctr = Ed.Text;
-                if (_Analis.ComPodkl == true)
-                {
-                    SW();
-                    _Analis.SAGE(ref _Analis.countSA, ref _Analis.GE5_1_0);
-                }
-                _Analis.параметрыToolStripMenuItem.Enabled = true;
-                _Analis.button10.Enabled = true;
-                Close();
             }
+         
+
+
         }
         public void SW()
         {

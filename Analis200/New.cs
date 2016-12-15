@@ -45,20 +45,30 @@ namespace Analis200
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _Analis.NoCaIzm1 = Convert.ToInt32(numericUpDown3.Text);
-            _Analis.NoCaSer1 = Convert.ToInt32(numericUpDown4.Text);
-            _Analis.textBox8.Text = textBox1.Text;
-            _Analis.F1Text.Text = textBox2.Text;
-            _Analis.F2Text.Text = textBox3.Text;
-            _Analis.textBox7.Text = textBox4.Text;
-            _Analis.dateTimePicker2.Text = dateTimePicker1.Text;
-            _Analis.WLREMOVE2();
-            _Analis.WLREMOVESTR2();
-            _Analis.WLADD2();
-            _Analis.WLADDSTR2();
-            _Analis.IzmerenieOpen = true;
-            _Analis.параметрыToolStripMenuItem.Enabled = true;
-            _Analis.button10.Enabled = true;
+            DialogResult result = MessageBox.Show(
+            "Все текущие параметры и данные измерений будут потеряны. Продолжить?",
+            "Подтверждение",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Information,
+            MessageBoxDefaultButton.Button1,
+            MessageBoxOptions.DefaultDesktopOnly);
+            if (result == DialogResult.Yes)
+            {
+                _Analis.NoCaIzm1 = Convert.ToInt32(numericUpDown3.Text);
+                _Analis.NoCaSer1 = Convert.ToInt32(numericUpDown4.Text);
+                _Analis.textBox8.Text = textBox1.Text;
+                _Analis.F1Text.Text = textBox2.Text;
+                _Analis.F2Text.Text = textBox3.Text;
+                _Analis.textBox7.Text = textBox4.Text;
+                _Analis.dateTimePicker2.Text = dateTimePicker1.Text;
+                _Analis.WLREMOVE2();
+                _Analis.WLREMOVESTR2();
+                _Analis.WLADD2();
+                _Analis.WLADDSTR2();
+                _Analis.IzmerenieOpen = true;
+                _Analis.параметрыToolStripMenuItem.Enabled = true;
+                _Analis.button10.Enabled = true;
+            }
             Close();
         }
 
