@@ -1351,50 +1351,196 @@ namespace Analis200
             string head = @"Протокол выполнения измерений";
 
             //Creating iTextSharp Table from the DataTable data
-            PdfPTable pdfTable2 = new PdfPTable(Table2.ColumnCount);
-
-            pdfTable2.DefaultCell.Padding = 5;
-            pdfTable2.WidthPercentage = 100;
-
-            pdfTable2.HorizontalAlignment = Element.ALIGN_LEFT;
-            pdfTable2.DefaultCell.BorderWidth = 1;
+            PdfPTable pdfTable = new PdfPTable(Table2.ColumnCount);
+            PdfPTable pdfTable2 = new PdfPTable(Table2.ColumnCount - 2 - NoCaIzm1);
+            if (NoCaIzm1 <= 3)
+            {
+                //Creating iTextSharp Table from the DataTable data
+                pdfTable = new PdfPTable(Table2.ColumnCount);
+                pdfTable.DefaultCell.Padding = 5;
+                pdfTable.WidthPercentage = 100;
+                pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                pdfTable.DefaultCell.BorderWidth = 1;
+            }
+            else
+            {
+                if (NoCaIzm1 > 3 && NoCaIzm1 <= 5)
+                {
+                    pdfTable = new PdfPTable(2 + NoCaIzm1*2);
+                    pdfTable.DefaultCell.Padding = 5;
+                    pdfTable.WidthPercentage = 100;
+                    pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable.DefaultCell.BorderWidth = 1;
+                    pdfTable2 = new PdfPTable(Table2.ColumnCount - 2 - NoCaIzm1*2);
+                    pdfTable2.DefaultCell.Padding = 5;
+                    pdfTable2.WidthPercentage = 20;
+                    pdfTable2.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable2.DefaultCell.BorderWidth = 1;
+                }
+                else
+                {
+                    pdfTable = new PdfPTable(12);
+                    pdfTable.DefaultCell.Padding = 5;
+                    pdfTable.WidthPercentage = 100;
+                    pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable.DefaultCell.BorderWidth = 1;
+                    pdfTable2 = new PdfPTable(Table2.ColumnCount - 12);
+                    pdfTable2.DefaultCell.Padding = 5;
+                    pdfTable2.WidthPercentage = 100;
+                    pdfTable2.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable2.DefaultCell.BorderWidth = 1;
+                }
+            }
             BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\georgia.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12f, iTextSharp.text.Font.NORMAL);
+            iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.NORMAL);
             iTextSharp.text.Font fontBold = new iTextSharp.text.Font(baseFont, 18f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font fontBold1 = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font font1 = new iTextSharp.text.Font(baseFont, 5f, iTextSharp.text.Font.BOLD);
             // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
 
             //Adding Header row
-            foreach (DataGridViewColumn column in Table2.Columns)
+            if (NoCaIzm1 <= 3)
             {
-
-                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, fontBold1));
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                //cell.BackgroundColor = new iTextSharp.text.Color(0, 168, 107);
-                cell.Padding = 1;
-                cell.PaddingBottom = 5;
-                pdfTable2.AddCell(cell);
-
-            }
-
-            //Adding DataRow
-            foreach (DataGridViewRow row in Table2.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
+                PdfPCell cell;
+                for (int i = 0; i < Table2.ColumnCount; i++)
                 {
-                    pdfTable2.AddCell(new Phrase(Convert.ToString(cell.Value), font));
-
-
+                    cell = new PdfPCell(new Phrase(Table2.Columns[i].HeaderText, fontBold1));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                    cell.BorderWidth = 1;
+                    cell.Padding = 1;
+                    cell.PaddingBottom = 5;
+                    pdfTable.AddCell(cell);
+                }
+                for (int j = 0; j < Table2.Rows.Count-1; j++)
+                {
+                    for (int i = 0; i < Table2.ColumnCount; i++)
+                    {
+                        pdfTable.AddCell(new Phrase(Convert.ToString(Table2.Rows[j].Cells[i].Value), font));
+                    }
                 }
             }
+            else
+            {
+                if (NoCaIzm1 > 3 && NoCaIzm1 <= 5)
+                {
+                    PdfPCell cell1;
+                    PdfPCell cell;
+                    int kIzmer1 = 0;
+                    //int NoCaIzm1_1 = 5;
+                    for (int i = 0; i < 2 + NoCaIzm1*2; i++)
+                    {
+                        cell = new PdfPCell(new Phrase(Table2.Columns[kIzmer1].HeaderText, fontBold1));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                        cell.BorderWidth = 1;
+                        cell.Padding = 1;
+                        cell.PaddingBottom = 5;
+                        pdfTable.AddCell(cell);
+                        kIzmer1++;
+                    }
+                    kIzmer1 = 0;
+                    for (int j = 0; j < Table2.Rows.Count-1; j++)
+                    {
+                        for (int i = 0; i < 2 + NoCaIzm1*2; i++)
+                        {
+                            pdfTable.AddCell(new Phrase(Convert.ToString(Table2.Rows[j].Cells[kIzmer1].Value), font));
+                            kIzmer1++;
+                        }
+                        kIzmer1 = 0;
+                    }
+                    int kIzmer = 2 + NoCaIzm1*2;
+                    for (int i = 0; i < Table2.ColumnCount - 2 - NoCaIzm1*2; i++)
+                    {
+                        cell1 = new PdfPCell(new Phrase(Table2.Columns[kIzmer].HeaderText, fontBold1));
+                        cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                        cell1.BorderWidth = 1;
+                        cell1.Padding = 1;
+                        cell1.PaddingBottom = 5;
+                        pdfTable2.AddCell(cell1);
+                        kIzmer++;
+                    }
+                    kIzmer = 2 + NoCaIzm1*2;
+                    for (int j = 0; j < Table2.Rows.Count-1; j++)
+                    {
+                        for (int i = 0; i < Table2.ColumnCount - 2 - NoCaIzm1*2; i++)
+                        {
+                            pdfTable2.AddCell(new Phrase(Convert.ToString(Table2.Rows[j].Cells[kIzmer].Value), font));
+                            kIzmer++;
+                        }
+                        kIzmer = 2 + NoCaIzm1*2;
+                    }
+                }
+                else
+                {
+                    PdfPCell cell1;
+                    PdfPCell cell;
+                    int kIzmer1 = 0;
+                    for (int i = 0; i < 12; i++)
+                    {
+                        cell = new PdfPCell(new Phrase(Table2.Columns[kIzmer1].HeaderText, fontBold1));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                        cell.BorderWidth = 1;
+                        cell.Padding = 1;
+                        cell.PaddingBottom = 5;
+                        pdfTable.AddCell(cell);
+                        kIzmer1++;
+                    }
+                    kIzmer1 = 0;
+                    for (int j = 0; j < Table2.Rows.Count-1; j++)
+                    {
+                        for (int i = 0; i < 12; i++)
+                        {
+                            pdfTable.AddCell(new Phrase(Convert.ToString(Table2.Rows[j].Cells[kIzmer1].Value), font));
+                            kIzmer1++;
+                        }
+                        kIzmer1 = 0;
+                    }
+                    int kIzmer = 12;
+                    for (int i = 0; i < Table2.ColumnCount - 12; i++)
+                    {
+                        cell1 = new PdfPCell(new Phrase(Table2.Columns[kIzmer].HeaderText, fontBold1));
+                        cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                        cell1.BorderWidth = 1;
+                        cell1.Padding = 1;
+                        cell1.PaddingBottom = 5;
+                        pdfTable2.AddCell(cell1);
+                        kIzmer++;
+                    }
+                    kIzmer = 12;
+                    for (int j = 0; j < Table2.Rows.Count-1; j++)
+                    {
+                        for (int i = 0; i < Table2.ColumnCount - 12; i++)
+                        {
+                            pdfTable2.AddCell(new Phrase(Convert.ToString(Table2.Rows[j].Cells[kIzmer].Value), font));
+                            kIzmer++;
+                        }
+                        kIzmer = 12;
+                    }
+                }
+            }
+
+            iTextSharp.text.Rectangle orient = PageSize.A4;
+
+            float margintop = 20;
+            float marginleft = 25;
+            float marginright = 25;
+            float marginbottom = 5;
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Pdf File |*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                Document doc = new Document(PageSize.A4, 50f, 20f, 20f, 0f);
+
+                Document doc = new Document(orient, marginleft, marginright, margintop, marginbottom);
                 PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
 
                 doc.Open();
@@ -1432,7 +1578,7 @@ namespace Analis200
                 Paragraph SerNom2 = new Paragraph("Серийный номер: __________________________", font);
                 Paragraph InventarNo2 = new Paragraph("Инветарный номер: __________________________", font);
 
-                Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________________________", font);
+                Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________", font);
                 Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
 
 
@@ -1541,7 +1687,25 @@ namespace Analis200
                 doc.Add(welcomeParagraph1);
                 doc.Add(DateIzmer2);
                 doc.Add(welcomeParagraph1);
-                doc.Add(pdfTable2);
+                if (NoCaIzm1 <= 3)
+                {
+                    doc.Add(pdfTable);
+                }
+                else
+                {
+                    if (NoCaIzm1 > 3 && NoCaIzm1 <= 5)
+                    {
+                        doc.Add(pdfTable);
+                        doc.Add(welcomeParagraph1);
+                        doc.Add(pdfTable2);
+                    }
+                    else
+                    {
+                        doc.Add(pdfTable);
+                        doc.Add(welcomeParagraph1);
+                        doc.Add(pdfTable2);
+                    }
+                }
                 doc.Add(welcomeParagraph1);
                 doc.Add(Vipolnil);
                 // doc.Add(Chart_Image);
@@ -5478,7 +5642,7 @@ namespace Analis200
                 }
                 else
                 {
-                    if (NoCaIzm > 3 && NoCaIzm <= 5)
+                    if (NoCaIzm > 3 && NoCaIzm <= 7)
                     {
                         Table1PrintViewer2(sender, e);
                     }
@@ -6509,49 +6673,193 @@ namespace Analis200
         }
 
         public string filename;
+        BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\georgia.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+        iTextSharp.text.Font font;
+        iTextSharp.text.Font fontBold;
+        iTextSharp.text.Font fontBold1;
+        iTextSharp.text.Font font1;
+        
         public void ExportToPDF1()
         {
+           
             string head = @"Расчет линейного градуировочного графика";
-
-            //Creating iTextSharp Table from the DataTable data
-            PdfPTable pdfTable = new PdfPTable(Table1.ColumnCount);
-
-            pdfTable.DefaultCell.Padding = 5;
-            pdfTable.WidthPercentage = 100;
-
-            pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
-            pdfTable.DefaultCell.BorderWidth = 1;
-            BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\georgia.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
-            iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12f, iTextSharp.text.Font.NORMAL);
+            iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.NORMAL);
             iTextSharp.text.Font fontBold = new iTextSharp.text.Font(baseFont, 18f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font fontBold1 = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font font1 = new iTextSharp.text.Font(baseFont, 5f, iTextSharp.text.Font.BOLD);
-            // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
-            if (SposobZadan == "По СО") { 
-                //Adding Header row
-                foreach (DataGridViewColumn column in Table1.Columns)
-                {
-
-                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, fontBold1));
-                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
-                    cell.Padding = 1;
-                    cell.PaddingBottom = 5;
-                    pdfTable.AddCell(cell);
-
-                }
-
-            //Adding DataRow
-            foreach (DataGridViewRow row in Table1.Rows)
+            PdfPTable pdfTable = new PdfPTable(Table1.ColumnCount);
+            PdfPTable pdfTable1 = new PdfPTable(Table1.ColumnCount - 3 - NoCaIzm);
+            if (NoCaIzm <= 3)
             {
-                foreach (DataGridViewCell cell in row.Cells)
+                //Creating iTextSharp Table from the DataTable data
+                pdfTable = new PdfPTable(Table1.ColumnCount);
+                pdfTable.DefaultCell.Padding = 5;
+                pdfTable.WidthPercentage = 100;
+                pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                pdfTable.DefaultCell.BorderWidth = 1;
+            }
+            else
+            {
+                if(NoCaIzm >3 && NoCaIzm <= 7)
                 {
-                    pdfTable.AddCell(new Phrase(Convert.ToString(cell.Value), font));
-
-
+                    pdfTable = new PdfPTable(3 + NoCaIzm);
+                    pdfTable.DefaultCell.Padding = 5;
+                    pdfTable.WidthPercentage = 100;
+                    pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable.DefaultCell.BorderWidth = 1;
+                    pdfTable1 = new PdfPTable(Table1.ColumnCount - 3 - NoCaIzm);
+                    pdfTable1.DefaultCell.Padding = 5;
+                    pdfTable1.WidthPercentage = 20;
+                    pdfTable1.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable1.DefaultCell.BorderWidth = 1;
+                }
+                else
+                {
+                    pdfTable = new PdfPTable(3 + 5);
+                    pdfTable.DefaultCell.Padding = 5;
+                    pdfTable.WidthPercentage = 100;
+                    pdfTable.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable.DefaultCell.BorderWidth = 1;
+                    pdfTable1 = new PdfPTable(Table1.ColumnCount - 3 - 5);
+                    pdfTable1.DefaultCell.Padding = 5;
+                    pdfTable1.WidthPercentage = 100;
+                    pdfTable1.HorizontalAlignment = Element.ALIGN_LEFT;
+                    pdfTable1.DefaultCell.BorderWidth = 1;
                 }
             }
+            
+            
+
+            // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
+            if (SposobZadan == "По СО") { 
+            
+            if(NoCaIzm <= 3)
+                {
+                    PdfPCell cell;
+                    for (int i = 0; i < Table1.ColumnCount; i++)
+                    {
+                        cell = new PdfPCell(new Phrase(Table1.Columns[i].HeaderText, fontBold1));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                        cell.BorderWidth = 1;
+                        cell.Padding = 1;
+                        cell.PaddingBottom = 5;
+                        pdfTable.AddCell(cell);
+                    }
+                    for (int j = 0; j < Table1.Rows.Count; j++)
+                    {
+                        for (int i = 0; i < Table1.ColumnCount; i++)
+                        {
+                            pdfTable.AddCell(new Phrase(Convert.ToString(Table1.Rows[j].Cells[i].Value), font));
+                        }
+                    }
+                }
+                else
+                {
+                    if(NoCaIzm >3 && NoCaIzm <= 7)
+                    {
+                        PdfPCell cell1;
+                        PdfPCell cell;
+                        int kIzmer1 = 0;
+                        for (int i = 0; i < 3+NoCaIzm; i++)
+                        {
+                            cell = new PdfPCell(new Phrase(Table1.Columns[kIzmer1].HeaderText, fontBold1));
+                            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                            //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                            cell.BorderWidth = 1;
+                            cell.Padding = 1;
+                            cell.PaddingBottom = 5;
+                            pdfTable.AddCell(cell);
+                            kIzmer1++;
+                        }
+                        kIzmer1 = 0;
+                        for (int j = 0; j < Table1.Rows.Count; j++)
+                        {
+                            for (int i = 0; i < 3 + NoCaIzm; i++)
+                            {
+                                pdfTable.AddCell(new Phrase(Convert.ToString(Table1.Rows[j].Cells[kIzmer1].Value), font));
+                                kIzmer1++;
+                            }
+                            kIzmer1 = 0;
+                        }
+                        int kIzmer = 3 + NoCaIzm;
+                        for(int i = 0; i < Table1.ColumnCount - 3 - NoCaIzm; i++)
+                        {
+                            cell1 = new PdfPCell(new Phrase(Table1.Columns[kIzmer].HeaderText, fontBold1));
+                            cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                            cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                            //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                            cell1.BorderWidth = 1;
+                            cell1.Padding = 1;
+                            cell1.PaddingBottom = 5;
+                            pdfTable1.AddCell(cell1);
+                            kIzmer++;
+                        }
+                        kIzmer = 3 + NoCaIzm;
+                        for (int j = 0; j < Table1.Rows.Count; j++)
+                        {
+                            for (int i = 0; i < Table1.ColumnCount - 3 - NoCaIzm; i++)
+                            {
+                                pdfTable1.AddCell(new Phrase(Convert.ToString(Table1.Rows[j].Cells[kIzmer].Value), font));
+                                kIzmer++;
+                            }
+                            kIzmer = 3 + NoCaIzm;
+                        }
+                    }
+                    else
+                    {
+                        PdfPCell cell1;
+                        PdfPCell cell;
+                        int kIzmer1 = 0;
+                        for (int i = 0; i < 3 + 5; i++)
+                        {
+                            cell = new PdfPCell(new Phrase(Table1.Columns[kIzmer1].HeaderText, fontBold1));
+                            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                            cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                            //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                            cell.BorderWidth = 1;
+                            cell.Padding = 1;
+                            cell.PaddingBottom = 5;
+                            pdfTable.AddCell(cell);
+                            kIzmer1++;
+                        }
+                        kIzmer1 = 0;
+                        for (int j = 0; j < Table1.Rows.Count; j++)
+                        {
+                            for (int i = 0; i < 3 + 5; i++)
+                            {
+                                pdfTable.AddCell(new Phrase(Convert.ToString(Table1.Rows[j].Cells[kIzmer1].Value), font));
+                                kIzmer1++;
+                            }
+                            kIzmer1 = 0;
+                        }
+                        int kIzmer = 3 + 5;
+                        for (int i = 0; i < Table1.ColumnCount - 3 - 5; i++)
+                        {
+                            cell1 = new PdfPCell(new Phrase(Table1.Columns[kIzmer].HeaderText, fontBold1));
+                            cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                            cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                            //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                            cell1.BorderWidth = 1;
+                            cell1.Padding = 1;
+                            cell1.PaddingBottom = 5;
+                            pdfTable1.AddCell(cell1);
+                            kIzmer++;
+                        }
+                        kIzmer = 3 + 5;
+                        for (int j = 0; j < Table1.Rows.Count; j++)
+                        {
+                            for (int i = 0; i < Table1.ColumnCount - 3 - 5; i++)
+                            {
+                                pdfTable1.AddCell(new Phrase(Convert.ToString(Table1.Rows[j].Cells[kIzmer].Value), font));
+                                kIzmer++;
+                            }
+                            kIzmer = 3 + 5;
+                        }
+                    }
+                }
 
         }
 
@@ -6562,25 +6870,10 @@ namespace Analis200
             Chart_Image.ScalePercent(70f);
             iTextSharp.text.Rectangle orient = PageSize.A4;
             float margintop = 20;
-            float marginleft = 20;
-            float marginright = 10;
-            float marginbottom = 20;
-            if (Table1.ColumnCount >= 6)
-            {
-                orient = PageSize.A4.Rotate();
-                margintop = 20;
-                marginleft = 20;
-                marginright = 10;
-                marginbottom = 20;
-            }
-            else
-            {
-                orient = PageSize.A4;
-                margintop = 20;
-                marginleft = 20;
-                marginright = 10;
-                marginbottom = 20;
-            }
+            float marginleft = 25;
+            float marginright = 25;
+            float marginbottom = 5;
+            
                 SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Pdf File |*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -6643,10 +6936,20 @@ namespace Analis200
                 cell.Colspan = 5;
                 table.AddCell(cell);
 
-
+                Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
 
                 PdfPTable table1 = new PdfPTable(5);
-                PdfPCell cell1 = new PdfPCell(DateTime2);
+                PdfPCell cell1 = new PdfPCell(Chart_Image);
+                cell1.BorderWidth = 0;
+                cell1.Colspan = 5;
+                table1.AddCell(cell1);
+
+                cell1 = new PdfPCell(welcomeParagraph1);
+                cell1.BorderWidth = 0;
+                cell1.Colspan = 5;
+                table1.AddCell(cell1);
+
+                cell1 = new PdfPCell(DateTime2);
                 cell1.BorderWidth = 0;
                 cell1.Colspan = 5;
                 table1.AddCell(cell1);
@@ -6655,8 +6958,9 @@ namespace Analis200
                 cell1.BorderWidth = 0;
                 cell1.Colspan = 5;
                 table1.AddCell(cell1);
+                
 
-                Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
+                
 
                 doc.Add(welcomeParagraph);
                 doc.Add(welcomeParagraph1);
@@ -6668,15 +6972,35 @@ namespace Analis200
                 //  doc.Add(TopLine2);
                 doc.Add(Description2);
                 // doc.Add(welcomeParagraph1);
-                if (SposobZadan == "По СО") { 
+                if (SposobZadan == "По СО")
+                {
                     doc.Add(Table1);
-            }
-                //  doc.Add(welcomeParagraph1);
-                doc.Add(pdfTable);
+
+                    //  doc.Add(welcomeParagraph1);
+                    if (NoCaIzm <= 3)
+                    {
+                        doc.Add(pdfTable);
+                    }
+                    else
+                    {
+                        if (NoCaIzm > 3 && NoCaIzm <= 7)
+                        {
+                            doc.Add(pdfTable);
+                            doc.Add(welcomeParagraph1);
+                            doc.Add(pdfTable1);
+                        }
+                        else
+                        {
+                            doc.Add(pdfTable);
+                            doc.Add(welcomeParagraph1);
+                            doc.Add(pdfTable1);
+                        }
+                    }
+                }
                 doc.Add(welcomeParagraph1);
                 doc.Add(GradYrav);
                 doc.Add(welcomeParagraph1);
-                doc.Add(Chart_Image);
+            //    doc.Add(Chart_Image);
                 //  doc.Add(welcomeParagraph1);
                 doc.Add(table1);
                 //  doc.Add(ND2);
@@ -6698,5 +7022,6 @@ namespace Analis200
                pdfdocument.Dispose();
                */
         }
+       
     }
 }
