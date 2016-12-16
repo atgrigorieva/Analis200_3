@@ -2381,24 +2381,32 @@ namespace Analis200
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             aproksim = "Линейная через 0";
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
             lineinaya0();
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             aproksim = "Квадратичная";
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
             kvadratichnaya();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             aproksim = "Линейная";
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
             lineinaya();
         }
         public string Zavisimoct;
         public void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
             Zavisimoct = "A(C)";
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
 
             /*    while (true)
                  {
@@ -2417,17 +2425,22 @@ namespace Analis200
                       Table1.Columns.RemoveAt(i);
                   }
                   */
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
                 lineinaya0();
             }
             else
             {
                 if (radioButton2.Checked == true)
                 {
-
+                    chart1.Series[0].Points.Clear();
+                    chart1.Series[1].Points.Clear();
                     lineinaya();
                 }
                 else
                 {
+                    chart1.Series[0].Points.Clear();
+                    chart1.Series[1].Points.Clear();
                     kvadratichnaya();
                 }
             }
@@ -2457,6 +2470,8 @@ namespace Analis200
 
                 //  Table1.Columns.Add("X*X", "Concetr*Concetr");
                 // Table1.Columns.Add("X*Y", "Asred*Concetr");
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
                 lineinaya0();
             }
             else
@@ -2470,10 +2485,14 @@ namespace Analis200
                              break;
                          Table1.Columns.RemoveAt(i);
                      }*/
+                    chart1.Series[0].Points.Clear();
+                    chart1.Series[1].Points.Clear();
                     lineinaya();
                 }
                 else
                 {
+                    chart1.Series[0].Points.Clear();
+                    chart1.Series[1].Points.Clear();
                     kvadratichnaya();
                 }
             }
@@ -4278,7 +4297,7 @@ namespace Analis200
 
         private void button9_Click(object sender, EventArgs e)
         {
-            if (tabControl2.SelectedIndex == 0)
+            if (tabControl2.SelectedIndex == 0 && SposobZadan == "По СО")
             {
                 bool doNotWrite = false;
                 for (int j = 0; j < Table1.Rows.Count - 1; j++)
@@ -4305,27 +4324,33 @@ namespace Analis200
             }
             else
             {
-                bool doNotWrite = false;
-                for (int j = 0; j < Table2.Rows.Count - 1; j++)
+                if (tabControl2.SelectedIndex == 0 && SposobZadan != "По СО")
                 {
-
-                    for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                    ExportToPDF1();
+                }
+                else {
+                    bool doNotWrite = false;
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
                     {
-                        if (Table2.Rows[j].Cells[i].Value == null)
-                        {
-                            doNotWrite = true;
-                            break;
 
+                        for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                        {
+                            if (Table2.Rows[j].Cells[i].Value == null)
+                            {
+                                doNotWrite = true;
+                                break;
+
+                            }
                         }
                     }
-                }
-                if (doNotWrite == true)
-                {
-                    MessageBox.Show("Не вся поля таблицы были заполнены!");
-                }
-                else
-                {
-                    ExportToPDF();
+                    if (doNotWrite == true)
+                    {
+                        MessageBox.Show("Не вся поля таблицы были заполнены!");
+                    }
+                    else
+                    {
+                        ExportToPDF();
+                    }
                 }
             }
         }
@@ -5196,7 +5221,7 @@ namespace Analis200
 
         private void button8_Click(object sender, EventArgs e)
         {
-            if (tabControl2.SelectedIndex == 0)
+            if (tabControl2.SelectedIndex == 0 && SposobZadan == "По СО")
             {
                 bool doNotWrite = false;
                 for (int j = 0; j < Table1.Rows.Count - 1; j++)
@@ -5223,27 +5248,33 @@ namespace Analis200
             }
             else
             {
-                bool doNotWrite = false;
-                for (int j = 0; j < Table2.Rows.Count - 1; j++)
+                if (SposobZadan != "По СО" && tabControl2.SelectedIndex == 0)
                 {
-
-                    for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                    ExportToExcel();
+                }
+                else {
+                    bool doNotWrite = false;
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
                     {
-                        if (Table2.Rows[j].Cells[i].Value == null)
-                        {
-                            doNotWrite = true;
-                            break;
 
+                        for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                        {
+                            if (Table2.Rows[j].Cells[i].Value == null)
+                            {
+                                doNotWrite = true;
+                                break;
+
+                            }
                         }
                     }
-                }
-                if (doNotWrite == true)
-                {
-                    MessageBox.Show("Не вся поля таблицы были заполнены!");
-                }
-                else
-                {
-                    ExportToExcel2();
+                    if (doNotWrite == true)
+                    {
+                        MessageBox.Show("Не вся поля таблицы были заполнены!");
+                    }
+                    else
+                    {
+                        ExportToExcel2();
+                    }
                 }
             }
         }
@@ -6416,6 +6447,67 @@ namespace Analis200
             /*Cancel*/
 
         }
+
+        private void эксопртВPDFToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (tabControl2.SelectedIndex == 0 && SposobZadan == "По СО")
+            {
+                bool doNotWrite = false;
+                for (int j = 0; j < Table1.Rows.Count - 1; j++)
+                {
+
+                    for (int i = 3; i < Table1.Rows[j].Cells.Count; i++)
+                    {
+                        if (Table1.Rows[j].Cells[i].Value == null)
+                        {
+                            doNotWrite = true;
+                            break;
+
+                        }
+                    }
+                }
+                if (doNotWrite == true)
+                {
+                    MessageBox.Show("Не вся поля таблицы были заполнены!");
+                }
+                else
+                {
+                    ExportToPDF1();
+                }
+            }
+            else
+            {
+                if (tabControl2.SelectedIndex == 0 && SposobZadan != "По СО")
+                {
+                    ExportToPDF1();
+                }
+                else {
+                    bool doNotWrite = false;
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
+                    {
+
+                        for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                        {
+                            if (Table2.Rows[j].Cells[i].Value == null)
+                            {
+                                doNotWrite = true;
+                                break;
+
+                            }
+                        }
+                    }
+                    if (doNotWrite == true)
+                    {
+                        MessageBox.Show("Не вся поля таблицы были заполнены!");
+                    }
+                    else
+                    {
+                        ExportToPDF();
+                    }
+                }
+            }
+        }
+
         public string filename;
         public void ExportToPDF1()
         {
@@ -6435,20 +6527,20 @@ namespace Analis200
             iTextSharp.text.Font fontBold1 = new iTextSharp.text.Font(baseFont, 10f, iTextSharp.text.Font.BOLD);
             iTextSharp.text.Font font1 = new iTextSharp.text.Font(baseFont, 5f, iTextSharp.text.Font.BOLD);
             // iTextSharp.text.Font fontLeft = new iTextSharp.text.Font(baseFont, 9f, iTextSharp.text.Font.NORMAL);
+            if (SposobZadan == "По СО") { 
+                //Adding Header row
+                foreach (DataGridViewColumn column in Table1.Columns)
+                {
 
-            //Adding Header row
-            foreach (DataGridViewColumn column in Table1.Columns)
-            {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, fontBold1));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
+                    cell.Padding = 1;
+                    cell.PaddingBottom = 5;
+                    pdfTable.AddCell(cell);
 
-                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, fontBold1));
-                cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-                //cell.BackgroundColor = new iTextSharp.text.Color(161, 235, 157);
-                cell.Padding = 1;
-                cell.PaddingBottom = 5;
-                pdfTable.AddCell(cell);
-
-            }
+                }
 
             //Adding DataRow
             foreach (DataGridViewRow row in Table1.Rows)
@@ -6461,22 +6553,41 @@ namespace Analis200
                 }
             }
 
-
+        }
 
 
             var chartimage = new MemoryStream();
             chart1.SaveImage(chartimage, ChartImageFormat.Png);
             iTextSharp.text.Image Chart_Image = iTextSharp.text.Image.GetInstance(chartimage.GetBuffer());
             Chart_Image.ScalePercent(70f);
-
-
-
-
-            SaveFileDialog sfd = new SaveFileDialog();
+            iTextSharp.text.Rectangle orient = PageSize.A4;
+            float margintop = 20;
+            float marginleft = 20;
+            float marginright = 10;
+            float marginbottom = 20;
+            if (Table1.ColumnCount >= 6)
+            {
+                orient = PageSize.A4.Rotate();
+                margintop = 20;
+                marginleft = 20;
+                marginright = 10;
+                marginbottom = 20;
+            }
+            else
+            {
+                orient = PageSize.A4;
+                margintop = 20;
+                marginleft = 20;
+                marginright = 10;
+                marginbottom = 20;
+            }
+                SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Pdf File |*.pdf";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                Document doc = new Document(PageSize.A4, 50f, 20f, 20f, 0f);
+                
+                Document doc = new Document(orient, marginleft, marginright, margintop, marginbottom);
+                
                 PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
 
                 doc.Open();
@@ -6557,7 +6668,9 @@ namespace Analis200
                 //  doc.Add(TopLine2);
                 doc.Add(Description2);
                 // doc.Add(welcomeParagraph1);
-                doc.Add(Table1);
+                if (SposobZadan == "По СО") { 
+                    doc.Add(Table1);
+            }
                 //  doc.Add(welcomeParagraph1);
                 doc.Add(pdfTable);
                 doc.Add(welcomeParagraph1);
