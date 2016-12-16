@@ -131,19 +131,11 @@ namespace Analis200
             {
                 countSA = 4;
             }
-            // while (message1 == true)
-            //{
-            //picturebox1.Show("Калибровка");
+           
             LogoForm();
-            // System.IO.FileStream fs = new System.IO.FileStream(@"Calibrovka.png", System.IO.FileMode.Open);
-            //  System.Drawing.Image img = System.Drawing.Image.FromStream(fs);
-            //  fs.Close();
-            //  pictureBox.Image = img;
+            
             newPort.Write("SA " + countSA + "\r");
-            // int SAAnalisByteRecieved1 = newPort.ReadBufferSize;
-            // Thread.Sleep(100);
-            //byte[] SAAnalisBuffer1 = new byte[SAAnalisByteRecieved1];
-            // newPort.Read(SAAnalisBuffer1, 0, SAAnalisByteRecieved1);
+            
             string indata = newPort.ReadExisting();
             int indata_zero = 0;
             string indata_0;
@@ -227,9 +219,7 @@ namespace Analis200
                         indata = newPort.ReadExisting();
                     }
                 }
-                //   byte[] SAAnalisBuffer1_1_1 = new byte[SAAnalisByteRecieved1_1_1];
-                //  newPort.Read(SAAnalisBuffer1_1_1, 0, SAAnalisByteRecieved1_1_1);
-
+             
                 newPort.Write("GE 1\r");
                 GEbyteRecieved4_1 = newPort.ReadBufferSize;
                 GEbuffer4_1 = new byte[GEbyteRecieved4_1];
@@ -260,21 +250,18 @@ namespace Analis200
 
                 GE5_1_0 = regex.Replace(indata_0, "");
                 GEText.Text = GE5_1_0;
-           //     GE5_1_0 = double.Parse(",", ".")
+     
                 GAText1 = (Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1_0)) * 100;
 
                 GAText.Text = string.Format("{0:0.00}", GAText1);
-                //double GAText2 = (Convert.ToDouble(GE3) / Convert.ToDouble(GE5)) * 0.01;
+              
                 OptPlot = Math.Log10(Convert.ToDouble(GE5_1_0) / Convert.ToDouble(GE5_1));
-                // double OptPlot1 = (OptPlot - Math.Truncate(OptPlot))*500;
-                // OptPlot1 = (OptPlot1 - Math.Truncate(OptPlot1))*10;
-                //OptPlot1 = Math.Truncate(OptPlot1)/5000;
+     
                 OptPlot1 = OptPlot - Math.Truncate(OptPlot);
                 OptichPlot.Text = string.Format("{0:0.0000}", OptPlot1);
             }
             SWF.Application.OpenForms["LogoFrm"].Close();
-            //  message1 = false;
-            // }
+          
             if (Izmerenie1 == false)
             {
                 InitializeTimer();
@@ -300,10 +287,7 @@ namespace Analis200
         {
             if (tabControl2.SelectedIndex == 0)
             {
-                //    this.textBox4.Text = string.Format("{0:0.0000}", 0);
-                //   this.textBox5.Text = string.Format("{0:0.0000}", 0);
-                //   this.textBox6.Text = string.Format("{0:0.0000}", 0);
-                //    Izmerenie1 = true;
+              
                 while (true)
                 {
                     int i = Table1.Columns.Count - 1;//С какого столбца начать
@@ -356,10 +340,7 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-                //       Table1.Columns.Add("X*X", "Concetr*Concetr");
-                //Table1.Columns.Add("X*Y", "Asred*Concetr");
-                //CalibrovkaGrad();
-                // MessageBox.Show(Convert.ToString(Days));
+                
 
             }
             else
@@ -414,11 +395,10 @@ namespace Analis200
 
 
             }
-           // Table1.Rows[0].Cells[3].Selected = true;
-           // Table1.Rows[0].Cells[0].Selected = false;
+       
             Table1.CurrentCell = this.Table1[3, 0];
 
-            // Table1.Rows.Add();
+          
         }
         public void WLREMOVESTR1()
         {
@@ -704,12 +684,7 @@ namespace Analis200
             LogoForm2.StartPosition = FormStartPosition.CenterScreen;
             LogoForm2.ControlBox = false;
             LogoForm2.FormBorderStyle = FormBorderStyle.None;
-            /*PictureBox PicBox = new PictureBox();
-            PicBox.Size = new Size(307, 179);
-            PicBox.Location = new System.Drawing.Point(12, 12);
-            PicBox.ImageLocation = "D:\\Analis-samo\\Analis200\\Analis200\bin\x64\\Release\\Calibrovka.png";
-            PicBox.SizeMode = PictureBoxSizeMode.Zoom;
-            LogoForm.Controls.Add(PicBox);*/
+
             LogoForm2.Show();
         }
         public void timer1_Tick(object sender, System.EventArgs e)
@@ -725,8 +700,7 @@ namespace Analis200
         {
             SWForm _SWForm = new SWForm(this);
             _SWForm.ShowDialog();
-            //GW();
-            //Thread.Sleep(20000);
+       
             SAGE(ref countSA, ref GE5_1_0);
             wavelength1 = GWNew.Text;
         }
@@ -747,7 +721,7 @@ namespace Analis200
             }
             var GWarr = GW1.Split("\r".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 
-            // GW1 = Convert.ToString(GWbuffer[0]);
+          
 
             GW1_2 = GWarr[2];
             GWNew.Text = GW1_2;
@@ -927,18 +901,7 @@ namespace Analis200
             }
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
-
+ 
         private void волновойАнализToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Analiz _Analiz = new Analiz(this);
@@ -5392,7 +5355,7 @@ namespace Analis200
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            if (tabControl2.SelectedIndex == 0)
+            if (tabControl2.SelectedIndex == 0 && SposobZadan == "По СО")
             {
                 bool doNotWrite = false;
                 for (int j = 0; j < Table1.Rows.Count - 1; j++)
@@ -5420,28 +5383,35 @@ namespace Analis200
             }
             else
             {
-                bool doNotWrite = false;
-                for (int j = 0; j < Table2.Rows.Count - 1; j++)
+                if (tabControl2.SelectedIndex == 0 && SposobZadan != "По СО")
                 {
-
-                    for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                    printPreviewTable1.Document = printTable1;
+                    printPreviewTable1.ShowDialog();
+                }
+                else {
+                    bool doNotWrite = false;
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
                     {
-                        if (Table2.Rows[j].Cells[i].Value == null)
-                        {
-                            doNotWrite = true;
-                            break;
 
+                        for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                        {
+                            if (Table2.Rows[j].Cells[i].Value == null)
+                            {
+                                doNotWrite = true;
+                                break;
+
+                            }
                         }
                     }
-                }
-                if (doNotWrite == true)
-                {
-                    MessageBox.Show("Не вся поля таблицы были заполнены!");
-                }
-                else
-                {
-                    printPreviewTable2.Document = printTable2;
-                    printPreviewTable2.ShowDialog();
+                    if (doNotWrite == true)
+                    {
+                        MessageBox.Show("Не вся поля таблицы были заполнены!");
+                    }
+                    else
+                    {
+                        printPreviewTable2.Document = printTable2;
+                        printPreviewTable2.ShowDialog();
+                    }
                 }
             }
         }
@@ -5465,10 +5435,12 @@ namespace Analis200
                 e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 500, 110);
                 e.Graphics.DrawString("Примечание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 210);
                 e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 210);
-                e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
-
-
                 
+
+
+            if (SposobZadan == "По СО")
+            {
+                e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
                 if (NoCaIzm <= 3)
                 {
                     Table1PrintViewer1(sender, e);
@@ -5484,7 +5456,11 @@ namespace Analis200
                         Table1PrintViewer3(sender, e);
                     }
                 }
-
+            }
+            else
+            {
+                cordY = 240;
+            }
            
 
                 e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY+30);

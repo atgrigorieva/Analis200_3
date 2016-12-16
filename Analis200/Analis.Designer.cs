@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,6 +110,8 @@
             this.F2Text = new System.Windows.Forms.Label();
             this.F1Text = new System.Windows.Forms.Label();
             this.Table2 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Obrazec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Opt_dlin_cuvet = new System.Windows.Forms.ComboBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -144,8 +146,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.printTable2 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Obrazec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -640,36 +640,36 @@
             // 
             // chart1
             // 
-            chartArea9.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX.MinorGrid.Enabled = true;
-            chartArea9.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX.MinorTickMark.Enabled = true;
-            chartArea9.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX.Title = "Оптическая плотность, А";
-            chartArea9.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea9.AxisY.Title = "Концетрация";
-            chartArea9.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea9);
+            chartArea1.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX.MinorGrid.Enabled = true;
+            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX.MinorTickMark.Enabled = true;
+            chartArea1.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX.Title = "Оптическая плотность, А";
+            chartArea1.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisY.Title = "Концетрация";
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.chart1.Location = new System.Drawing.Point(9, 72);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series17.ChartArea = "ChartArea1";
-            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series17.IsVisibleInLegend = false;
-            series17.Name = "Series1";
-            series18.ChartArea = "ChartArea1";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series18.IsVisibleInLegend = false;
-            series18.Name = "Series2";
-            this.chart1.Series.Add(series17);
-            this.chart1.Series.Add(series18);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.IsVisibleInLegend = false;
+            series2.Name = "Series2";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(566, 321);
             this.chart1.TabIndex = 14;
             this.chart1.Text = "chart1";
@@ -922,6 +922,17 @@
             this.Table2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table2_CellEndEdit);
             this.Table2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table2_EditingControlShowing);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "№ Изм";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 45;
+            // 
+            // Obrazec
+            // 
+            this.Obrazec.HeaderText = "Образец";
+            this.Obrazec.Name = "Obrazec";
+            // 
             // Opt_dlin_cuvet
             // 
             this.Opt_dlin_cuvet.FormattingEnabled = true;
@@ -1164,7 +1175,6 @@
             this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 9;
             this.label8.Text = "Энергия";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label9
             // 
@@ -1249,17 +1259,6 @@
             this.printPreviewTable2.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewTable2.Icon")));
             this.printPreviewTable2.Name = "printPreviewTable2";
             this.printPreviewTable2.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "№ Изм";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 45;
-            // 
-            // Obrazec
-            // 
-            this.Obrazec.HeaderText = "Образец";
-            this.Obrazec.Name = "Obrazec";
             // 
             // Analis
             // 

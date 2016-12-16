@@ -245,7 +245,7 @@ namespace Analis200
         {
             _Analis.aproksim = "Линейная через 0";
             _Analis.radioButton1.Checked = true;
-            /*  if (radioButton7.Checked == true)
+             if (radioButton7.Checked == true)
               {
                   if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                   {
@@ -294,14 +294,14 @@ namespace Analis200
                           _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
                       }
                   }
-              }*/
+              }
 
         }
         public void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             _Analis.aproksim = "Линейная";
             _Analis.radioButton2.Checked = true;
-            /*  if (radioButton7.Checked == true)
+            if (radioButton7.Checked == true)
               {
                   if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                   {
@@ -350,14 +350,14 @@ namespace Analis200
                           _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
                       }
                   }
-              }*/
+              }
         }
 
         public void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             _Analis.aproksim = "Квадратичная";
             _Analis.radioButton3.Checked = true;
-            /*  if (radioButton7.Checked == true)
+            if (radioButton7.Checked == true)
               {
                   if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                   {
@@ -406,7 +406,7 @@ namespace Analis200
                           _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
                       }
                   }
-              }*/
+              }
 
         }
 
@@ -419,7 +419,7 @@ namespace Analis200
             double f = 0.0;
             for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
             {
-                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
+                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f && radioButton6.Checked == true && radioButton7.Checked != true)
                 {
                     MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
                     Save = false;
@@ -932,7 +932,7 @@ namespace Analis200
         private void k0Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -942,7 +942,7 @@ namespace Analis200
         private void k1Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -952,7 +952,7 @@ namespace Analis200
         private void k2Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -961,7 +961,7 @@ namespace Analis200
 
         private void WL_grad_Leave(object sender, EventArgs e)
         {
-            if (_Analis.ComPort == true)
+            if (_Analis.ComPort == true && WL_grad.Text != "")
             {
                 if (_Analis.versionPribor.Contains("V"))
                 {

@@ -452,7 +452,7 @@ namespace Analis200
             double f = 0.0;
             for (int i = 0; i < Convert.ToInt32(numericUpDown4.Value); ++i)
             {
-                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f)
+                if (Convert.ToDouble(_Analis.textBoxCO[i].Text) <= f && radioButton6.Checked == true && radioButton7.Checked != true)
                 {
                     MessageBox.Show("Значение CO не может быть МЕНЬШЕ или РАВНО Нулю!");
                     Save = false;
@@ -935,7 +935,7 @@ namespace Analis200
         private void k0Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -945,7 +945,7 @@ namespace Analis200
         private void k1Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -955,7 +955,7 @@ namespace Analis200
         private void k2Text_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
-            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
+            if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
@@ -964,7 +964,7 @@ namespace Analis200
 
         private void WL_grad_Leave(object sender, EventArgs e)
         {
-            if (_Analis.ComPort == true)
+            if (_Analis.ComPort == true && WL_grad.Text != "")
             {
                 if (_Analis.versionPribor.Contains("V"))
                 {
