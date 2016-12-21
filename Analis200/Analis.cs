@@ -36,6 +36,7 @@ namespace Analis200
         public int NoCoSeria;
         public string edconctr;
         public int StolbecCol = 0;
+        public int StolbecCol_1 = 0;
         public string SposobZadan;
         public int Days;
         public bool ComPodkl = false;
@@ -73,7 +74,10 @@ namespace Analis200
             radioButton3.Enabled = false;
             radioButton4.Enabled = false;
             radioButton5.Enabled = false;
-
+            textBox4.Text = string.Format("{0:0.0000}", 0);
+            textBox5.Text = string.Format("{0:0.0000}", 0);
+            textBox6.Text = string.Format("{0:0.0000}", 0);
+            //aproksim == "Линейная через 0";
         }
 
 
@@ -3030,6 +3034,7 @@ namespace Analis200
         public string CountSeriya2 = Convert.ToString(3);
         public string CountInSeriya2 = Convert.ToString(3);
         public string[,] Stolbec;
+        public string[,] Stolbec_1;
         public string Stolbec1 = "";
         public string Stroka1 = "";
         public string Pogreshnost2 = "";
@@ -3207,6 +3212,21 @@ namespace Analis200
 
                             }
 
+                        }
+                    }
+                    if(TypeYravn1 == "Линейное через 0")
+                    {
+                        aproksim = "Линейная через 0";
+                    }
+                    else
+                    {
+                        if(TypeYravn1 == "Линейное")
+                        {
+                            aproksim = "Линейная";
+                        }
+                        else
+                        {
+                            aproksim = "Квадратичная";
                         }
                     }
                     if (TypeYravn1 == "Линейное через 0" || TypeYravn1 == "Линейное")
@@ -3389,9 +3409,9 @@ namespace Analis200
 
                         }
                     }
-                    StolbecCol = 2 + Convert.ToInt32(CountSeriya2) + Convert.ToInt32(CountSeriya2) + 2;
+                    StolbecCol_1 = 2 + Convert.ToInt32(CountSeriya2) + Convert.ToInt32(CountSeriya2) + 2;
 
-                    Stolbec = new string[Convert.ToInt32(CountInSeriya2), StolbecCol];
+                    Stolbec_1 = new string[Convert.ToInt32(CountInSeriya2), StolbecCol_1];
                     int stroka = 0;
 
                     // Читаем в цикле вложенные значения Stroka
@@ -3411,7 +3431,7 @@ namespace Analis200
                                 if ("Stolbec".Equals(k.Name) && k.FirstChild != null)
                                 {
 
-                                    Stolbec[stroka, stolbec] = k.FirstChild.Value;
+                                    Stolbec_1[stroka, stolbec] = k.FirstChild.Value;
 
 
                                     stolbec++;
@@ -3474,15 +3494,15 @@ namespace Analis200
         public void TableWrite2()
         {
 
-            int StolbecCol = 2 + Convert.ToInt32(CountSeriya2) + Convert.ToInt32(CountSeriya2) + 2;
+            int StolbecCol_1 = 2 + Convert.ToInt32(CountSeriya2) + Convert.ToInt32(CountSeriya2) + 2;
 
 
             for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
             {
-                for (int j = 0; j < StolbecCol; j++)
+                for (int j = 0; j < StolbecCol_1; j++)
                 {
 
-                    Table2.Rows[i].Cells[j].Value = Stolbec[i, j];
+                    Table2.Rows[i].Cells[j].Value = Stolbec_1[i, j];
                 }
 
             }
@@ -4924,17 +4944,7 @@ namespace Analis200
             Izmerenie1 = true;
             if (tabControl2.SelectedIndex == 0)
             {
-                this.textBox4.Text = string.Format("{0:0.0000}", 0);
-                this.textBox5.Text = string.Format("{0:0.0000}", 0);
-                this.textBox6.Text = string.Format("{0:0.0000}", 0);
-                //    Izmerenie1 = true;
-                while (true)
-                {
-                    int i = Table1.Columns.Count - 1;//С какого столбца начать
-                    if (Table1.Columns.Count == 3 + NoCaIzm)
-                        break;
-                    Table1.Columns.RemoveAt(i);
-                }
+                
                 ParametrsGrad _ParametrsGrad = new ParametrsGrad(this);
 
                 _ParametrsGrad.button1.Click += (ParametrsGrad, eSlave) =>
@@ -4954,7 +4964,7 @@ namespace Analis200
                     Days = Convert.ToInt32(_ParametrsGrad.numericUpDown1.Value);
                     label6.Text = dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy");
                     edconctr = _ParametrsGrad.Ed.Text;
-                    if (_ParametrsGrad.radioButton7.Checked == true)
+                 /*   if (_ParametrsGrad.radioButton7.Checked == true)
                     {
                         this.textBox4.Text = string.Format("{0:0.0000}", _ParametrsGrad.k0Text.Text);
                         this.textBox5.Text = string.Format("{0:0.0000}", _ParametrsGrad.k1Text.Text);
@@ -4970,7 +4980,7 @@ namespace Analis200
                             this.textBox5.Text = string.Format("{0:0.0000}", 0);
                             this.textBox6.Text = string.Format("{0:0.0000}", 0);
                         }
-                    }
+                    }*/
                     if (_ParametrsGrad.radioButton6.Checked == true)
                     {
                         SposobZadan = "По СО";
@@ -5282,13 +5292,7 @@ namespace Analis200
                 //   this.textBox5.Text = string.Format("{0:0.0000}", 0);
                 //   this.textBox6.Text = string.Format("{0:0.0000}", 0);
                 //    Izmerenie1 = true;
-                while (true)
-                {
-                    int i = Table1.Columns.Count - 1;//С какого столбца начать
-                    if (Table1.Columns.Count == 3 + NoCaIzm)
-                        break;
-                    Table1.Columns.RemoveAt(i);
-                }
+               
 
 
                 NewGraduirovka _NewGraduirovka = new NewGraduirovka(this);
@@ -5553,6 +5557,8 @@ namespace Analis200
 
         private void button3_Click_1(object sender, EventArgs e)
         {
+          //System.Drawing.Printing.InvalidPrinterException text = @"No printers are installed";
+        
             if (tabControl2.SelectedIndex == 0 && SposobZadan == "По СО")
             {
                 bool doNotWrite = false;

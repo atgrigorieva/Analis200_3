@@ -68,8 +68,10 @@ namespace Analis200
                 _Analis.IzmerenieOpen = true;
                 _Analis.параметрыToolStripMenuItem.Enabled = true;
                 _Analis.button10.Enabled = true;
+                this.TopMost = true;
+                Close();
             }
-            Close();
+            
         }
 
         private void Opt_dlin_cuvet_SelectedIndexChanged(object sender, EventArgs e)

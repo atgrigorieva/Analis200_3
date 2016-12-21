@@ -19,8 +19,7 @@ namespace Analis200
             k1Text.Text = string.Format("{0:0.0000}", _Analis.textBox5.Text);
             k2Text.Text = string.Format("{0:0.0000}", _Analis.textBox6.Text);
             k0Text.Text = string.Format("{0:0.0000}", _Analis.textBox4.Text);
-            _Analis.chart1.Series[0].Points.Clear();
-            _Analis.chart1.Series[1].Points.Clear();
+            
 
             // radioButton1.Checked = true;
             //  radioButton4.Checked = true;
@@ -228,9 +227,7 @@ namespace Analis200
             groupBox6.Enabled = true;
             numericUpDown3.Enabled = true;
             numericUpDown4.Enabled = true;
-            //  k0Text.Text = string.Format("{0:0.0000}", 0);
-            //   k1Text.Text = string.Format("{0:0.0000}", 0);
-            //   k2Text.Text = string.Format("{0:0.0000}", 0);
+         
             _Analis.SposobZadan = "По СО";
         }
 
@@ -436,12 +433,7 @@ namespace Analis200
             LogoForm.StartPosition = FormStartPosition.CenterScreen;
             LogoForm.ControlBox = false;
             LogoForm.FormBorderStyle = FormBorderStyle.None;
-            /*PictureBox PicBox = new PictureBox();
-            PicBox.Size = new Size(307, 179);
-            PicBox.Location = new System.Drawing.Point(12, 12);
-            PicBox.ImageLocation = "D:\\Analis-samo\\Analis200\\Analis200\bin\x64\\Release\\Calibrovka.png";
-            PicBox.SizeMode = PictureBoxSizeMode.Zoom;
-            LogoForm.Controls.Add(PicBox);*/
+            
             LogoForm.Show();
         }
         private void button1_Click(object sender, EventArgs e)
@@ -476,6 +468,15 @@ namespace Analis200
           MessageBoxOptions.DefaultDesktopOnly);
                 if (result == DialogResult.Yes)
                 {
+                    _Analis.chart1.Series[0].Points.Clear();
+                    _Analis.chart1.Series[1].Points.Clear();
+                    while (true)
+                    {
+                        int i = _Analis.Table1.Columns.Count - 1;//С какого столбца начать
+                        if (_Analis.Table1.Columns.Count == 3 + _Analis.NoCaIzm)
+                            break;
+                        _Analis.Table1.Columns.RemoveAt(i);
+                    }
                     WL();
                     _Analis.textBox1.Text = Description.Text;
                     _Analis.textBox2.Text = Opt_dlin_cuvet.Text;
@@ -586,6 +587,7 @@ namespace Analis200
                         }
                         else
                         {
+                            _Analis.label14.Text = "";
                             if (radioButton4.Checked == true)
                             {
                                 _Analis.radioButton4.Checked = true;

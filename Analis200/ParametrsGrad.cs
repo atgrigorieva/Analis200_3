@@ -13,6 +13,7 @@ namespace Analis200
         {
             InitializeComponent();
             this._Analis = parent;
+
             Ed.SelectedIndex = 9;
 
             this.radioButton1.CheckedChanged += new EventHandler(radioButton1_CheckedChanged);
@@ -27,8 +28,8 @@ namespace Analis200
                 WL_grad.Text = _Analis.DLWL;
             }
 
-            _Analis.chart1.Series[0].Points.Clear();
-            _Analis.chart1.Series[1].Points.Clear();
+         //   _Analis.chart1.Series[0].Points.Clear();
+         //   _Analis.chart1.Series[1].Points.Clear();
         }
 
         private void ParametrsGrad_Load(object sender, EventArgs e)
@@ -102,12 +103,12 @@ namespace Analis200
                 this._Analis.textBoxCO[i].Enabled = true;
 
             }
-            radioButton1.Checked = true;
+          //  radioButton1.Checked = true;
             radioButton4.Checked = true;
             radioButton6.Checked = true;
-            k0Text.Text = string.Format("{0:0.0000}", 0);
-            k1Text.Text = string.Format("{0:0.0000}", 0);
-            k2Text.Text = string.Format("{0:0.0000}", 0);
+            k0Text.Text = string.Format("{0:0.0000}", _Analis.textBox4.Text);
+            k1Text.Text = string.Format("{0:0.0000}", _Analis.textBox5.Text);
+            k2Text.Text = string.Format("{0:0.0000}", _Analis.textBox6.Text);
 
             _Analis.Veshestvo1 = Veshestvo.Text;
             //  _Analis.wavelength1 = WL_grad.Text;
@@ -131,15 +132,48 @@ namespace Analis200
                 k2Text.Text = string.Format("{0:0.0000}", 0);
                 k1Text.Text = string.Format("{0:0.0000}", 0);
             }
-            _Analis.textBox4.Text = k0Text.Text;
-            _Analis.textBox5.Text = k1Text.Text;
-            _Analis.textBox6.Text = k2Text.Text;
+          // _Analis.textBox4.Text = k0Text.Text;
+         //   _Analis.textBox5.Text = k1Text.Text;
+         //  _Analis.textBox6.Text = k2Text.Text;
             //  _Analis.GWNew.Text
             if (_Analis.ComPodkl == true)
             {
                 WL_grad.Text = _Analis.DLWL;
             }
+            if (_Analis.Zavisimoct == "A(C)")
+            {
+                radioButton4.Checked = true;
 
+            }
+            else
+            {
+                radioButton5.Checked = true;
+            }
+            if (_Analis.radioButton1.Checked == true)
+            {
+                radioButton1.Checked = true;
+
+                k1Text.Text = string.Format("{0:0.0000}", _Analis.textBox5.Text);
+                //k2Text.Text = string.Format("{0:0.0000}", _Analis.textBox6.Text);
+            }
+            else
+            {
+                if (_Analis.radioButton2.Checked == true)
+                {
+                    radioButton2.Checked = true;
+
+                    k1Text.Text = string.Format("{0:0.0000}", _Analis.textBox5.Text);
+                    k0Text.Text = string.Format("{0:0.0000}", _Analis.textBox4.Text);
+                }
+                else
+                {
+                    radioButton3.Checked = true;
+
+                    k1Text.Text = string.Format("{0:0.0000}", _Analis.textBox5.Text);
+                    k2Text.Text = string.Format("{0:0.0000}", _Analis.textBox6.Text);
+                    k0Text.Text = string.Format("{0:0.0000}", _Analis.textBox4.Text);
+                }
+            }
         }
 
         public void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -171,9 +205,9 @@ namespace Analis200
             }
             numericUpDown3.Enabled = true;
             numericUpDown4.Enabled = true;
-            k0Text.Text = string.Format("{0:0.0000}", 0);
-            k1Text.Text = string.Format("{0:0.0000}", 0);
-            k2Text.Text = string.Format("{0:0.0000}", 0);
+     //       k0Text.Text = string.Format("{0:0.0000}", 0);
+     //       k1Text.Text = string.Format("{0:0.0000}", 0);
+      //      k2Text.Text = string.Format("{0:0.0000}", 0);
 
             _Analis.SposobZadan = "По СО";
         }
@@ -197,9 +231,7 @@ namespace Analis200
                 k2Text.Enabled = false;
                 k0Text.Text = string.Format("{0:0.0000}", 0);
                 k2Text.Text = string.Format("{0:0.0000}", 0);
-                _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+               
                 double k0 = Convert.ToDouble(k0Text.Text);
                 double k1 = Convert.ToDouble(k1Text.Text);
                 double k2 = Convert.ToDouble(k2Text.Text);
@@ -216,9 +248,7 @@ namespace Analis200
                     k2Text.Enabled = false;
 
                     k2Text.Text = string.Format("{0:0.0000}", 0);
-                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                  
                     double k0 = Convert.ToDouble(k0Text.Text);
                     double k1 = Convert.ToDouble(k1Text.Text);
                     double k2 = Convert.ToDouble(k2Text.Text);
@@ -230,16 +260,14 @@ namespace Analis200
                     k1Text.Enabled = true;
                     k2Text.Enabled = true;
 
-                    _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                    _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                    _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                   
                     double k0 = Convert.ToDouble(k0Text.Text);
                     double k1 = Convert.ToDouble(k1Text.Text);
                     double k2 = Convert.ToDouble(k2Text.Text);
                     _Analis.label14.Text = "A(C) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString("0.0000 ;- 0.0000 ") + "*C" + k2.ToString("0.0000 ;- 0.0000 ") + "*C^2";
                 }
             }
-
+            
         }
         public void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -254,9 +282,7 @@ namespace Analis200
                       k2Text.Enabled = false;
                       k0Text.Text = string.Format("{0:0.0000}", 0);
                       k2Text.Text = string.Format("{0:0.0000}", 0);
-                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                    
                       double k0 = Convert.ToDouble(k0Text.Text);
                       double k1 = Convert.ToDouble(k1Text.Text);
                       double k2 = Convert.ToDouble(k2Text.Text);
@@ -271,9 +297,7 @@ namespace Analis200
                           k2Text.Enabled = false;
 
                           k2Text.Text = string.Format("{0:0.0000}", 0);
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                       
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -285,9 +309,7 @@ namespace Analis200
                           k1Text.Enabled = true;
                           k2Text.Enabled = true;
 
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                         
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -310,9 +332,7 @@ namespace Analis200
                       k2Text.Enabled = false;
                       k0Text.Text = string.Format("{0:0.0000}", 0);
                       k2Text.Text = string.Format("{0:0.0000}", 0);
-                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                     
                       double k0 = Convert.ToDouble(k0Text.Text);
                       double k1 = Convert.ToDouble(k1Text.Text);
                       double k2 = Convert.ToDouble(k2Text.Text);
@@ -327,9 +347,7 @@ namespace Analis200
                           k2Text.Enabled = false;
 
                           k2Text.Text = string.Format("{0:0.0000}", 0);
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                        
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -341,9 +359,7 @@ namespace Analis200
                           k1Text.Enabled = true;
                           k2Text.Enabled = true;
 
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                         
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -366,9 +382,7 @@ namespace Analis200
                       k2Text.Enabled = false;
                       k0Text.Text = string.Format("{0:0.0000}", 0);
                       k2Text.Text = string.Format("{0:0.0000}", 0);
-                      _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                      _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                      _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                    
                       double k0 = Convert.ToDouble(k0Text.Text);
                       double k1 = Convert.ToDouble(k1Text.Text);
                       double k2 = Convert.ToDouble(k2Text.Text);
@@ -383,9 +397,7 @@ namespace Analis200
                           k2Text.Enabled = false;
 
                           k2Text.Text = string.Format("{0:0.0000}", 0);
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                       
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -397,9 +409,7 @@ namespace Analis200
                           k1Text.Enabled = true;
                           k2Text.Enabled = true;
 
-                          _Analis.textBox4.Text = string.Format("{0:0.0000}", k0Text.Text);
-                          _Analis.textBox5.Text = string.Format("{0:0.0000}", k1Text.Text);
-                          _Analis.textBox6.Text = string.Format("{0:0.0000}", k2Text.Text);
+                         
                           double k0 = Convert.ToDouble(k0Text.Text);
                           double k1 = Convert.ToDouble(k1Text.Text);
                           double k2 = Convert.ToDouble(k2Text.Text);
@@ -451,6 +461,19 @@ namespace Analis200
                 // }
                 if (result == DialogResult.Yes)
                 {
+                    //this.textBox4.Text = string.Format("{0:0.0000}", 0);
+                    //this.textBox5.Text = string.Format("{0:0.0000}", 0);
+                    // this.textBox6.Text = string.Format("{0:0.0000}", 0);
+                    //    Izmerenie1 = true;
+                    _Analis.chart1.Series[0].Points.Clear();
+                    _Analis.chart1.Series[1].Points.Clear();
+                    while (true)
+                    {
+                        int i = _Analis.Table1.Columns.Count - 1;//С какого столбца начать
+                        if (_Analis.Table1.Columns.Count == 3 + _Analis.NoCaIzm)
+                            break;
+                        _Analis.Table1.Columns.RemoveAt(i);
+                    }
                     WL();
                     _Analis.textBox1.Text = Description.Text;
                     _Analis.textBox2.Text = Opt_dlin_cuvet.Text;
@@ -561,6 +584,7 @@ namespace Analis200
                         }
                         else
                         {
+                            _Analis.label14.Text = "";
                             if (radioButton4.Checked == true)
                             {
                                 _Analis.radioButton4.Checked = true;
@@ -596,7 +620,7 @@ namespace Analis200
                     }
                     else
                     {
-                        if (radioButton7.Checked == true)
+                        if (radioButton6.Checked == true)
                         {
                             _Analis.groupBox2.Visible = false;
                             if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
@@ -612,7 +636,7 @@ namespace Analis200
                                 double k0 = Convert.ToDouble(k0Text.Text);
                                 double k1 = Convert.ToDouble(k1Text.Text);
                                 double k2 = Convert.ToDouble(k2Text.Text);
-                                _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
+                                _Analis.label14.Text = "";
                                 for (double i = 0; i <= 3; i++)
                                 {
                                     double x2 = i;
@@ -643,7 +667,7 @@ namespace Analis200
                                     double k0 = Convert.ToDouble(k0Text.Text);
                                     double k1 = Convert.ToDouble(k1Text.Text);
                                     double k2 = Convert.ToDouble(k2Text.Text);
-                                    _Analis.label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A" + k0.ToString(" + 0.0000 ;- 0.0000 ");
+                                    _Analis.label14.Text = "";
                                     for (double i = 0; i <= 3; i++)
                                     {
                                         double x2 = i;
@@ -670,7 +694,7 @@ namespace Analis200
                                     double k0 = Convert.ToDouble(k0Text.Text);
                                     double k1 = Convert.ToDouble(k1Text.Text);
                                     double k2 = Convert.ToDouble(k2Text.Text);
-                                    _Analis.label14.Text = "C(A) = " + k0.ToString(" 0.0000 ;- 0.0000 ") + k1.ToString(" + 0.0000 ;- 0.0000 ") + "*A" + k2.ToString(" + 0.0000 ;- 0.0000 ") + "*A^2";
+                                    _Analis.label14.Text = "";
                                     for (double i = 0; i <= 3; i++)
                                     {
                                         double x2 = i;
