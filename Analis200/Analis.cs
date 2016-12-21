@@ -894,6 +894,7 @@ namespace Analis200
                 }
 
                 newPort.Close();
+                wavelength1 = Convert.ToString(0);
             }
             else
             {
@@ -3809,6 +3810,8 @@ namespace Analis200
                 //char[] OpenPribor = { Convert.ToChar('C'), Convert.ToChar('O'), Convert.ToChar('\r') };
                 //newPort.Write(OpenPribor, 0, OpenPribor.Length);
 
+                File.WriteAllText(@"openport.port", string.Empty);
+                File.AppendAllText(@"openport.port", portsName, Encoding.UTF8);
 
                 Analis__Activated();
                 CO();
@@ -3885,6 +3888,7 @@ namespace Analis200
                 this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Enabled = false;
                 button1.Enabled = false;
                 newPort.Close();
+                wavelength1 = Convert.ToString(0);
 
 
             }
@@ -5371,6 +5375,7 @@ namespace Analis200
                 }
 
                 newPort.Close();
+                wavelength1 = Convert.ToString(0);
                 ComPort = false;
                 SWF.Application.Exit();
             }
