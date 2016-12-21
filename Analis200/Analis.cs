@@ -3793,8 +3793,7 @@ namespace Analis200
                     //    newPort.DataReceived += new SerialDataReceivedEventHandler(newPort_DataReceived);
                     newPort.RtsEnable = false;
                     newPort.DtrEnable = true;
-                    newPort.Open();
-                    // MessageBox.Show("ПОРТ ОТКРЫТ " + newPort.PortName);
+                    newPort.Open();// MessageBox.Show("ПОРТ ОТКРЫТ " + newPort.PortName);
 
 
                     newPort.DiscardInBuffer();
@@ -3850,7 +3849,6 @@ namespace Analis200
                 Thread.Sleep(500);
                 //  byte[] buffer1 = new byte[byteRecieved1];
                 string indata = newPort.ReadExisting();
-
                 bool indata_bool = true;
                 while (indata_bool == true)
                 {

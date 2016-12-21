@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Linq;
+
 namespace Analis200
 {
     public partial class SettingPort : Form
@@ -14,10 +16,58 @@ namespace Analis200
 
             InitializeComponent();
             this._Analis = parent;
+
+      
+            
             //CO();
             // SW();
             // InitializeTimer();
             string[] ports = SerialPort.GetPortNames();
+
+
+            for (int i = 0; i < ports.Length; i++)
+            {
+                SerialPort newPort = new SerialPort();
+
+                // настройки порта (Communication interface)
+                newPort.PortName = ports[i];
+                newPort.BaudRate = 19200;
+                newPort.DataBits = 8;
+                newPort.Parity = System.IO.Ports.Parity.None;
+                newPort.StopBits = System.IO.Ports.StopBits.One;
+                // Установка таймаутов чтения/записи (read/write timeouts)
+                newPort.ReadTimeout = 100;
+                newPort.WriteTimeout = 100;
+                //    newPort.DataReceived += new SerialDataReceivedEventHandler(newPort_DataReceived);
+                newPort.RtsEnable = false;
+                newPort.DtrEnable = true;
+                newPort.Open();// MessageBox.Show("ПОРТ ОТКРЫТ " + newPort.PortName);
+                newPort.Write("^*^\r");
+                int byteRecieved = newPort.ReadBufferSize;
+                System.Threading.Thread.Sleep(50);
+                byte[] buffer = new byte[byteRecieved];
+                try
+                {
+                    newPort.Read(buffer, 0, byteRecieved);
+                    newPort.DiscardInBuffer();
+                    newPort.DiscardOutBuffer();
+                    newPort.Close();
+
+                } // Читаем ответ(если ничего не пришло отваливаемся по ReadTimeout = 500
+                catch (TimeoutException)
+                { /* Девайса нет */
+
+                    newPort.DiscardInBuffer();
+                    newPort.DiscardOutBuffer();
+                    newPort.Close();
+                    ports[i] = null;
+                    ports = ports.Where(x => x != null).ToArray();
+                    i--;
+
+                }
+
+            }
+            
             comboBox1.Items.Clear();
             comboBox1.Items.AddRange(ports);
             if (ports.Length != 0)
