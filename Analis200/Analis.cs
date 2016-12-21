@@ -6680,6 +6680,116 @@ namespace Analis200
         iTextSharp.text.Font font;
         iTextSharp.text.Font fontBold;
         iTextSharp.text.Font fontBold1;
+
+        private void button1_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button1, "Отключиться от прибора");
+
+        }
+
+        private void button2_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button2, "Подключиться к прибору");
+        }
+
+        private void button12_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button12, "Калибровка");
+        }
+
+        private void button14_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button14, "Измерение");
+        }
+
+        private void button3_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            t.SetToolTip(button3, "Печать");
+        }
+
+        private void button5_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button5, "Новая градуировка");
+            }
+            else
+            {
+                t.SetToolTip(button5, "Новое измерение");
+            }
+        }
+
+        private void button6_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button6, "Открыть градуировку");
+            }
+            else
+            {
+                t.SetToolTip(button6, "Открыть измерение");
+            }
+        }
+
+        private void button7_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button7, "Сохранить градуировку");
+            }
+            else
+            {
+                t.SetToolTip(button7, "Сохранить измерение");
+            }
+        }
+
+        private void button8_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button8, "Экспорт градуировки в Excel");
+            }
+            else
+            {
+                t.SetToolTip(button8, "Экспорт измерения в Excel");
+            }
+        }
+
+        private void button9_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button9, "Экспорт градуировки в PDF");
+            }
+            else
+            {
+                t.SetToolTip(button9, "Экспорт измерения в PDF");
+            }
+        }
+
+        private void button10_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip t = new ToolTip();
+            if (tabControl2.SelectedIndex == 0)
+            {
+                t.SetToolTip(button10, "Изменить градуировку");
+            }
+            else
+            {
+                t.SetToolTip(button10, "Изменить измерение");
+            }
+        }
+
         iTextSharp.text.Font font1;
         
         public void ExportToPDF1()
