@@ -3513,17 +3513,7 @@ namespace Analis200
         {
             if (tabControl2.SelectedIndex == 0)
             {
-                this.textBox4.Text = string.Format("{0:0.0000}", 0);
-                this.textBox5.Text = string.Format("{0:0.0000}", 0);
-                this.textBox6.Text = string.Format("{0:0.0000}", 0);
-                //    Izmerenie1 = true;
-                while (true)
-                {
-                    int i = Table1.Columns.Count - 1;//С какого столбца начать
-                    if (Table1.Columns.Count == 3 + NoCaIzm)
-                        break;
-                    Table1.Columns.RemoveAt(i);
-                }
+               
                 ParametrsGrad _ParametrsGrad = new ParametrsGrad(this);
 
                 _ParametrsGrad.button1.Click += (ParametrsGrad, eSlave) =>
@@ -3543,7 +3533,7 @@ namespace Analis200
                     Days = Convert.ToInt32(_ParametrsGrad.numericUpDown1.Value);
                     label6.Text = dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy");
                     edconctr = _ParametrsGrad.Ed.Text;
-                    if (_ParametrsGrad.radioButton7.Checked == true)
+                 /*   if (_ParametrsGrad.radioButton7.Checked == true)
                     {
                         this.textBox4.Text = string.Format("{0:0.0000}", _ParametrsGrad.k0Text.Text);
                         this.textBox5.Text = string.Format("{0:0.0000}", _ParametrsGrad.k1Text.Text);
@@ -3559,7 +3549,7 @@ namespace Analis200
                             this.textBox5.Text = string.Format("{0:0.0000}", 0);
                             this.textBox6.Text = string.Format("{0:0.0000}", 0);
                         }
-                    }
+                    }*/
                     if (_ParametrsGrad.radioButton6.Checked == true)
                     {
                         SposobZadan = "По СО";
