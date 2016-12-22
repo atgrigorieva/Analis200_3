@@ -2716,7 +2716,8 @@ namespace Analis200
             {
                 CreateXMLDocument(ref filepath);
                 WriteXml(ref filepath);
-
+                button3.Enabled = true;
+                печатьToolStripMenuItem.Enabled = true;
             }
         }
         public void SaveAs2()
@@ -2730,7 +2731,8 @@ namespace Analis200
             {
                 CreateXMLDocument2(ref filepath2);
                 WriteXml2(ref filepath2);
-
+                button3.Enabled = true;
+                печатьToolStripMenuItem.Enabled = true;
             }
         }
         public string[] HeaderCells;
@@ -4389,6 +4391,7 @@ namespace Analis200
                     radioButton3.Enabled = true;
                     radioButton4.Enabled = true;
                     radioButton5.Enabled = true;
+                    button3.Enabled = true;
                 }
                 tabPage4.Parent = tabControl2;
             }
@@ -4409,6 +4412,8 @@ namespace Analis200
 
 
                     TableWrite2();
+                    button3.Enabled = true;
+                    печатьToolStripMenuItem.Enabled = true;
                 }
 
             }
@@ -5264,14 +5269,26 @@ namespace Analis200
             }
         }
         int countOpen = 0;
+        
         private void tabControl2_Selecting(object sender, TabControlCancelEventArgs e)
         {
             if (countOpen == 0)
             {
                 параметрыToolStripMenuItem.Enabled = false;
                 button10.Enabled = false;
+                button3.Enabled = false;
+                печатьToolStripMenuItem.Enabled = false;
             }
             countOpen++;
+            if (tabControl2.SelectedIndex == 0)
+            {
+               
+                    параметрыToolStripMenuItem.Enabled = true;
+                    button10.Enabled = true;
+                    печатьToolStripMenuItem.Enabled = true;
+                    button3.Enabled = true;
+               
+            }
         }
 
         private void button10_Click(object sender, EventArgs e)
