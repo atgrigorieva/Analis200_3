@@ -724,9 +724,8 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(740, 49);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 12;
-            this.label6.Text = "label6";
             // 
             // numericUpDown1
             // 
@@ -889,18 +888,16 @@
             this.F2Text.AutoSize = true;
             this.F2Text.Location = new System.Drawing.Point(824, 45);
             this.F2Text.Name = "F2Text";
-            this.F2Text.Size = new System.Drawing.Size(41, 13);
+            this.F2Text.Size = new System.Drawing.Size(0, 13);
             this.F2Text.TabIndex = 25;
-            this.F2Text.Text = "label15";
             // 
             // F1Text
             // 
             this.F1Text.AutoSize = true;
             this.F1Text.Location = new System.Drawing.Point(715, 45);
             this.F1Text.Name = "F1Text";
-            this.F1Text.Size = new System.Drawing.Size(41, 13);
+            this.F1Text.Size = new System.Drawing.Size(0, 13);
             this.F1Text.TabIndex = 24;
-            this.F1Text.Text = "label15";
             // 
             // Table2
             // 

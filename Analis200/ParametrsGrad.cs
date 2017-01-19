@@ -1025,5 +1025,17 @@ namespace Analis200
                 }
             }
         }
+
+        private void USE_KO_CheckedChanged(object sender, EventArgs e)
+        {
+            if(USE_KO.Checked == true)
+            {
+                _Analis.USE_KO = true;
+            }
+            else
+            {
+                _Analis.USE_KO = false;
+            }
+        }
     }
 }

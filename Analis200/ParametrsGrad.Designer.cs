@@ -77,10 +77,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.USE_KO = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -248,6 +250,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.USE_KO);
             this.groupBox6.Location = new System.Drawing.Point(527, 67);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(380, 278);
@@ -618,6 +621,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Действие";
             // 
+            // USE_KO
+            // 
+            this.USE_KO.AutoSize = true;
+            this.USE_KO.Location = new System.Drawing.Point(36, 255);
+            this.USE_KO.Name = "USE_KO";
+            this.USE_KO.Size = new System.Drawing.Size(215, 17);
+            this.USE_KO.TabIndex = 0;
+            this.USE_KO.Text = "Использовать контрольный опыт КО";
+            this.USE_KO.UseVisualStyleBackColor = true;
+            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            // 
             // ParametrsGrad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -651,6 +665,8 @@
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -718,5 +734,6 @@
         public System.Windows.Forms.RadioButton radioButton1;
         public System.Windows.Forms.RadioButton radioButton5;
         public System.Windows.Forms.RadioButton radioButton4;
+        public System.Windows.Forms.CheckBox USE_KO;
     }
 }
