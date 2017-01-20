@@ -2821,6 +2821,17 @@ namespace Analis200
             CountInSeriya1.InnerText = CountInSeriya; // и значение
             Izmerenie.AppendChild(CountInSeriya1); // и указываем кому принадлежит
 
+            XmlNode USE_CO_XML = xd.CreateElement("USE_CO_XML"); // Примечание
+            if(USE_KO == true)
+            {
+                USE_CO_XML.InnerText = "true";
+            }
+            else
+            {
+                USE_CO_XML.InnerText = "false";
+            }
+            
+            Izmerenie.AppendChild(USE_CO_XML); // и указываем кому принадлежит
 
             XmlNode TypeYravn1 = xd.CreateElement("TypeYravn"); // Тип уравнения
             if (radioButton1.Checked == true)
@@ -3058,6 +3069,7 @@ namespace Analis200
         public string Pogreshnost2 = "";
         public string TypeYravn1 = "";
         public string TimeIzmer1 = "";
+        public string USE_CO_XML1 = "";
         public void openFile(ref string filepath)
         {
             WLREMOVE1();
@@ -3071,7 +3083,6 @@ namespace Analis200
             xDoc.Load(@filepath);
 
             XmlNodeList nodes = xDoc.ChildNodes;
-            // Обходим значения
             foreach (XmlNode n in nodes)
             { // Обрабатываем в цикле только Data_Izmerenie
                 if ("Data_Izmerenie".Equals(n.Name))
@@ -3085,6 +3096,38 @@ namespace Analis200
                             //Можно, например, в этом цикле, да и не только..., взять какие-то данные
                             for (XmlNode k = d.FirstChild; k != null; k = k.NextSibling)
                             {
+                                if ("USE_CO_XML".Equals(k.Name) && k.FirstChild != null)
+                                {
+                                    USE_CO_XML1 = k.FirstChild.Value;
+                                    if (USE_CO_XML1 == "true")
+                                    {
+                                        USE_KO = true;
+                                    }
+                                    else
+                                    {
+                                        USE_KO = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+                                // Обходим значения
+            foreach (XmlNode n in nodes)
+            { // Обрабатываем в цикле только Data_Izmerenie
+                if ("Data_Izmerenie".Equals(n.Name))
+                {
+                    // Читаем в цикле вложенные значения Izmerenie
+                    for (XmlNode d = n.FirstChild; d != null; d = d.NextSibling)
+                    {
+                        // Обрабатываем в цикле только Izmerenie
+                        if ("Izmerenie".Equals(d.Name))
+                        {
+                            //Можно, например, в этом цикле, да и не только..., взять какие-то данные
+                            for (XmlNode k = d.FirstChild; k != null; k = k.NextSibling)
+                            {
+                               
                                 if ("Veshestvo".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     Veshestvo1 = k.FirstChild.Value; //Вещество
@@ -3129,6 +3172,7 @@ namespace Analis200
                                     DateTime2_1 = k.FirstChild.Value; //Дата
                                     label6.Text = DateTime2_1;
                                 }
+                                
                                 if ("DateTime1_1_1".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     DateTime2_2_1 = k.FirstChild.Value; //Дата
@@ -3160,6 +3204,7 @@ namespace Analis200
                                     TimeIzmer1 = k.FirstChild.Value;
 
                                 }
+                                
                                 if ("TypeYravn".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     TypeYravn1 = k.FirstChild.Value; //Исполнитель
@@ -3219,12 +3264,21 @@ namespace Analis200
                                 {
                                     CountInSeriya2 = k.FirstChild.Value; //Количество строк
                                     CountInSeriya = CountInSeriya2;
-
-                                    for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
+                                    NoCaSer = Convert.ToInt32(CountInSeriya);
+                                    if (USE_CO_XML1 == "false")
                                     {
-                                        Table1.Rows.Add();
+                                        for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
+                                        {
+                                            Table1.Rows.Add();
+                                        }
                                     }
-
+                                    else
+                                    {
+                                        for (int i = 0; i < (Convert.ToInt32(CountInSeriya2)+1); i++)
+                                        {
+                                            Table1.Rows.Add();
+                                        }
+                                    }
 
                                 }
 
@@ -3247,15 +3301,30 @@ namespace Analis200
                             aproksim = "Квадратичная";
                         }
                     }
-                    if (TypeYravn1 == "Линейное через 0" || TypeYravn1 == "Линейное")
+                    if (USE_CO_XML1 == "false")
                     {
-                        StolbecCol = 5 + Convert.ToInt32(CountSeriya2);
+                        if (TypeYravn1 == "Линейное через 0" || TypeYravn1 == "Линейное")
+                        {
+                            StolbecCol = 5 + Convert.ToInt32(CountSeriya2);
+                        }
+                        else
+                        {
+                            StolbecCol = 8 + Convert.ToInt32(CountSeriya2);
+                        }
+                        Stolbec = new string[Convert.ToInt32(CountInSeriya2), StolbecCol];
                     }
                     else
                     {
-                        StolbecCol = 8 + Convert.ToInt32(CountSeriya2);
+                        if (TypeYravn1 == "Линейное через 0" || TypeYravn1 == "Линейное")
+                        {
+                            StolbecCol = 5 + Convert.ToInt32(CountSeriya2);
+                        }
+                        else
+                        {
+                            StolbecCol = 8 + Convert.ToInt32(CountSeriya2);
+                        }
+                        Stolbec = new string[(Convert.ToInt32(CountInSeriya2)+1), StolbecCol];
                     }
-                    Stolbec = new string[Convert.ToInt32(CountInSeriya2), StolbecCol];
                     int stroka = 0;
 
                     // Читаем в цикле вложенные значения Stroka
@@ -3473,15 +3542,28 @@ namespace Analis200
 
             int StolbecCol = 3 + Convert.ToInt32(CountSeriya2);
 
-
-            for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
+            if (USE_CO_XML1 == "false")
             {
-                for (int j = 0; j < StolbecCol; j++)
+                for (int i = 0; i < Convert.ToInt32(CountInSeriya2); i++)
                 {
+                    for (int j = 0; j < StolbecCol; j++)
+                    {
 
-                    Table1.Rows[i].Cells[j].Value = Stolbec[i, j];
+                        Table1.Rows[i].Cells[j].Value = Stolbec[i, j];
+                    }
+
                 }
+            }
+            {
+                for (int i = 0; i < (Convert.ToInt32(CountInSeriya2)+1); i++)
+                {
+                    for (int j = 0; j < StolbecCol; j++)
+                    {
 
+                        Table1.Rows[i].Cells[j].Value = Stolbec[i, j];
+                    }
+
+                }
             }
             NoCaIzm = Convert.ToInt32(CountSeriya2);
             if (TimeIzmer1 == "A (C) - градуировочное уравнение (стандарт)")
@@ -4698,20 +4780,42 @@ namespace Analis200
                 circle = 0;
                 XY = 0;
                 SUMMY2 = 0;
-                for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                if (USE_KO == false)
                 {
-                    double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                    double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                    XY += x * y;
-                    SUMMY2 += y * y;
-                    Table1.Rows[i].Cells["X*X"].Value = y * y;
-                    Table1.Rows[i].Cells["X*Y"].Value = x * y;
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "";
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "";
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                        XY += x * y;
+                        SUMMY2 += y * y;
+                        Table1.Rows[i].Cells["X*X"].Value = y * y;
+                        Table1.Rows[i].Cells["X*Y"].Value = x * y;
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "";
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "";
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    }
+                }
+                else
+                {
+                    double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                        XY += x * (y- y0);
+                        SUMMY2 += (y - y0) * (y - y0);
+                        Table1.Rows[i].Cells["X*X"].Value = (y - y0) * (y - y0);
+                        Table1.Rows[i].Cells["X*Y"].Value = x * (y - y0);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "";
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "";
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    }
                 }
             }
 
@@ -4825,37 +4929,95 @@ namespace Analis200
             {
                 if (textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
+                    int Table1_Asred = 0;
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    if (USE_KO == false)
                     {
-                        double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                        double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                        chart1.Series[0].Points.AddXY(x1, y1);
-                        chart1.Series[0].ChartType = SeriesChartType.Point;
-                        chart1.ChartAreas[0].AxisY.Crossing = 0;
-                        chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            chart1.Series[0].Points.AddXY(x1, y1);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
 
 
-                        //     chart1.Series[0].Points.Item.Label = Convert.ToString(circle);
-                        // chart1.Series[0].IsValueShownAsLabel = true;
-                        //chart1.Series[0].IsXValueIndexed = true;
-                        // circle++;
-                        //double y2 = 0.5 * i;
-                        //double x2 = y2 / k1;
+                            //     chart1.Series[0].Points.Item.Label = Convert.ToString(circle);
+                            // chart1.Series[0].IsValueShownAsLabel = true;
+                            //chart1.Series[0].IsXValueIndexed = true;
+                            // circle++;
+                            //double y2 = 0.5 * i;
+                            //double x2 = y2 / k1;
+                            double x2 = 0;
+                            if (Table1_Asred == 0)
+                            {
+                                x2 = 0;
+                            }
+                            else
+                            {
+                                x2 = x1;
+                            }
+                            Table1_Asred++;
+                            double y2 = x2 * k1;
+                            chart1.Series[1].Points.AddXY(x2, y2);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            // chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                            // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
+                            //    chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
+                    }
+                    else
+                    {
+                        Table1_Asred = 0;
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
 
-                        double x2 = x1;
-                        double y2 = x1 * k1;
-                        chart1.Series[1].Points.AddXY(x2, y2);
-                        chart1.Series[1].ChartType = SeriesChartType.Line;
-                        chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
-                        chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
-                        chart1.ChartAreas[0].AxisX.Minimum = 0;
-                        //   chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
-                        chart1.ChartAreas[0].AxisY.Minimum = 0;
-                        // chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                        // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
-                        //    chart1.ChartAreas[0].AxisX.Interval = 5;
+                        for (int i = 1; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            chart1.Series[0].Points.AddXY((x1- x0), y1);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+
+
+                            //     chart1.Series[0].Points.Item.Label = Convert.ToString(circle);
+                            // chart1.Series[0].IsValueShownAsLabel = true;
+                            //chart1.Series[0].IsXValueIndexed = true;
+                            // circle++;
+                            //double y2 = 0.5 * i;
+                            //double x2 = y2 / k1;
+                            double x2 = 0;
+                            if (Table1_Asred == 0)
+                            {
+                                x2 = 0;
+                            }
+                            else
+                            {
+                                x2 = x1 - x0;
+                            }
+                            Table1_Asred++;
+
+                            double y2 = x2 * k1;
+                            chart1.Series[1].Points.AddXY(x2, y2);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            // chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                            // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
+                            //    chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
                     }
                 }
             }
@@ -4988,24 +5150,52 @@ namespace Analis200
                 k0 = 0; k1 = 0; k2 = 0;
                 SUM0 = 0; SUM1 = 0;
                 SUMMX = 0; SUMMY = 0; XY = 0; SUMMY2 = 0;
-                for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                if (USE_KO == true)
                 {
-                    double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                    double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
                     double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
-                    double x1 = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value);
                     double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
-                    double y1 = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value);
-                    SUMMX += x; SUMMY += y;
-                    XY += x * y;
-                    SUMMY2 += y * y;
-                    Table1.Rows[i].Cells["X*X"].Value = y * y;
-                    Table1.Rows[i].Cells["X*Y"].Value = x * y;
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMX);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMY);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    SUMMX += x0; SUMMY += y0-y0;
+                    XY += x0 * (y0- y0);
+                    SUMMY2 += (y0 - y0) * (y0 - y0);
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);                     
+                                           
+
+                        SUMMX += x; SUMMY += (y - y0);
+                        XY += x * (y - y0);
+                        SUMMY2 += (y - y0) * (y - y0);
+                        Table1.Rows[i].Cells["X*X"].Value = (y - y0) * (y - y0);
+                        Table1.Rows[i].Cells["X*Y"].Value = x * (y - y0);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMX);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMY);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
+                        double x1 = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value);
+                        double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double y1 = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value);
+                        SUMMX += x; SUMMY += y;
+                        XY += x * y;
+                        SUMMY2 += y * y;
+                        Table1.Rows[i].Cells["X*X"].Value = y * y;
+                        Table1.Rows[i].Cells["X*Y"].Value = x * y;
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMX);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMY);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(SUMMY2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
+                    }
                 }
             }
 
@@ -5091,32 +5281,69 @@ namespace Analis200
                 if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A " + k0.ToString("+ 0.0000 ;- 0.0000 ");
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    if (USE_KO == false)
                     {
-                        circle = 1;
-                        double x1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                        double y1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            circle = 1;
+                            double x1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                        // chart1.ChartAreas[0].AxisY.Crossing = k0;
-                        chart1.Series[0].Points.AddXY(x1_1, y1_1);
-                        chart1.Series[0].ChartType = SeriesChartType.Point;
-                        chart1.ChartAreas[0].AxisY.Crossing = 0;
-                        chart1.ChartAreas[0].AxisX.Crossing = 0;
-                        // double y2 = 0.5 * i;
-                        //     double x2 = (y2 - k0) / k1;
-                        //  double y2 = k1 * x1_1 + k0;
-                        double x2 = x1_1;
-                        double y2 = x1_1 * k1 + k0;
+                            // chart1.ChartAreas[0].AxisY.Crossing = k0;
+                            chart1.Series[0].Points.AddXY(x1_1, y1_1);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            // double y2 = 0.5 * i;
+                            //     double x2 = (y2 - k0) / k1;
+                            //  double y2 = k1 * x1_1 + k0;
+                            double x2 = x1_1;
+                            double y2 = x1_1 * k1 + k0;
+                            chart1.Series[1].Points.AddXY(x2, y2);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //      chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                            //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
+                            //     chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
+                    }
+                    else
+                    {
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double x2 = x0 - x0;
+                        double y2 = x2 * k1 + k0;
                         chart1.Series[1].Points.AddXY(x2, y2);
-                        chart1.Series[1].ChartType = SeriesChartType.Line;
-                        chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
-                        chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
-                        chart1.ChartAreas[0].AxisX.Minimum = 0;
-                        //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
-                        chart1.ChartAreas[0].AxisY.Minimum = 0;
-                        //      chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
-                        //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
-                        //     chart1.ChartAreas[0].AxisX.Interval = 5;
+                        for (int i = 1; i < Table1.Rows.Count - 1; i++)
+                        {
+                            circle = 1;
+                            double x1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            // chart1.ChartAreas[0].AxisY.Crossing = k0;
+                            chart1.Series[0].Points.AddXY((x1_1- x0), y1_1);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            // double y2 = 0.5 * i;
+                            //     double x2 = (y2 - k0) / k1;
+                            //  double y2 = k1 * x1_1 + k0;
+                            x2 = x1_1-x0;
+                            y2 = x2 * k1 + k0;
+                            chart1.Series[1].Points.AddXY(x2, y2);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //      chart1.ChartAreas[0].AxisY.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2;
+                            //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
+                            //     chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
                     }
                 }
             }
@@ -5350,13 +5577,13 @@ namespace Analis200
 
                         double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                         double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
-                        double y0 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         x2 += x * x;
                         x3 += x * x * x;
                         x4 += x * x * x * x;
                         xy += x * (y - y0);
                         SUMX += x;
-                        SUMY += y;
+                        SUMY +=(y - y0);
                         x2y += x * x * (y - y0);
                         Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", x * x);
                         Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", x * (y - y0));
@@ -5419,31 +5646,64 @@ namespace Analis200
                     Table1.Columns["X*X*X*X"].ReadOnly = true;
                     Table1.Columns["X*X*Y"].ReadOnly = true;
                 }
-                for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                if (USE_KO == false)
                 {
-                    double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                    double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                    x2 += x * x;
-                    x3 += x * x * x;
-                    x4 += x * x * x * x;
-                    xy += x * y;
-                    SUMX += x;
-                    SUMY += y;
-                    x2y += x * x * y;
-                    Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", x * x);
-                    Table1.Rows[i].Cells["X*X*X"].Value = string.Format("{0:0.0000}", x * x * x);
-                    Table1.Rows[i].Cells["X*X*X*X"].Value = string.Format("{0:0.0000}", x * x * x * x);
-                    Table1.Rows[i].Cells["X*X*Y"].Value = string.Format("{0:0.0000}", x * x * y);
-                    Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", x * y);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMX);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMY);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(x2);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X"].Value = "СУММА = " + Convert.ToString(x3);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X*X"].Value = "СУММА = " + Convert.ToString(x4);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*Y"].Value = "СУММА = " + Convert.ToString(x2y);
-                    Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
+                        x2 += x * x;
+                        x3 += x * x * x;
+                        x4 += x * x * x * x;
+                        xy += x * y;
+                        SUMX += x;
+                        SUMY += y;
+                        x2y += x * x * y;
+                        Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", x * x);
+                        Table1.Rows[i].Cells["X*X*X"].Value = string.Format("{0:0.0000}", x * x * x);
+                        Table1.Rows[i].Cells["X*X*X*X"].Value = string.Format("{0:0.0000}", x * x * x * x);
+                        Table1.Rows[i].Cells["X*X*Y"].Value = string.Format("{0:0.0000}", x * x * y);
+                        Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", x * y);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMX);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMY);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(x2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X"].Value = "СУММА = " + Convert.ToString(x3);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X*X"].Value = "СУММА = " + Convert.ToString(x4);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*Y"].Value = "СУММА = " + Convert.ToString(x2y);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
+                    }
+                }
+                else
+                {
+                    double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                        x2 += (x- x0) * (x - x0);
+                        x3 += (x - x0) * (x - x0) * (x - x0);
+                        x4 += (x - x0) * (x - x0) * (x - x0) * (x - x0);
+                        xy += (x - x0) * y;
+                        SUMX += (x - x0);
+                        SUMY += y;
+                        x2y += (x - x0) * (x - x0) * y;
+                        Table1.Rows[i].Cells["X*X"].Value = string.Format("{0:0.0000}", (x - x0) * (x - x0));
+                        Table1.Rows[i].Cells["X*X*X"].Value = string.Format("{0:0.0000}", (x - x0) * (x - x0) * (x - x0));
+                        Table1.Rows[i].Cells["X*X*X*X"].Value = string.Format("{0:0.0000}", (x - x0) * (x - x0) * (x - x0) * (x - x0));
+                        Table1.Rows[i].Cells["X*X*Y"].Value = string.Format("{0:0.0000}", (x - x0) * (x - x0) * y);
+                        Table1.Rows[i].Cells["X*Y"].Value = string.Format("{0:0.0000}", (x - x0) * y);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["NoCo"].Value = "n = " + Convert.ToString(Table1.Rows.Count - 1);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Asred"].Value = "СУММА = " + Convert.ToString(SUMMX);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["Concetr"].Value = "СУММА = " + Convert.ToString(SUMMY);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X"].Value = "СУММА = " + Convert.ToString(x2);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X"].Value = "СУММА = " + Convert.ToString(x3);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*X*X"].Value = "СУММА = " + Convert.ToString(x4);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*Y"].Value = "СУММА = " + Convert.ToString(x2y);
+                        Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
+                    }
                 }
             }
             Opred = x2 * x2 * x2 + SUMX * SUMX * x4 + (NoCaSer) * x3 * x3 - (NoCaSer) * x2 * x4 - x2 * SUMX * x3 - SUMX * x3 * x2;
@@ -5462,29 +5722,65 @@ namespace Analis200
                 if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0) && textBox6.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "A(C) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000 ;- 0.0000 ") + "*C " + k2.ToString("+ 0.0000 ;- 0.0000 ") + "*C^2";
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    if (USE_KO == false)
                     {
-                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                        chart1.Series[0].Points.AddXY(x, y);
-                        chart1.Series[0].ChartType = SeriesChartType.Point;
-                        chart1.ChartAreas[0].AxisY.Crossing = 0;
-                        chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            chart1.Series[0].Points.AddXY(x, y);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
 
-                        // double x2_1 = 0.3 * i;
-                        double x2_1 = x;
+                            // double x2_1 = 0.3 * i;
+                            double x2_1 = x;
+                            double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+
+                            chart1.Series[1].Points.AddXY(x2_1, y2_1);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + x2_1;
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
+                            //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
+                        }
+                    }
+                    else
+                    {
+                        double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
+                        double x2_1 = x0;
                         double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
                         chart1.Series[1].Points.AddXY(x2_1, y2_1);
-                        chart1.Series[1].ChartType = SeriesChartType.Line;
-                        chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + edconctr;
-                        chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
-                        chart1.ChartAreas[0].AxisX.Minimum = 0;
-                        //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + x2_1;
-                        chart1.ChartAreas[0].AxisY.Minimum = 0;
-                        //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
-                        //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
+                        for (int i = 1; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            chart1.Series[0].Points.AddXY(x, (y- y0));
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+
+                            // double x2_1 = 0.3 * i;
+                            x2_1 = x;
+                            y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+
+                            chart1.Series[1].Points.AddXY(x2_1, y2_1);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisY.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + x2_1;
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
+                            //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
+                        }
                     }
                 }
             }
@@ -5493,28 +5789,64 @@ namespace Analis200
                 if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0) && textBox6.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "C(A) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000;- 0.0000") + "*A " + k2.ToString("+ 0.0000;- 0.0000") + "*A^2";
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    if (USE_KO == false)
                     {
-                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                        double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                        chart1.Series[0].Points.AddXY(x, y);
-                        chart1.Series[0].ChartType = SeriesChartType.Point;
-                        chart1.ChartAreas[0].AxisY.Crossing = 0;
-                        chart1.ChartAreas[0].AxisX.Crossing = 0;
-                        double x2_1 = x;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            chart1.Series[0].Points.AddXY(y, x);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            double x2_1 = x;
+                            double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+
+                            chart1.Series[1].Points.AddXY(x2_1, y2_1);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2_1), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2_1), 2);
+                            //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)+ (Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value))), 2);
+                            //  chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
+                    }
+                    else
+                    {
+                        double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double x2_1 = x0-x0;
                         double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
                         chart1.Series[1].Points.AddXY(x2_1, y2_1);
-                        chart1.Series[1].ChartType = SeriesChartType.Line;
-                        chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
-                        chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
-                        chart1.ChartAreas[0].AxisX.Minimum = 0;
-                        //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2_1), 2);
-                        chart1.ChartAreas[0].AxisY.Minimum = 0;
-                        //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2_1), 2);
-                        //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)+ (Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value))), 2);
-                        //  chart1.ChartAreas[0].AxisX.Interval = 5;
+                        for (int i = 1; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            chart1.Series[0].Points.AddXY((x - x0), y);
+                            chart1.Series[0].ChartType = SeriesChartType.Point;
+                            chart1.ChartAreas[0].AxisY.Crossing = 0;
+                            chart1.ChartAreas[0].AxisX.Crossing = 0;
+                            x2_1 = x-x0;
+                            y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+
+                            chart1.Series[1].Points.AddXY(x2_1, y2_1);
+                            chart1.Series[1].ChartType = SeriesChartType.Line;
+                            chart1.ChartAreas[0].AxisX.Title = "Оптическая плотность, А";
+                            chart1.ChartAreas[0].AxisY.Title = "Концетрация, " + edconctr;
+                            chart1.ChartAreas[0].AxisX.Minimum = 0;
+                            //  chart1.ChartAreas[0].AxisX.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + x2_1), 2);
+                            chart1.ChartAreas[0].AxisY.Minimum = 0;
+                            //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Concetr"].Value) + y2_1), 2);
+                            //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)+ (Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value))), 2);
+                            //  chart1.ChartAreas[0].AxisX.Interval = 5;
+                        }
                     }
                 }
             }

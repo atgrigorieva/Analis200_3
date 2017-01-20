@@ -77,6 +77,7 @@
             this.ND = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.USE_KO = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -85,6 +86,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.SuspendLayout();
@@ -489,6 +491,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.USE_KO);
             this.groupBox6.Location = new System.Drawing.Point(527, 73);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(380, 302);
@@ -623,6 +626,17 @@
             this.label19.TabIndex = 23;
             this.label19.Text = "Погрешность методики (%)";
             // 
+            // USE_KO
+            // 
+            this.USE_KO.AutoSize = true;
+            this.USE_KO.Location = new System.Drawing.Point(36, 255);
+            this.USE_KO.Name = "USE_KO";
+            this.USE_KO.Size = new System.Drawing.Size(215, 17);
+            this.USE_KO.TabIndex = 25;
+            this.USE_KO.Text = "Использовать контрольный опыт КО";
+            this.USE_KO.UseVisualStyleBackColor = true;
+            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            // 
             // NewGraduirovka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,6 +677,8 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox8.ResumeLayout(false);
@@ -722,5 +738,6 @@
         public System.Windows.Forms.ComboBox Ed;
         private System.Windows.Forms.Label label19;
         public System.Windows.Forms.TextBox textBox4;
+        public System.Windows.Forms.CheckBox USE_KO;
     }
 }

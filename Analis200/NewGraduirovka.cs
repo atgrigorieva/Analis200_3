@@ -128,39 +128,78 @@ namespace Analis200
             numericUpDown3.Value = Convert.ToInt32(_Analis.CountSeriya);
             numericUpDown4.Value = Convert.ToInt32(_Analis.CountInSeriya);
             textBox4.Text = _Analis.textBox3.Text;
-
-            for (int j = 0; j < numericUpDown4.Value; j++)
+            if (_Analis.USE_KO == true)
             {
-
-                if (_Analis.Stolbec != null)
+                USE_KO.Checked = true;
+                for (int j = 0; j < numericUpDown4.Value; j++)
                 {
-                    _Analis.textBoxCO[j].Text = _Analis.Stolbec[j, 1];
+                    if (_Analis.Stolbec != null)
+                    {
+                        _Analis.textBoxCO[j].Text = _Analis.Stolbec[j+1, 1];
+                    }
+                    if (_Analis.Table1.Rows[j+1].Cells[1].Value != null)
+                    {
+                        _Analis.textBoxCO[j].Text = _Analis.Table1.Rows[j+1].Cells[1].Value.ToString();
+                    }
                 }
-                if (_Analis.Table1.Rows[j].Cells[1].Value != null)
+                if (_Analis.SposobZadan == "По СО")
                 {
-                    _Analis.textBoxCO[j].Text = _Analis.Table1.Rows[j].Cells[1].Value.ToString();
+                    radioButton6.Checked = true;
+                    _Analis.Table1.Visible = true;
+                    for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                    {
+                        _Analis.textBoxCO[i1].Enabled = true;
+                    }
+                    groupBox6.Enabled = true;
                 }
-            }
-            if (_Analis.SposobZadan == "По СО")
-            {
-                radioButton6.Checked = true;
-                _Analis.Table1.Visible = true;
-                for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                else
                 {
-                    _Analis.textBoxCO[i1].Enabled = true;
+                    radioButton7.Checked = true;
+                    _Analis.Table1.Visible = false;
+                    for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                    {
+                        _Analis.textBoxCO[i1].Enabled = false;
+                    }
+                    groupBox6.Enabled = false;
                 }
-                groupBox6.Enabled = true;
             }
             else
             {
-                radioButton7.Checked = true;
-                _Analis.Table1.Visible = false;
-                for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                USE_KO.Checked = false;
+                for (int j = 0; j < numericUpDown4.Value; j++)
                 {
-                    _Analis.textBoxCO[i1].Enabled = false;
+
+                    if (_Analis.Stolbec != null)
+                    {
+                        _Analis.textBoxCO[j].Text = _Analis.Stolbec[j, 1];
+                    }
+                    if (_Analis.Table1.Rows[j].Cells[1].Value != null)
+                    {
+                        _Analis.textBoxCO[j].Text = _Analis.Table1.Rows[j].Cells[1].Value.ToString();
+                    }
                 }
-                groupBox6.Enabled = false;
+                if (_Analis.SposobZadan == "По СО")
+                {
+                    radioButton6.Checked = true;
+                    _Analis.Table1.Visible = true;
+                    for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                    {
+                        _Analis.textBoxCO[i1].Enabled = true;
+                    }
+                    groupBox6.Enabled = true;
+                }
+                else
+                {
+                    radioButton7.Checked = true;
+                    _Analis.Table1.Visible = false;
+                    for (int i1 = 0; i1 < numericUpDown4.Value; i1++)
+                    {
+                        _Analis.textBoxCO[i1].Enabled = false;
+                    }
+                    groupBox6.Enabled = false;
+                }
             }
+            
             if (_Analis.Zavisimoct == "A(C)")
             {
                 radioButton4.Checked = true;
@@ -1004,6 +1043,18 @@ namespace Analis200
                         }
                     }
                 }
+            }
+        }
+
+        private void USE_KO_CheckedChanged(object sender, EventArgs e)
+        {
+            if(USE_KO.Checked == true)
+            {
+                _Analis.USE_KO = true;
+            }
+            else
+            {
+                _Analis.USE_KO = false;
             }
         }
     }
