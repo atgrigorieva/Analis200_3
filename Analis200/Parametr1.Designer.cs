@@ -72,6 +72,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.USE_KO = new System.Windows.Forms.CheckBox();
+            this.Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -407,6 +409,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.USE_KO);
             this.groupBox3.Controls.Add(this.textBox4);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.textBox3);
@@ -549,11 +552,33 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Описание";
             // 
+            // USE_KO
+            // 
+            this.USE_KO.AutoSize = true;
+            this.USE_KO.Location = new System.Drawing.Point(9, 148);
+            this.USE_KO.Name = "USE_KO";
+            this.USE_KO.Size = new System.Drawing.Size(215, 17);
+            this.USE_KO.TabIndex = 31;
+            this.USE_KO.Text = "Использовать контрольный опыт КО";
+            this.USE_KO.UseVisualStyleBackColor = true;
+            this.USE_KO.Click += new System.EventHandler(this.USE_KO_Click);
+            // 
+            // Cancel
+            // 
+            this.Cancel.Location = new System.Drawing.Point(556, 468);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 45;
+            this.Cancel.Text = "Отмена";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
             // Parametr1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 521);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -619,5 +644,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.CheckBox USE_KO;
+        private System.Windows.Forms.Button Cancel;
     }
 }

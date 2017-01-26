@@ -44,6 +44,7 @@
             this.Veshestvo = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.USE_KO = new System.Windows.Forms.CheckBox();
             this.Opt_dlin_cuvet = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.ND = new System.Windows.Forms.TextBox();
@@ -77,7 +78,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.USE_KO = new System.Windows.Forms.CheckBox();
+            this.Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.groupBox8.SuspendLayout();
@@ -258,6 +259,17 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Концетрации стандартных образцов";
             // 
+            // USE_KO
+            // 
+            this.USE_KO.AutoSize = true;
+            this.USE_KO.Location = new System.Drawing.Point(36, 255);
+            this.USE_KO.Name = "USE_KO";
+            this.USE_KO.Size = new System.Drawing.Size(215, 17);
+            this.USE_KO.TabIndex = 0;
+            this.USE_KO.Text = "Использовать контрольный опыт КО";
+            this.USE_KO.UseVisualStyleBackColor = true;
+            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            // 
             // Opt_dlin_cuvet
             // 
             this.Opt_dlin_cuvet.FormattingEnabled = true;
@@ -303,7 +315,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(327, 441);
+            this.button1.Location = new System.Drawing.Point(321, 443);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 25;
@@ -621,22 +633,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Действие";
             // 
-            // USE_KO
+            // Cancel
             // 
-            this.USE_KO.AutoSize = true;
-            this.USE_KO.Location = new System.Drawing.Point(36, 255);
-            this.USE_KO.Name = "USE_KO";
-            this.USE_KO.Size = new System.Drawing.Size(215, 17);
-            this.USE_KO.TabIndex = 0;
-            this.USE_KO.Text = "Использовать контрольный опыт КО";
-            this.USE_KO.UseVisualStyleBackColor = true;
-            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            this.Cancel.Location = new System.Drawing.Point(446, 441);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 44;
+            this.Cancel.Text = "Отмена";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // ParametrsGrad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(921, 494);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.groupBox8);
@@ -735,5 +747,6 @@
         public System.Windows.Forms.RadioButton radioButton5;
         public System.Windows.Forms.RadioButton radioButton4;
         public System.Windows.Forms.CheckBox USE_KO;
+        private System.Windows.Forms.Button Cancel;
     }
 }

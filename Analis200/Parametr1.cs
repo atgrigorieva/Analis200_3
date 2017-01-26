@@ -43,8 +43,16 @@ namespace Analis200
             textBox2.Text = _Analis.F1Text.Text;
             textBox3.Text = _Analis.F2Text.Text;
             textBox4.Text = _Analis.textBox7.Text;
-        //    int index1 = Opt_dlin_cuvet.FindString(_Analis.Opt_dlin_cuvet.Text);
+            //    int index1 = Opt_dlin_cuvet.FindString(_Analis.Opt_dlin_cuvet.Text);
             //  Opt_dlin_cuvet.SelectedIndex = index;
+            if (_Analis.USE_KO == true)
+            {
+                USE_KO.Checked = true;
+            }
+            else
+            {
+                USE_KO.Checked = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -69,6 +77,23 @@ namespace Analis200
                 _Analis.WLREMOVESTR2();
                 _Analis.WLADD2();
                 _Analis.WLADDSTR2();
+                if (_Analis.ComPodkl == true)
+                {
+                    _Analis.IzmerCreate1 = true;
+
+                }
+                else
+                {
+                    _Analis.IzmerCreate1 = false;
+                }
+                if (_Analis.IzmerCreate == true)
+                {
+                    _Analis.button14.Enabled = true;
+                }
+                else
+                {
+                    _Analis.button14.Enabled = false;
+                }
             }
             this.TopMost = true;
             Close();
@@ -126,6 +151,17 @@ namespace Analis200
             {
                 e.Handled = true;
             }
+        }
+
+        private void USE_KO_Click(object sender, EventArgs e)
+        {
+            if (sender is CheckBox)
+                ((CheckBox)sender).Checked = !((CheckBox)sender).Checked;
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

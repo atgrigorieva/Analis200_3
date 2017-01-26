@@ -38,7 +38,14 @@ namespace Analis200
             Deistvie.Text = dateTimePicker1.Value.AddDays(_Analis.Days).ToString("dd.MM.yyyy");
 
             _Analis.Opt_dlin_cuvet.SelectedIndex = index;
-
+            if(_Analis.USE_KO == true)
+            {
+                USE_KO.Checked = true;
+            }
+            else
+            {
+                USE_KO.Checked = false;
+            }
            
            
         }
@@ -68,10 +75,27 @@ namespace Analis200
                 _Analis.IzmerenieOpen = true;
                 _Analis.параметрыToolStripMenuItem.Enabled = true;
                 _Analis.button10.Enabled = true;
-                this.TopMost = true;
-                Close();
+                if (_Analis.ComPodkl == true)
+                {
+                    _Analis.IzmerCreate1 = true;
+
+                }
+                else
+                {
+                    _Analis.IzmerCreate1 = false;
+                }
+                if (_Analis.IzmerCreate == true)
+                {
+                    _Analis.button14.Enabled = true;
+                }
+                else
+                {
+                    _Analis.button14.Enabled = false;
+                }
+                
             }
-            
+            this.TopMost = true;
+            Close();
         }
 
         private void Opt_dlin_cuvet_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,6 +155,22 @@ namespace Analis200
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void USE_KO_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void USE_KO_Click(object sender, EventArgs e)
+        {
+            if (sender is CheckBox)
+                ((CheckBox)sender).Checked = !((CheckBox)sender).Checked;
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

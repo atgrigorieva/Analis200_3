@@ -33,7 +33,7 @@ namespace Analis200
             this.radioButton7.CheckedChanged += new EventHandler(radioButton7_CheckedChanged);
             if (_Analis.ComPodkl == true)
             {
-                WL_grad.Text = _Analis.DLWL;
+                WL_grad.Text = _Analis.GWNew.Text;
             }
 
         }
@@ -494,6 +494,17 @@ namespace Analis200
                     Save = true;
 
                 }
+                if (WL_grad.Text == "" && _Analis.ComPort == true)
+                {
+                    MessageBox.Show("Заполните поле Длина волны");
+                    Save = false;
+                    break;
+                }
+                else
+                {
+                    Save = true;
+
+                }
             }
 
             if (Save != false)
@@ -801,8 +812,21 @@ namespace Analis200
                     {
                         SW();
                         _Analis.SAGE(ref _Analis.countSA, ref _Analis.GE5_1_0);
+                        _Analis.IzmerCreate = true;
+                    }
+                    else
+                    {
+                        _Analis.IzmerCreate = false;
                     }
                     this.TopMost = true;
+                    if (_Analis.IzmerCreate == true)
+                    {
+                        _Analis.button14.Enabled = true;
+                    }
+                    else
+                    {
+                        _Analis.button14.Enabled = false;
+                    }
                     Close();
 
                 }
@@ -816,7 +840,7 @@ namespace Analis200
         {
             LogoForm();
             string SWText1 = WL_grad.Text;
-            double Wl_grad_double = Convert.ToDouble(WL_grad.Text);
+            double Wl_grad_double = Convert.ToDouble(WL_grad.Text.Replace(".", ","));
             _Analis.newPort.Write("SW " + Wl_grad_double.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")) + "\r");
             string indata = _Analis.newPort.ReadExisting();
 
@@ -1009,11 +1033,11 @@ namespace Analis200
             {
                 if (_Analis.versionPribor.Contains("V"))
                 {
-                    if (Convert.ToDouble(WL_grad.Text) < 315)
+                    if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) < 315)
                     {
                         WL_grad.Text = Convert.ToString(315);
                     }
-                    if (Convert.ToDouble(WL_grad.Text) > 1050)
+                    if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) > 1050)
                     {
                         WL_grad.Text = Convert.ToString(1050);
                     }
@@ -1022,22 +1046,22 @@ namespace Analis200
                 {
                     if (_Analis.versionPribor.Contains("U") && _Analis.versionPribor.Contains("2"))
                     {
-                        if (Convert.ToDouble(WL_grad.Text) < 190)
+                        if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) < 190)
                         {
                             WL_grad.Text = Convert.ToString(190);
                         }
-                        if (Convert.ToDouble(WL_grad.Text) > 1050)
+                        if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) > 1050)
                         {
                             WL_grad.Text = Convert.ToString(1050);
                         }
                     }
                     else
                     {
-                        if (Convert.ToDouble(WL_grad.Text) < 200)
+                        if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) < 200)
                         {
                             WL_grad.Text = Convert.ToString(200);
                         }
-                        if (Convert.ToDouble(WL_grad.Text) > 1050)
+                        if (Convert.ToDouble(WL_grad.Text.Replace(".", ",")) > 1050)
                         {
                             WL_grad.Text = Convert.ToString(1050);
                         }
@@ -1056,6 +1080,11 @@ namespace Analis200
             {
                 _Analis.USE_KO = false;
             }
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

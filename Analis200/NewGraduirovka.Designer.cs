@@ -63,6 +63,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.Opt_dlin_cuvet = new System.Windows.Forms.ComboBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.USE_KO = new System.Windows.Forms.CheckBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.Description = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -77,7 +78,7 @@
             this.ND = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.USE_KO = new System.Windows.Forms.CheckBox();
+            this.Cancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -500,6 +501,17 @@
             this.groupBox6.Text = "Концетрации стандартных образцов";
             this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
+            // USE_KO
+            // 
+            this.USE_KO.AutoSize = true;
+            this.USE_KO.Location = new System.Drawing.Point(36, 255);
+            this.USE_KO.Name = "USE_KO";
+            this.USE_KO.Size = new System.Drawing.Size(215, 17);
+            this.USE_KO.TabIndex = 25;
+            this.USE_KO.Text = "Использовать контрольный опыт КО";
+            this.USE_KO.UseVisualStyleBackColor = true;
+            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.Description);
@@ -519,7 +531,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(327, 441);
+            this.button1.Location = new System.Drawing.Point(321, 438);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -626,22 +638,22 @@
             this.label19.TabIndex = 23;
             this.label19.Text = "Погрешность методики (%)";
             // 
-            // USE_KO
+            // Cancel
             // 
-            this.USE_KO.AutoSize = true;
-            this.USE_KO.Location = new System.Drawing.Point(36, 255);
-            this.USE_KO.Name = "USE_KO";
-            this.USE_KO.Size = new System.Drawing.Size(215, 17);
-            this.USE_KO.TabIndex = 25;
-            this.USE_KO.Text = "Использовать контрольный опыт КО";
-            this.USE_KO.UseVisualStyleBackColor = true;
-            this.USE_KO.CheckedChanged += new System.EventHandler(this.USE_KO_CheckedChanged);
+            this.Cancel.Location = new System.Drawing.Point(446, 438);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 45;
+            this.Cancel.Text = "Отмена";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // NewGraduirovka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 476);
+            this.ClientSize = new System.Drawing.Size(919, 483);
+            this.Controls.Add(this.Cancel);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.ND);
@@ -739,5 +751,6 @@
         private System.Windows.Forms.Label label19;
         public System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.CheckBox USE_KO;
+        private System.Windows.Forms.Button Cancel;
     }
 }
