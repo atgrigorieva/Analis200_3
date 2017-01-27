@@ -54,7 +54,7 @@ namespace Analis200
         public void Pribor()
         {
             string model = @"pribor/model";
-          //  string s = Model1.SelectedItem.ToString();
+
             string SerNomer_Text = @"pribor/SerNomer";
             string InventarNomer_Text = @"pribor/InventarNomer";
             string SrokIstech_Text = @"pribor/SrokIstech";
@@ -133,6 +133,7 @@ namespace Analis200
             File.AppendAllText(SrokIstech_Text, textBox3.Text, Encoding.UTF8);
             File.WriteAllText(Poveren_Text, string.Empty);
             File.AppendAllText(Poveren_Text, dateTimePicker1.Value.ToString("dd.MM.yyyy"), Encoding.UTF8);
+            Close();
             
         }
 
@@ -146,6 +147,11 @@ namespace Analis200
             {
                 textBox3.Enabled = false;
             }
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

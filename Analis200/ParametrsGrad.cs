@@ -478,13 +478,7 @@ namespace Analis200
                     //    Izmerenie1 = true;
                     _Analis.chart1.Series[0].Points.Clear();
                     _Analis.chart1.Series[1].Points.Clear();
-                    while (true)
-                    {
-                        int i = _Analis.Table1.Columns.Count - 1;//С какого столбца начать
-                        if (_Analis.Table1.Columns.Count == 3 + _Analis.NoCaIzm)
-                            break;
-                        _Analis.Table1.Columns.RemoveAt(i);
-                    }
+                    
                     WL();
                     _Analis.textBox1.Text = Description.Text;
                     _Analis.textBox2.Text = Opt_dlin_cuvet.Text;
@@ -494,8 +488,8 @@ namespace Analis200
                     {
                         if (radioButton7.Checked == true)
                         {
-                            _Analis.groupBox2.Visible = false;
-                            if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
+                            _Analis.groupBox2.Visible = true;
+                           /* if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
                                 k0Text.Enabled = false;
                                 k1Text.Enabled = true;
@@ -583,7 +577,7 @@ namespace Analis200
                                         _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
                                     }
                                 }
-                            }
+                            }*/
                             if (radioButton6.Checked == true)
                             {
                                 _Analis.SposobZadan = "По СО";
@@ -633,8 +627,8 @@ namespace Analis200
                     {
                         if (radioButton6.Checked == true)
                         {
-                            _Analis.groupBox2.Visible = false;
-                            if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
+                            _Analis.groupBox2.Visible = true;
+                          /*  if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
                                 k0Text.Enabled = false;
                                 k1Text.Enabled = true;
@@ -720,7 +714,7 @@ namespace Analis200
                                         _Analis.chart1.ChartAreas[0].AxisY.Minimum = 0;
                                     }
                                 }
-                            }
+                            }*/
                             if (radioButton6.Checked == true)
                             {
                                 _Analis.SposobZadan = "По СО";
@@ -735,19 +729,16 @@ namespace Analis200
                             if (radioButton4.Checked == true)
                             {
                                 _Analis.radioButton4.Checked = true;
-                            }
-                            else
-                            {
-                                _Analis.radioButton5.Checked = true;
-                            }
-                            if (radioButton4.Checked == true)
-                            {
+                                _Analis.radioButton5.Checked = false;
                                 _Analis.Zavisimoct = "A(C)";
                             }
                             else
                             {
+                                _Analis.radioButton5.Checked = true;
+                                _Analis.radioButton4.Checked = false;
                                 _Analis.Zavisimoct = "C(A)";
                             }
+                           
                             if (radioButton1.Checked == true)
                             {
                                 _Analis.aproksim = "Линейная через 0";
@@ -789,6 +780,13 @@ namespace Analis200
                     }
                     //this.TopMost = true;
                     this.TopMost = true;
+                    while (true)
+                    {
+                        int i = _Analis.Table1.Columns.Count - 1;//С какого столбца начать
+                        if (_Analis.Table1.Columns.Count == 3 + _Analis.NoCaIzm)
+                            break;
+                        _Analis.Table1.Columns.RemoveAt(i);
+                    }
                     Close();
                 }
             }

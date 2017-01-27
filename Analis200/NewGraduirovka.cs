@@ -536,7 +536,7 @@ namespace Analis200
                     {
                         if (radioButton7.Checked == true)
                         {
-                            _Analis.groupBox2.Visible = false;
+                            _Analis.groupBox2.Visible = true;
                             if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
                                 k0Text.Enabled = false;
@@ -675,7 +675,7 @@ namespace Analis200
                     {
                         if (radioButton7.Checked == true)
                         {
-                            _Analis.groupBox2.Visible = false;
+                            _Analis.groupBox2.Visible = true;
                             if (radioButton1.Checked == true && radioButton2.Checked == false && radioButton3.Checked == false)
                             {
                                 k0Text.Enabled = false;

@@ -14,6 +14,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing.Printing;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System.Globalization;
 
 namespace Analis200
 {
@@ -101,6 +102,8 @@ namespace Analis200
 
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
             Zavisimoct = "A(C)";
             aproksim = "Линейная";
             Table1.AllowUserToResizeRows = false;
@@ -351,7 +354,9 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-                
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
+
 
             }
             else
@@ -424,6 +429,32 @@ namespace Analis200
 
                 Table1.CurrentCell = this.Table1[3, 0];
             }
+            for (int i = 1; i <= NoCaIzm; i++)
+            {
+                if (USE_KO == false)
+                {
+                    Table1.Rows[NoCaSer].Cells["A;Ser (" + i].ReadOnly = true;
+                }
+                else
+                {
+                    Table1.Rows[NoCaSer+1].Cells["A;Ser (" + i].ReadOnly = true;
+                }
+             }
+
+            if (USE_KO == false)
+            {
+                Table1.Rows[NoCaSer].Cells["NoCo"].ReadOnly = true;
+                Table1.Rows[NoCaSer].Cells["Concetr"].ReadOnly = true;
+                Table1.Rows[NoCaSer].Cells["Asred"].ReadOnly = true;
+            }
+            else
+            {
+                Table1.Rows[NoCaSer+1].Cells["NoCo"].ReadOnly = true;
+                Table1.Rows[NoCaSer+1].Cells["Concetr"].ReadOnly = true;
+                Table1.Rows[NoCaSer+1].Cells["Asred"].ReadOnly = true;
+            }
+
+
         }
         public void WLREMOVESTR1()
         {
@@ -524,6 +555,7 @@ namespace Analis200
                     Table2.Rows.Add(1);
                     Table2.Rows[count].Cells["Column1"].Value = count + 1;
                     count++;
+                    Table2.Rows.Add(1);
                 }
                 for (int i = 0; i < Table2.RowCount - 1; i++)
                 {
@@ -1658,13 +1690,59 @@ namespace Analis200
 
                 Paragraph DateIzmer2 = new Paragraph("Данные измерений: ", font);
 
+                Paragraph InformationAboutPribor = new Paragraph("Информация о приборе\n", font);
+                string model = @"pribor/model";
+                string SerNomer_Text = @"pribor/SerNomer";
+                string InventarNomer_Text = @"pribor/InventarNomer";
+                string SrokIstech_Text = @"pribor/SrokIstech";
+                string Poveren_Text = @"pribor/Poveren";
+                StreamReader fs = new StreamReader(model);
+                Paragraph Model = new Paragraph("Модель\n" + fs.ReadLine(), font);
+                fs.Close();
 
-                Paragraph Spectrofotometr2 = new Paragraph("Спектфотометр: ", font);
+                StreamReader fs1 = new StreamReader(SerNomer_Text);
+                Paragraph SerNomer = new Paragraph("Серийный номер\n" + fs1.ReadLine(), font);
+                fs1.Close();
+
+                StreamReader fs2 = new StreamReader(InventarNomer_Text);
+                Paragraph InventarNomer = new Paragraph("Инвентарный номер\n" + fs2.ReadLine(), font);
+                fs2.Close();
+
+                StreamReader fs3 = new StreamReader(Poveren_Text);
+                DateTime data = Convert.ToDateTime(fs3.ReadLine());
+                // data.Date.ToString("d.mm.yyyy"); 
+                //  MessageBox.Show(Convert.ToString(data));   
+                data = data.AddYears(1);
+                fs3.Close();
+                Paragraph Poveren = new Paragraph("Поверка действительна до\n" + data.Date.ToString("dd.MM.yyyy"), font);
+
+
+                PdfPTable Information = new PdfPTable(6);
+                PdfPCell Informationcell = new PdfPCell(Model);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(SerNomer);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(Poveren);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(InventarNomer);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+              /*  Paragraph Spectrofotometr2 = new Paragraph("Спектфотометр: ", font);
                 Paragraph Model2 = new Paragraph("Модель: __________________________", font);
                 Paragraph Date3 = new Paragraph("Поверка действительна до: __________________________", font);
                 Paragraph SerNom2 = new Paragraph("Серийный номер: __________________________", font);
                 Paragraph InventarNo2 = new Paragraph("Инветарный номер: __________________________", font);
-
+                */
                 Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________", font);
                 Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
 
@@ -1765,7 +1843,11 @@ namespace Analis200
                 doc.Add(welcomeParagraph1);
                 doc.Add(table3);
                 doc.Add(welcomeParagraph1);
-                doc.Add(Graduirovka2);
+                doc.Add(InformationAboutPribor);
+                doc.Add(welcomeParagraph1);
+                doc.Add(Information);
+                doc.Add(welcomeParagraph1);
+                doc.Add(Graduirovka2);                
                 doc.Add(welcomeParagraph1);
                 doc.Add(table2);
                 doc.Add(welcomeParagraph1);
@@ -1935,7 +2017,7 @@ namespace Analis200
 
                 if (!doNotWrite)
                 {
-                    if (Table1.Rows.Count - 1 == 1)
+                    if (NoCaSer == 1)
                     {
                         radioButton1.Enabled = true;
                         radioButton4.Enabled = true;
@@ -1943,7 +2025,7 @@ namespace Analis200
                         radioButton3.Enabled = false;
                         radioButton2.Enabled = false;
                     }
-                    if (Table1.Rows.Count - 1 == 2)
+                    if (NoCaSer == 2)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -1951,7 +2033,7 @@ namespace Analis200
                         radioButton5.Enabled = true;
                         radioButton3.Enabled = false;
                     }
-                    if (Table1.Rows.Count - 1 >= 3)
+                    if (NoCaSer >= 3)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -2683,7 +2765,8 @@ namespace Analis200
         {
 
         }
-
+        public int curentIndex;
+        public int rowIndex;
         public void Table1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //MessageBox.Show(NoCaIzm.ToString());
@@ -2697,10 +2780,12 @@ namespace Analis200
             sum = 0.0;
             int startIndexCell = 2;
             int endIndexCell = startIndexCell + NoCaIzm;
-            int rowIndex = Table1.CurrentRow.Index;
+            
+            rowIndex = Table1.CurrentRow.Index;
             bool doNotWrite = false;
             int rownull = 0;
-
+            
+           
             for (int j = 0; j < Table1.Rows.Count - 1; j++)
             {
                 {
@@ -2730,7 +2815,7 @@ namespace Analis200
             {
                 //MessageBox.Show(NoCaIzm.ToString());
                 // MessageBox.Show("Таблица заполнена");
-                if (Table1.Rows.Count - 1 == 1)
+                if (NoCaSer == 1)
                 {
                     radioButton1.Enabled = true;
                     radioButton4.Enabled = true;
@@ -2738,7 +2823,7 @@ namespace Analis200
                     radioButton3.Enabled = false;
                     radioButton2.Enabled = false;
                 }
-                if (Table1.Rows.Count - 1 == 2)
+                if (NoCaSer == 2)
                 {
                     radioButton1.Enabled = true;
                     radioButton2.Enabled = true;
@@ -2746,7 +2831,7 @@ namespace Analis200
                     radioButton5.Enabled = true;
                     radioButton3.Enabled = false;
                 }
-                if (Table1.Rows.Count - 1 >= 3)
+                if (NoCaSer >= 3)
                 {
                     radioButton1.Enabled = true;
                     radioButton2.Enabled = true;
@@ -2933,19 +3018,26 @@ namespace Analis200
         public void radioButton5_CheckedChanged_1(object sender, EventArgs e)
         {
             Zavisimoct = "C(A)";
-            /*  while (true)
-              {
-                  int i = Table1.Columns.Count - 1;//С какого столбца начать
-                  if (Table1.Columns[i].Name == "Asred")
-                      break;
-                  Table1.Columns.RemoveAt(i);
-              }*/
+            chart1.Series[0].Points.Clear();
+            chart1.Series[1].Points.Clear();
+
+            /*    while (true)
+                 {
+                     int i = Table1.Columns.Count - 1;//С какого столбца начать
+                     if (Table1.Columns[i].Name == "Asred")
+                         break;
+                     Table1.Columns.RemoveAt(i);
+                 }*/
             if (radioButton1.Checked == true)
             {
-
-
-                //  Table1.Columns.Add("X*X", "Concetr*Concetr");
-                // Table1.Columns.Add("X*Y", "Asred*Concetr");
+                /*  while (true)
+                  {
+                      int i = Table1.Columns.Count - 1;//С какого столбца начать
+                      if (Table1.Columns[i].Name == "Asred")
+                          break;
+                      Table1.Columns.RemoveAt(i);
+                  }
+                  */
                 chart1.Series[0].Points.Clear();
                 chart1.Series[1].Points.Clear();
                 lineinaya0();
@@ -2954,13 +3046,6 @@ namespace Analis200
             {
                 if (radioButton2.Checked == true)
                 {
-                    /* while (true)
-                     {
-                         int i = Table1.Columns.Count - 1;//С какого столбца начать
-                         if (Table1.Columns[i].Name == "Asred")
-                             break;
-                         Table1.Columns.RemoveAt(i);
-                     }*/
                     chart1.Series[0].Points.Clear();
                     chart1.Series[1].Points.Clear();
                     lineinaya();
@@ -4180,6 +4265,8 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
 
             }
             else
@@ -4234,15 +4321,37 @@ namespace Analis200
                                 {
                                     if (aproksim == "Линейная через 0")
                                     {
-                                        serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                        if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                        {
+                                            serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                        }
+                                        else
+                                        {
+                                            serValue = 0;
+                                        }
+                                    
                                     }
                                     if (aproksim == "Линейная")
                                     {
-                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                        if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                        {
+                                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                        }
+                                        else
+                                        {
+                                            serValue = 0;
+                                        }
                                     }
                                     if (aproksim == "Квадратичная")
                                     {
-                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                        if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                        {
+                                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                        }
+                                        else
+                                        {
+                                            serValue = 0;
+                                        }
                                     }
                                     double CValue1 = Convert.ToDouble(F1Text.Text);
                                     double CValue2 = Convert.ToDouble(F2Text.Text);
@@ -4892,7 +5001,7 @@ namespace Analis200
 
                 if (!doNotWrite)
                 {
-                    if (Table1.Rows.Count-1 == 1)
+                    if (NoCaSer == 1)
                     {
                         radioButton1.Enabled = true;
                         radioButton4.Enabled = true;
@@ -4900,7 +5009,7 @@ namespace Analis200
                         radioButton3.Enabled = false;
                         radioButton2.Enabled = false;
                     }
-                    if (Table1.Rows.Count-1 == 2)
+                    if (NoCaSer == 2)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -4908,7 +5017,7 @@ namespace Analis200
                         radioButton5.Enabled = true;
                         radioButton3.Enabled = false;
                     }
-                    if (Table1.Rows.Count-1 >= 3)
+                    if (NoCaSer >= 3)
                     {
                         radioButton1.Enabled = true;
                         radioButton2.Enabled = true;
@@ -4917,15 +5026,15 @@ namespace Analis200
                         radioButton5.Enabled = true;
                     }
                     sum = 0.0;
-                    while (true)
+                   /* while (true)
                     {
                         int i = Table1.Columns.Count - 1;//С какого столбца начать
                         if (Table1.Columns.Count == 3 + Convert.ToInt32(CountSeriya2))
                             break;
                         Table1.Columns.RemoveAt(i);
-                    }
+                    }*/
 
-                    for (int l = 3; l <= Table1.Rows[Table1.CurrentCell.RowIndex].Cells.Count - 1; l++)
+                    for (int l = startIndexCell + NoCaIzm; l <= endIndexCell; ++l)
                     {
                         if (Table1.Rows[rowIndex].Cells[l].Value == null)
                         {
@@ -5888,6 +5997,7 @@ namespace Analis200
                 {
                     if (USE_KO == false)
                     {
+                        double x2 = 0;
                         int Table1_Asred = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
@@ -5907,7 +6017,7 @@ namespace Analis200
                             // circle++;
                             // double x2 = 0.1 * i;
                             // double y2 = x2 / k1;
-                            double x2 = 0;
+                            x2 = 0;
                             if (Table1_Asred == 0)
                             {
                                 x2 = 0;
@@ -5929,12 +6039,15 @@ namespace Analis200
                             //    chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
                             //   chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                     else
                     {
                         int Table1_Asred = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
-     
+                        double x2 = 0;
                         double x1_1 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
                         double y1_1 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
 
@@ -5956,7 +6069,7 @@ namespace Analis200
                             // circle++;
                             // double x2 = 0.1 * i;
                             // double y2 = x2 / k1;
-                            double x2 = 0;
+                            x2 = 0;
                             if (Table1_Asred == 0)
                             {
                                 x2 = 0;
@@ -5978,6 +6091,10 @@ namespace Analis200
                             //    chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
                             //   chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
+
                     }
                 }
 
@@ -5990,6 +6107,7 @@ namespace Analis200
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
                     if (USE_KO == false)
                     {
+                        double x2 = 0;
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
                         {
                             double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
@@ -6007,7 +6125,7 @@ namespace Analis200
                             // circle++;
                             //double y2 = 0.5 * i;
                             //double x2 = y2 / k1;
-                            double x2 = 0;
+                            x2 = 0;
                             if (Table1_Asred == 0)
                             {
                                 x2 = 0;
@@ -6029,12 +6147,15 @@ namespace Analis200
                             // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
                             //    chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                     else
                     {
                         Table1_Asred = 0;
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
-
+                        double x2 = 0;
                         for (int i = 1; i < Table1.Rows.Count - 1; i++)
                         {
                             double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
@@ -6052,7 +6173,7 @@ namespace Analis200
                             // circle++;
                             //double y2 = 0.5 * i;
                             //double x2 = y2 / k1;
-                            double x2 = 0;
+                            x2 = 0;
                             if (Table1_Asred == 0)
                             {
                                 x2 = 0;
@@ -6075,6 +6196,9 @@ namespace Analis200
                             // chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
                             //    chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                 }
             }
@@ -6336,16 +6460,22 @@ namespace Analis200
             textBox6.Text = string.Format("{0:0.0000}", 0);
             if (radioButton4.Checked == true)
             {
-                if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0))
+                if (textBox4.Text != string.Format("{0:0.0000}", 0) || textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
                     if (USE_KO == false)
                     {
+                        double y2 = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C " + k0.ToString("+ 0.0000 ;- 0.0000 ");
+                        double x0 = 0;
+                        double y0 = x0 * k1 + k0;
+                        chart1.Series[1].Points.AddXY(x0, y0);
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
                         {
                             circle = 1;
                             double x1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                             double y1_1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+
+                            
 
                             // chart1.ChartAreas[0].AxisY.Crossing = k0;
                             chart1.Series[0].Points.AddXY(y1_1, x1_1);
@@ -6354,7 +6484,7 @@ namespace Analis200
                             chart1.ChartAreas[0].AxisX.Crossing = 0;
                             //  double x2 = 0.1 * i;
                             //double y2 = (x2 - k0) / k1;
-                            double y2 = y1_1;
+                            y2 = y1_1;
                             double x2 = y1_1 * k1 + k0;
                             chart1.Series[1].Points.AddXY(y2, x2);
                             chart1.Series[1].ChartType = SeriesChartType.Line;
@@ -6368,6 +6498,9 @@ namespace Analis200
 
                             //       chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = y2*1.1;
+                        double yfin = xfin * k1 + k0;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                     else
                     {
@@ -6403,16 +6536,23 @@ namespace Analis200
 
                             //       chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1 + k0;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                 }
             }
             else
             {
-                if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0))
+                if (textBox4.Text != string.Format("{0:0.0000}", 0) || textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A " + k0.ToString("+ 0.0000 ;- 0.0000 ");
                     if (USE_KO == false)
                     {
+                        double x0 = 0;
+                        double y0 = x0 * k1 + k0;
+                        double x2 = 0;
+                        chart1.Series[1].Points.AddXY(x0, y0);
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
                         {
                             circle = 1;
@@ -6427,7 +6567,7 @@ namespace Analis200
                             // double y2 = 0.5 * i;
                             //     double x2 = (y2 - k0) / k1;
                             //  double y2 = k1 * x1_1 + k0;
-                            double x2 = x1_1;
+                            x2 = x1_1;
                             double y2 = x1_1 * k1 + k0;
                             chart1.Series[1].Points.AddXY(x2, y2);
                             chart1.Series[1].ChartType = SeriesChartType.Line;
@@ -6440,6 +6580,9 @@ namespace Analis200
                             //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
                             //     chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1 + k0;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                     else
                     {
@@ -6474,6 +6617,9 @@ namespace Analis200
                             //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)), 2);
                             //     chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2 * 1.1;
+                        double yfin = xfin * k1 + k0;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                 }
             }
@@ -6533,10 +6679,20 @@ namespace Analis200
                     if (_ParametrsGrad.radioButton4.Checked == true)
                     {
                         Zavisimoct = "A(C)";
+                        radioButton4.Checked = true;
+                        label14.Text = "A(C)";
+                        textBox4.Text = "";
+                        textBox5.Text = "";
+                        textBox6.Text = "";
                     }
                     else
                     {
                         Zavisimoct = "C(A)";
+                        radioButton5.Checked = true;
+                        label14.Text = "C(A)";
+                        textBox4.Text = "";
+                        textBox5.Text = "";
+                        textBox6.Text = "";
                     }
                     if (_ParametrsGrad.radioButton1.Checked == true)
                     {
@@ -6556,6 +6712,8 @@ namespace Analis200
                     if(_ParametrsGrad.USE_KO.Checked == true)
                     {
                         USE_KO = true;
+                 
+  
                     }
                     else
                     {
@@ -6568,13 +6726,25 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
+                while (true)
+                {
+                    int i = Table1.Columns.Count - 1;//С какого столбца начать
+                    if (Table1.Columns.Count == 3 + NoCaIzm)
+                        break;
+                    Table1.Columns.RemoveAt(i);
+                }
+                Table1.Rows[Table1.Rows.Count-1].Cells[0].Value = "";
             }
             else
             {
                 New _New = new New(this);
                 _New.ShowDialog();
             }
+
+            
+
         }
 
         private void информацияToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6849,11 +7019,14 @@ namespace Analis200
             textBox6.Text = string.Format("{0:0.0000}", k2);
             if (radioButton4.Checked == true)
             {
-                if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0) && textBox6.Text != string.Format("{0:0.0000}", 0))
+                if (textBox4.Text != string.Format("{0:0.0000}", 0) || textBox5.Text != string.Format("{0:0.0000}", 0) || textBox6.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "A(C) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000 ;- 0.0000 ") + "*C " + k2.ToString("+ 0.0000 ;- 0.0000 ") + "*C^2";
                     if (USE_KO == false)
                     {
+                        double x2_1 = 0;
+                        double y0 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+                        chart1.Series[1].Points.AddXY(x2_1, y0);
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
                         {
                             double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
@@ -6865,7 +7038,7 @@ namespace Analis200
                             chart1.ChartAreas[0].AxisX.Crossing = 0;
 
                             // double x2_1 = 0.3 * i;
-                            double x2_1 = x;
+                            x2_1 = x;
                             double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
                             chart1.Series[1].Points.AddXY(x2_1, y2_1);
@@ -6878,6 +7051,9 @@ namespace Analis200
                             //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
                             //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
                         }
+                        double xfin = x2_1 * 1.1;
+                        double yfin = k0 + k1 * xfin + k2 * xfin * xfin;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                     else
                     {
@@ -6911,27 +7087,32 @@ namespace Analis200
                             //   chart1.ChartAreas[0].AxisY.Maximum = Math.Round((Convert.ToDouble(Table1.Rows[Table1.Rows.Count - 2].Cells["Asred"].Value) + y2_1), 2);
                             //chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Concetr"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Concetr"].Value)), 2);
                         }
+                        double xfin = x2_1 * 1.1;
+                        double yfin = k0 + k1 * xfin + k2 * xfin * xfin;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                 }
             }
             else
             {
-                if (textBox4.Text != string.Format("{0:0.0000}", 0) && textBox5.Text != string.Format("{0:0.0000}", 0) && textBox6.Text != string.Format("{0:0.0000}", 0))
+                if (textBox4.Text != string.Format("{0:0.0000}", 0) || textBox5.Text != string.Format("{0:0.0000}", 0) || textBox6.Text != string.Format("{0:0.0000}", 0))
                 {
                     label14.Text = "C(A) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000;- 0.0000") + "*A " + k2.ToString("+ 0.0000;- 0.0000") + "*A^2";
                     if (USE_KO == false)
                     {
-
+                        double x2_1 = 0;
+                        double y0 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
+                        chart1.Series[1].Points.AddXY(x2_1, y0);
                         for (int i = 0; i < Table1.Rows.Count - 1; i++)
                         {
                             double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                             double y = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
 
-                            chart1.Series[0].Points.AddXY(y, x);
+                            chart1.Series[0].Points.AddXY(x, y);
                             chart1.Series[0].ChartType = SeriesChartType.Point;
                             chart1.ChartAreas[0].AxisY.Crossing = 0;
                             chart1.ChartAreas[0].AxisX.Crossing = 0;
-                            double x2_1 = x;
+                            x2_1 = x;
                             double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
                             chart1.Series[1].Points.AddXY(x2_1, y2_1);
@@ -6977,6 +7158,9 @@ namespace Analis200
                             //   chart1.ChartAreas[0].AxisX.Interval = Math.Round((Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value)+ (Convert.ToDouble(Table1.Rows[3].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[2].Cells["Asred"].Value))), 2);
                             //  chart1.ChartAreas[0].AxisX.Interval = 5;
                         }
+                        double xfin = x2_1 * 1.1;
+                        double yfin = k0 + k1 * xfin + k2 * xfin * xfin;
+                        chart1.Series[1].Points.AddXY(xfin, yfin);
                     }
                 }
             }
@@ -7052,6 +7236,57 @@ namespace Analis200
                             ///   this.textBox6.Text = string.Format("{0:0.0000}", 0);
                         }
                     }
+                    if (_NewGraduirovka.radioButton6.Checked == true)
+                    {
+                        SposobZadan = "По СО";
+                    }
+                    else
+                    {
+                        SposobZadan = "Ввод коэффициентов";
+                    }
+                    if (_NewGraduirovka.radioButton4.Checked == true)
+                    {
+                        Zavisimoct = "A(C)";
+                        radioButton4.Checked = true;
+                        label14.Text = "A(C)";
+                        textBox4.Text = "";
+                        textBox5.Text = "";
+                        textBox6.Text = "";
+                    }
+                    else
+                    {
+                        Zavisimoct = "C(A)";
+                        radioButton5.Checked = true;
+                        label14.Text = "C(A)";
+                        textBox4.Text = "";
+                        textBox5.Text = "";
+                        textBox6.Text = "";
+                    }
+                    if (_NewGraduirovka.radioButton1.Checked == true)
+                    {
+                        aproksim = "Линейная через 0";
+                    }
+                    else
+                    {
+                        if (_NewGraduirovka.radioButton2.Checked == true)
+                        {
+                            aproksim = "Линейная";
+                        }
+                        else
+                        {
+                            aproksim = "Квадратичная";
+                        }
+                    }
+                    if (_NewGraduirovka.USE_KO.Checked == true)
+                    {
+                        USE_KO = true;
+
+
+                    }
+                    else
+                    {
+                        USE_KO = false;
+                    }
 
                 };
                 _NewGraduirovka.ShowDialog();
@@ -7059,10 +7294,20 @@ namespace Analis200
                 tabControl2.SelectTab(tabPage3);
                 chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
                 chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+                chart1.Series[0].Points.Clear();
+                chart1.Series[1].Points.Clear();
                 //       Table1.Columns.Add("X*X", "Concetr*Concetr");
                 //Table1.Columns.Add("X*Y", "Asred*Concetr");
                 //CalibrovkaGrad();
                 // MessageBox.Show(Convert.ToString(Days));
+                while (true)
+                {
+                    int i = Table1.Columns.Count - 1;//С какого столбца начать
+                    if (Table1.Columns.Count == 3 + NoCaIzm)
+                        break;
+                    Table1.Columns.RemoveAt(i);
+                }
+                Table1.Rows[Table1.Rows.Count - 1].Cells[0].Value = "";
 
             }
             else
@@ -7254,7 +7499,9 @@ namespace Analis200
             Table1.Height = height;
             e.Graphics.DrawImage(Table1bmp, 50, 300);
 
-            e.Graphics.DrawString("Градуировочное уравнение: " + label14.Text, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 430));
+            
+
+
             Bitmap Chart1bmp = new Bitmap(chart1.Size.Width + 10, chart1.Size.Height + 70);
             chart1.DrawToBitmap(Chart1bmp, chart1.Bounds);
             e.Graphics.DrawImage(Chart1bmp, 50, 460);
@@ -7360,56 +7607,87 @@ namespace Analis200
                 e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 500, 110);
                 e.Graphics.DrawString("Примечание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 210);
                 e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 155, 210);
-                
-
-
-            if (SposobZadan == "По СО")
-            {
-                e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
-                if (NoCaIzm <= 3)
-                {
-                    Table1PrintViewer1(sender, e);
-                }
-                else
-                {
-                    if (NoCaIzm > 3 && NoCaIzm <= 7)
-                    {
-                        Table1PrintViewer2(sender, e);
-                    }
-                    else
-                    {
-                        Table1PrintViewer3(sender, e);
-                    }
-                }
-            }
-            else
-            {
-                cordY = 240;
-            }
-           
-
-                e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY+30);
-                e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 285, cordY+30);
-                int height = chart1.Height;
-                Bitmap bmp = new Bitmap(chart1.Width, chart1.Height);
-                chart1.DrawToBitmap(bmp, new System.Drawing.Rectangle(0,0, chart1.Width, chart1.Height));
-                e.Graphics.DrawImage(bmp, 25, cordY+60);
-                cordY = cordY + chart1.Height + 60;
-                e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY);
-                e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 80, cordY);
-                e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
-                e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
-
-                //  Paragraph Ispolnitel2 = new Paragraph("Исполнитель: " + Ispolnitel, font);
-
             
+
+
+            e.Graphics.DrawString("Информация о приборе:\n", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(25, 230));
+            string model = @"pribor/model";
+            string SerNomer_Text = @"pribor/SerNomer";
+            string InventarNomer_Text = @"pribor/InventarNomer";
+            string SrokIstech_Text = @"pribor/SrokIstech";
+            string Poveren_Text = @"pribor/Poveren";
+            StreamReader fs = new StreamReader(model);
+            e.Graphics.DrawString("Модель: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 260));
+            e.Graphics.DrawString(fs.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(140, 260));
+            fs.Close();
+
+            StreamReader fs1 = new StreamReader(SerNomer_Text);
+            e.Graphics.DrawString("Серийный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 260));
+            e.Graphics.DrawString(fs1.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(700, 260));
+            fs1.Close();
+
+            StreamReader fs2 = new StreamReader(InventarNomer_Text);
+            e.Graphics.DrawString("Инвентарный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 280));
+            e.Graphics.DrawString(fs2.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(705, 280));
+            fs2.Close();
+
+            StreamReader fs3 = new StreamReader(Poveren_Text);
+            DateTime data = Convert.ToDateTime(fs3.ReadLine());
+            // data.Date.ToString("d.mm.yyyy"); 
+            //  MessageBox.Show(Convert.ToString(data));   
+            data = data.AddYears(1);
+            fs3.Close();
+            e.Graphics.DrawString("Поверка действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 280));
+            e.Graphics.DrawString(data.Date.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(315, 280));
+
+            // e.Graphics.DrawString("Градуировочное уравнение: " + label14.Text, new System.Drawing.Font("C:\\Windows\\Fonts\\georgia.ttf", 12, FontStyle.Bold), Brushes.Black, new Point(50, 430));
+            if (SposobZadan == "По СО")
+             {
+                 e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 310);
+                 if (NoCaIzm <= 3)
+                 {
+                     Table1PrintViewer1(sender, e);
+                 }
+                 else
+                 {
+                     if (NoCaIzm > 3 && NoCaIzm <= 7)
+                     {
+                         Table1PrintViewer2(sender, e);
+                     }
+                     else
+                     {
+                         Table1PrintViewer3(sender, e);
+                     }
+                 }
+             }
+             else
+             {
+                 cordY = 310;
+             }
+
+
+                 e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY+30);
+                 e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 285, cordY+30);
+                 int height = chart1.Height;
+                 Bitmap bmp = new Bitmap(chart1.Width, chart1.Height);
+                 chart1.DrawToBitmap(bmp, new System.Drawing.Rectangle(0,0, chart1.Width, chart1.Height));
+                 e.Graphics.DrawImage(bmp, 25, cordY+60);
+                 cordY = cordY + chart1.Height + 60;
+                 e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY);
+                 e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 80, cordY);
+                 e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
+                 e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
+                 
+            //  Paragraph Ispolnitel2 = new Paragraph("Исполнитель: " + Ispolnitel, font);
+
+
 
 
         }
         ///Если меньше или равно 3
         public void Table1PrintViewer1(object sender, PrintPageEventArgs e)
         {
-            int height = 270;
+            int height = 340;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -7533,7 +7811,7 @@ namespace Analis200
         ///Если больше 3 и меньше или равно 7
         public void Table1PrintViewer2(object sender, PrintPageEventArgs e)
         {
-            int height = 270;
+            int height = 340;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -7676,7 +7954,7 @@ namespace Analis200
         /*Если больше 7*/
         public void Table1PrintViewer3(object sender, PrintPageEventArgs e)
         {
-            int height = 270;
+            int height = 340;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -7892,7 +8170,36 @@ namespace Analis200
             e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 330, 350);
             e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 380);
             e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 100, 380);
-            e.Graphics.DrawString("Данные измерений:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 420);
+            e.Graphics.DrawString("Информация о приборе:\n", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(25, 410));
+            string model = @"pribor/model";
+            string SerNomer_Text = @"pribor/SerNomer";
+            string InventarNomer_Text = @"pribor/InventarNomer";
+            string SrokIstech_Text = @"pribor/SrokIstech";
+            string Poveren_Text = @"pribor/Poveren";
+            StreamReader fs = new StreamReader(model);
+            e.Graphics.DrawString("Модель: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 440));
+            e.Graphics.DrawString(fs.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(140, 440));
+            fs.Close();
+
+            StreamReader fs1 = new StreamReader(SerNomer_Text);
+            e.Graphics.DrawString("Серийный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 440));
+            e.Graphics.DrawString(fs1.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(700, 440));
+            fs1.Close();
+
+            StreamReader fs2 = new StreamReader(InventarNomer_Text);
+            e.Graphics.DrawString("Инвентарный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 470));
+            e.Graphics.DrawString(fs2.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(705, 470));
+            fs2.Close();
+
+            StreamReader fs3 = new StreamReader(Poveren_Text);
+            DateTime data = Convert.ToDateTime(fs3.ReadLine());
+            // data.Date.ToString("d.mm.yyyy"); 
+            //  MessageBox.Show(Convert.ToString(data));   
+            data = data.AddYears(1);
+            fs3.Close();
+            e.Graphics.DrawString("Поверка действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 470));
+            e.Graphics.DrawString(data.Date.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(315, 470));
+            e.Graphics.DrawString("Данные измерений:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 500);
             if (NoCaIzm1 <= 3)
             {
                 Table2PrintViewer1(sender, e);
@@ -7910,27 +8217,16 @@ namespace Analis200
             }
             e.Graphics.DrawString("Измерения выполнил(а):", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 60);
             e.Graphics.DrawString(" ____________________________________________________", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 250, cordY + 60);
-            /* 
-
-
-
-
-             Paragraph Vipolnil = new Paragraph("Измерения выполнил(а): ____________________________________________________", font);
-             Paragraph welcomeParagraph1 = new Paragraph("\n", fontBold);
-
-
-
-
-
+            
 
              e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
              e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
-             */
+             
         }
                     ///Если меньше или равно 3
         public void Table2PrintViewer1(object sender, PrintPageEventArgs e)
         {
-            int height = 470;
+            int height = 550;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -8043,7 +8339,7 @@ namespace Analis200
         ///Если больше 3 и меньше или равно 7
         public void Table2PrintViewer2(object sender, PrintPageEventArgs e)
         {
-            int height = 470;
+            int height = 550;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -8174,7 +8470,7 @@ namespace Analis200
         /*Если больше 7*/
         public void Table2PrintViewer3(object sender, PrintPageEventArgs e)
         {
-            int height = 470;
+            int height = 550;
             int width = 25;
             Pen p = new Pen(Brushes.Black, 2.5f);
 
@@ -8528,6 +8824,13 @@ namespace Analis200
             _PriborInformation.ShowDialog();
         }
 
+        private void Table1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+           // rowIndex = Table1.CurrentRow.Index;
+           // curentIndex = Table1.CurrentCell.ColumnIndex;
+           
+        }
+
         iTextSharp.text.Font font1;
         
         public void ExportToPDF1()
@@ -8751,6 +9054,55 @@ namespace Analis200
                 Paragraph GradYrav = new Paragraph("Градуировочное уравнение: " + label14.Text, font);
                 Paragraph Table1 = new Paragraph("Таблица исходных данных\n\n", font);
 
+                Paragraph InformationAboutPribor = new Paragraph("Информация о приборе\n", font);
+                string model = @"pribor/model";
+                string SerNomer_Text = @"pribor/SerNomer";
+                string InventarNomer_Text = @"pribor/InventarNomer";
+                string SrokIstech_Text = @"pribor/SrokIstech";
+                string Poveren_Text = @"pribor/Poveren";
+                StreamReader fs = new StreamReader(model);  
+                Paragraph Model = new Paragraph("Модель\n" + fs.ReadLine(), font);
+                fs.Close();
+
+                StreamReader fs1 = new StreamReader(SerNomer_Text);
+                Paragraph SerNomer = new Paragraph("Серийный номер\n" + fs1.ReadLine(), font);
+                fs1.Close();
+
+                StreamReader fs2 = new StreamReader(InventarNomer_Text);
+                Paragraph InventarNomer = new Paragraph("Инвентарный номер\n" + fs2.ReadLine(), font);
+                fs2.Close();
+
+                StreamReader fs3 = new StreamReader(Poveren_Text);
+                DateTime data = Convert.ToDateTime(fs3.ReadLine());
+                // data.Date.ToString("d.mm.yyyy"); 
+                //  MessageBox.Show(Convert.ToString(data));   
+                data = data.AddYears(1);
+                fs3.Close();
+                Paragraph Poveren = new Paragraph("Поверка действительна до\n" + data.Date.ToString("dd.MM.yyyy"), font);
+                
+
+                PdfPTable Information = new PdfPTable(6);
+                PdfPCell Informationcell = new PdfPCell(Model);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(SerNomer);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(Poveren);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+                Informationcell = new PdfPCell(InventarNomer);
+                Informationcell.BorderWidth = 0;
+                Informationcell.Colspan = 3;
+                Information.AddCell(Informationcell);
+
+
 
                 PdfPTable table = new PdfPTable(5);
                 PdfPCell cell = new PdfPCell(Veshestvo2);
@@ -8822,6 +9174,8 @@ namespace Analis200
                 // doc.Add(BottomLine2);
                 //  doc.Add(TopLine2);
                 doc.Add(Description2);
+                doc.Add(InformationAboutPribor);
+                doc.Add(Information);
                 // doc.Add(welcomeParagraph1);
                 if (SposobZadan == "По СО")
                 {

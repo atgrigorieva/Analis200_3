@@ -99,6 +99,7 @@
             this.Cancel.TabIndex = 47;
             this.Cancel.Text = "Отмена";
             this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // button1
             // 

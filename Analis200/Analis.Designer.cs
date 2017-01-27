@@ -704,6 +704,7 @@
             this.Table1.Name = "Table1";
             this.Table1.Size = new System.Drawing.Size(935, 201);
             this.Table1.TabIndex = 13;
+            this.Table1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.Table1_CellBeginEdit);
             this.Table1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table1_CellEndEdit);
             this.Table1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table1_EditingControlShowing);
             // 

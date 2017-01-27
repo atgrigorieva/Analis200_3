@@ -707,12 +707,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -752,5 +747,10 @@
         public System.Windows.Forms.TextBox textBox4;
         public System.Windows.Forms.CheckBox USE_KO;
         private System.Windows.Forms.Button Cancel;
+        public System.Windows.Forms.RadioButton radioButton3;
+        public System.Windows.Forms.RadioButton radioButton2;
+        public System.Windows.Forms.RadioButton radioButton1;
+        public System.Windows.Forms.RadioButton radioButton5;
+        public System.Windows.Forms.RadioButton radioButton4;
     }
 }
