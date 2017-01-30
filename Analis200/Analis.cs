@@ -3196,7 +3196,9 @@ namespace Analis200
             XmlNode CountInSeriya1 = xd.CreateElement("CountInSeriyal"); // Примечание
             CountInSeriya1.InnerText = CountInSeriya; // и значение
             Izmerenie.AppendChild(CountInSeriya1); // и указываем кому принадлежит
-
+            XmlNode edconctr1 = xd.CreateElement("edconctr");
+            edconctr1.InnerText = edconctr;
+            Izmerenie.AppendChild(edconctr1);
             XmlNode USE_CO_XML = xd.CreateElement("USE_CO_XML"); // Примечание
             if(USE_KO == true)
             {
@@ -3650,8 +3652,14 @@ namespace Analis200
                                     {
                                         Table1.Columns["A;Ser (" + i].Width = 50;
                                     }
+                                    Concetr.HeaderText = "Конц " + edconctr;
                                 }
-                                if ("CountInSeriyal".Equals(k.Name) && k.FirstChild != null)
+                                if ("edconctr".Equals(k.Name) && k.FirstChild != null)
+                                {
+                                    edconctr = k.FirstChild.Value;
+                                    Concetr.HeaderText = "Конц " + edconctr;
+                                }
+                                    if ("CountInSeriyal".Equals(k.Name) && k.FirstChild != null)
                                 {
                                     CountInSeriya2 = k.FirstChild.Value; //Количество строк
                                     CountInSeriya = CountInSeriya2;

@@ -359,6 +359,11 @@
             0,
             0,
             0});
+            this.numericUpDown3.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown3.TabIndex = 13;
