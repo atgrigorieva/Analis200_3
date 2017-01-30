@@ -4434,35 +4434,59 @@ namespace Analis200
                                 {
                                     if (aproksim == "Линейная через 0")
                                     {
-                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                         {
                                             serValue = (Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString())) / Convert.ToDouble(textBox5.Text);
                                         }
                                         else
                                         {
-                                            serValue = (Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString())) / Convert.ToDouble(textBox5.Text);
+
+                                            serValue = 0;
+                                            if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                            {
+                                                MessageBox.Show("Измерьте Контрольый образец!");
+                                                return;
+
+
+                                            }
                                         }
                                     }
                                     if (aproksim == "Линейная")
                                     {
-                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                         {
                                             serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
                                         }
                                         else
                                         {
-                                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+
+                                            serValue = 0;
+                                            if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                            {
+                                                MessageBox.Show("Измерьте Контрольый образец!");
+                                                return;
+
+
+                                            }
                                         }
+
                                     }
                                     if (aproksim == "Квадратичная")
                                     {
-                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                         {
                                             serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
                                         }
                                         else
                                         {
-                                            serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                            serValue = 0;
+                                            if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                            {
+                                                MessageBox.Show("Измерьте Контрольый образец!");
+                                                return;
+
+
+                                            }
                                         }
                                     }
                                     double CValue1 = Convert.ToDouble(F1Text.Text);
@@ -4532,49 +4556,74 @@ namespace Analis200
                 {
                     El = new double[Convert.ToInt32(CountSeriya2) + 2];
 
-                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
+                    for (int j = 1; j <= Table2.Rows.Count - 1; j++)
                     {
                         double SredValue = 0;
                         for (int i1 = 1; i1 <= NoCaIzm1; i1++)
                         {
+
                             if (Table2.Rows[j].Cells["A;Ser" + i1].Value == null)
                             {
                                 cellnull++;
                             }
                             else
                             {
+
                                 if (aproksim == "Линейная через 0")
                                 {
-                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                     {
                                         serValue = (Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString())) / Convert.ToDouble(textBox5.Text);
                                     }
                                     else
                                     {
-                                        serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                        
+                                           serValue = 0;
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                        {
+                                            MessageBox.Show("Измерьте Контрольый образец!");
+                                            return;
+
+
+                                        }
                                     }
                                 }
                                 if (aproksim == "Линейная")
                                 {
-                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                     {
                                         serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
                                     }
                                     else
                                     {
-                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString())- Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                        
+                                        serValue = 0;
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                        {
+                                            MessageBox.Show("Измерьте Контрольый образец!");
+                                            return;
+
+
+                                        }
                                     }
 
                                 }
                                 if (aproksim == "Квадратичная")
                                 {
-                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value != null)
+                                    if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() != "" && Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
                                     {
                                         serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
                                     }
                                     else
                                     {
-                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                        serValue = 0;
+                                        if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
+                                        {
+                                            MessageBox.Show("Измерьте Контрольый образец!");
+                                            return;
+
+
+                                        }
                                     }
                                 }
                                 double CValue1 = Convert.ToDouble(F1Text.Text);
@@ -4595,7 +4644,7 @@ namespace Analis200
                                 }
                                 else Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR);
                                 //Table2.Rows[j].Cells["d%"].Value = El.Max();
-                                if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value != "")
+                                if (Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value.ToString() != "")
                                 {
                                     El[i1] = Convert.ToDouble(Table2.Rows[Table2.CurrentCell.RowIndex].Cells["C,edconctr;Ser." + i1].Value.ToString());
                                 }
@@ -4639,10 +4688,10 @@ namespace Analis200
                     }
                     El = new double[Convert.ToInt32(CountSeriya2) + 1];
 
-                    for (int j = 1; j < Table2.Rows.Count - 1; j++)
+                    for (int j = 0; j < Table2.Rows.Count - 1; j++)
                     {
                         double SredValue = 0;
-                        for (int i1 = 2; i1 <= NoCaIzm1; i1++)
+                        for (int i1 = 1; i1 <= NoCaIzm1; i1++)
                         {
                             if (Table2.Rows[j].Cells["A;Ser" + i1].Value == null)
                             {
@@ -4652,15 +4701,37 @@ namespace Analis200
                             {
                                 if (aproksim == "Линейная через 0")
                                 {
-                                    serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                    if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                    {
+                                        serValue = Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) / Convert.ToDouble(textBox5.Text);
+                                    }
+                                    else
+                                    {
+                                        serValue = 0;
+                                    }
+
                                 }
                                 if (aproksim == "Линейная")
                                 {
-                                    serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                    if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                    {
+                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / Convert.ToDouble(textBox5.Text);
+                                    }
+                                    else
+                                    {
+                                        serValue = 0;
+                                    }
                                 }
                                 if (aproksim == "Квадратичная")
                                 {
-                                    serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                    if (Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString() != "")
+                                    {
+                                        serValue = ((Convert.ToDouble(Table2.Rows[j].Cells["A;Ser" + i1].Value.ToString()) - Convert.ToDouble(textBox4.Text))) / (Convert.ToDouble(textBox5.Text) + Convert.ToDouble(textBox6.Text));
+                                    }
+                                    else
+                                    {
+                                        serValue = 0;
+                                    }
                                 }
                                 double CValue1 = Convert.ToDouble(F1Text.Text);
                                 double CValue2 = Convert.ToDouble(F2Text.Text);
@@ -4669,9 +4740,19 @@ namespace Analis200
                                 SredValue += Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
 
                                 CCR = SredValue / NoCaIzm1;
+                                if (serValue >= 0)
+                                {
+                                    Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value = string.Format("{0:0.0000}", serValue * CValue1 * CValue2);
+                                    SredValue += Convert.ToDouble(Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value.ToString());
+                                }
+                                else
+                                {
+                                    Table2.Rows[j].Cells["C,edconctr;Ser." + i1].Value = "";
+                                }
+                                CCR = SredValue / NoCaIzm1;
                                 if (Convert.ToDouble(textBox7.Text) >= 1)
                                 {
-                                    Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR) + "±" + string.Format("{0:0.0000}", ((CCR * Convert.ToDouble(textBox7.Text))) / 100);
+                                    Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR) + "±" + string.Format("{0:0.00}", ((CCR * Convert.ToDouble(textBox7.Text)) / 100));
                                 }
                                 else Table2.Rows[j].Cells["Ccr"].Value = string.Format("{0:0.0000}", CCR);
                                 //Table2.Rows[j].Cells["d%"].Value = El.Max();
@@ -7432,6 +7513,7 @@ namespace Analis200
             if (Table1.CurrentCell.ReadOnly == true)
             {
                 MessageBox.Show("Редактирование ячейки запрещено!");
+                return;
             }
         }
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
@@ -7441,6 +7523,7 @@ namespace Analis200
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
+                return;
             }
         }
 
@@ -7469,6 +7552,7 @@ namespace Analis200
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
+                return;
             }
         }
 
