@@ -7504,9 +7504,10 @@ namespace Analis200
                 }
             }
         }
-
+        int curent = 0;
         private void Table1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
+
             if (Table1.CurrentCell.ColumnIndex >= 3 && Table1.CurrentCell.ReadOnly != true)
 
             {
@@ -7515,14 +7516,21 @@ namespace Analis200
             }
             else
             {
-                TextBox Table1 = (TextBox)e.Control;
-                Table1.KeyPress -= tb_KeyPress;
+               TextBox Table1 = (TextBox)e.Control;
+               Table1.KeyPress -= tb_KeyPress;
             }
             if (Table1.CurrentCell.ReadOnly == true)
             {
                 MessageBox.Show("Редактирование ячейки запрещено!");
-                return;
+                
             }
+            if(curent != 0)
+            {
+                TextBox Table1 = (TextBox)e.Control;
+                Table1.KeyPress -= tb_KeyPress;
+            }
+            curent++;
+
         }
         private void tb_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -7530,11 +7538,13 @@ namespace Analis200
             if ((e.KeyChar <= 42 || e.KeyChar >= 58 || e.KeyChar == 43 || e.KeyChar == 46 || e.KeyChar == 47) && number != 8 && number != 44) //цифры, клавиша BackSpace и запятая а ASCII
             {
                 e.Handled = true;
-                MessageBox.Show("Только цифры!");
+                MessageBox.Show("Только цифры!");                
                 return;
+               
             }
+            return;
         }
-
+        int curent1 = 0;
         private void Table2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (Table2.CurrentCell.ColumnIndex >= 2 && Table2.CurrentCell.ReadOnly != true)
@@ -7552,6 +7562,12 @@ namespace Analis200
             {
                 MessageBox.Show("Редактирование ячейки запрещено!");
             }
+            if (curent1 != 0)
+            {
+                TextBox Table2 = (TextBox)e.Control;
+                Table2.KeyPress -= tb_KeyPress1;
+            }
+            curent1++;
         }
         private void tb_KeyPress1(object sender, KeyPressEventArgs e)
         {
@@ -7560,8 +7576,10 @@ namespace Analis200
             {
                 e.Handled = true;
                 MessageBox.Show("Только цифры!");
+               
                 return;
             }
+            return;
         }
 
         private void button3_Click(object sender, EventArgs e)
