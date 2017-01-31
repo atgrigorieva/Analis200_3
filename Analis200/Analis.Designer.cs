@@ -147,6 +147,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.printTable2 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
+            this.RR = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -440,6 +441,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.RR);
             this.tabPage3.Controls.Add(this.SKO);
             this.tabPage3.Controls.Add(this.richTextBox1);
             this.tabPage3.Controls.Add(this.groupBox4);
@@ -1285,6 +1287,15 @@
             this.printPreviewTable2.Name = "printPreviewTable2";
             this.printPreviewTable2.Visible = false;
             // 
+            // RR
+            // 
+            this.RR.AutoSize = true;
+            this.RR.Location = new System.Drawing.Point(598, 235);
+            this.RR.Name = "RR";
+            this.RR.Size = new System.Drawing.Size(27, 13);
+            this.RR.TabIndex = 20;
+            this.RR.Text = "R^2";
+            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1462,6 +1473,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Obrazec;
         private System.Windows.Forms.Label SKO;
         public System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Label RR;
     }
 }
 
