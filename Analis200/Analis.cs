@@ -6406,10 +6406,28 @@ namespace Analis200
                         int Table1_Asred = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
                         double x2 = 0;
+                        double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double x1_1 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
                         double y1_1 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
 
-                        
+                            yx += (y1 - x0 - k1 * x1) * (y1 - x0 - k1 * x1);
+                            yx1 += (y1 - x0 - SREDSUMM) * (y1 - x0 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         for (int i = 1; i < Table1.Rows.Count - 1; i++)
                         {
                             double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
@@ -6530,8 +6548,28 @@ namespace Analis200
                     }
                     else
                     {
+
                         Table1_Asred = 0;
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+
+                            yx += (x1 - k1 * (y1 - x0)) * (x1 - k1 * (y1 - x0));
+                            yx1 += (x1 - SREDSUMM) * (x1 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         double x2 = 0;
                         for (int i = 1; i < Table1.Rows.Count - 1; i++)
                         {
@@ -6904,6 +6942,25 @@ namespace Analis200
                     {
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C " + k0.ToString("+ 0.0000 ;- 0.0000 ");
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+
+                            yx += (y1 - x0 - (k1 * x1 + k2)) * (y1 - x0 - (k1 * x1 + k2));
+                            yx1 += (y1 - x0 - SREDSUMM) * (y1 - x0 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         double x2 = x0 - x0;
                         double y2 = x2 * k1 + k0;
                         chart1.Series[1].Points.AddXY(x2, y2);
@@ -7004,6 +7061,25 @@ namespace Analis200
                     else
                     {
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+
+                            yx += (x1 - (k1 * (y1 - x0) + k0)) * (x1 - (k1 * (y1 - x0) + k0));
+                            yx1 += (x1 - SREDSUMM) * (x1 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         double x2 = x0 - x0;
                         double y2 = x2 * k1 + k0;
                         chart1.Series[1].Points.AddXY(x2, y2);
@@ -7498,6 +7574,25 @@ namespace Analis200
                     {
                         double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+
+                            yx += (y1 - y0 - (k1 * x1 + k2 * x1 * x1 + k0)) * (y1 - y0 - (k1 * x1 + k2 * x1 * x1 + k0));
+                            yx1 += (y1 - y0 - SREDSUMM) * (y1 - y0 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         double x2_1 = x0;
                         double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
@@ -7589,6 +7684,25 @@ namespace Analis200
                     {
                         double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double yx = 0;
+                        double yx1 = 0;
+                        double SREDSUMM = 0;
+                        SUMMX = 0;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            SUMMX += y1;
+                        }
+                        SREDSUMM = SUMMX / (Table1.Rows.Count - 1);
+                        for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+                        {
+                            double x1 = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+
+                            yx += (x1 - (k1 * (y1 - x0) + k2 * (y1 - x0) * (y1 - x0) + k0)) * (x1 - (k1 * (y1 - x0) + k2 * (y1 - x0) * (y1 - x0) + k0));
+                            yx1 += (x1 - SREDSUMM) * (x1 - SREDSUMM);
+                        }
+                        RR.Text = "R^2 = " + string.Format("{0:0.0000}", (1 - (yx / yx1)));
                         double x2_1 = x0-x0;
                         double y2_1 = k0 + k1 * x2_1 + k2 * x2_1 * x2_1;
 
