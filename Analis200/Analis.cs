@@ -2775,7 +2775,7 @@ namespace Analis200
             {
                 MessageBox.Show("Запись запрещена!");
             }
-            Table1.CellEnter -= new System.Windows.Forms.DataGridViewCellEventHandler(Table1_GridCellEnter);
+            
             double sum;
             sum = 0.0;
             int startIndexCell = 2;
@@ -2882,19 +2882,20 @@ namespace Analis200
                         { doNotWrite = true; }
                     }
                 }
-              /*  if (!doNotWrite)
-                {
-                    while (true)
-                    {
-                        int ml = Table1.Columns.Count - 1;//С какого столбца начать
-                        if (Table1.Columns.Count == 3 + NoCaIzm)
-                            break;
-                        Table1.Columns.RemoveAt(ml);
-                    }
-                    functionAsred();
+                //  Table1.CellEnter -= new System.Windows.Forms.DataGridViewCellEventHandler(Table1_GridCellEnter);
+                /*  if (!doNotWrite)
+                  {
+                      while (true)
+                      {
+                          int ml = Table1.Columns.Count - 1;//С какого столбца начать
+                          if (Table1.Columns.Count == 3 + NoCaIzm)
+                              break;
+                          Table1.Columns.RemoveAt(ml);
+                      }
+                      functionAsred();
 
-                }*/
-
+                  }*/
+                functionAsred();
             }
 
         }
@@ -6106,6 +6107,36 @@ namespace Analis200
             double[] SredOtklMatr = new double[Table1.Rows.Count - 1];
             double SUMMSer = 0;
             double SREDSUMMX = 0;
+            double[] Table1masStr_1 = new double[NoCaIzm];
+            double[] Table1masStr1_1 = new double[Table1.Rows.Count - 1];
+            for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+            {
+                for (int j = 1; j <= NoCaIzm; j++)
+                {
+                    Table1masStr_1[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+                }
+                Array.Sort(Table1masStr_1);
+                double maxEl = Table1masStr_1[Table1masStr_1.Length - 1];
+                double minEl = Table1masStr_1[0];
+                double p1 = 2 * ((maxEl - minEl) / (maxEl + minEl)) * 100;
+                //  Table1.Rows[i].Cells["P"].Value = string.Format("{0:0.0000}", p1);
+                Table1masStr1_1[i] = p1;
+            }
+            max = -1;
+            for (int i = 0; i < Table1masStr1_1.Length; i++)
+            {
+                // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                if (max <= Table1masStr1_1[i])
+                {
+                    // Запоминаем новое максимальное значение
+                    max = Table1masStr1_1[i];
+                    // Запоминаем порядковый номер
+                    index = i;
+                }
+            }
+            // max = max / 100;
+            index = index + 1;
+            label21.Text = "P,% = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
             if (radioButton4.Checked == true)
             {
                 try
@@ -6115,21 +6146,42 @@ namespace Analis200
                     Table1.Columns.Remove("X*X*X");
                     Table1.Columns.Remove("X*X*X*X");
                     Table1.Columns.Remove("X*X*Y");
+                    //Table1.Columns.Add("Y", "Y расчет");
                     Table1.Columns.Add("X*X", "Конц* Конц");
                     Table1.Columns.Add("X*Y", "Конц* Асред");
+                    //Table1.Columns.Remove("P");
+                    //Table1.Columns.Remove("D");
+                   // Table1.Columns.Add("P", "P, %");
+                  //  Table1.Columns.Add("D", "d, %");
+                  //  Table1.Columns.Add("Y", "Y расчет");
                     Table1.Columns["X*X"].Width = 50;
                     Table1.Columns["X*Y"].Width = 50;
+                  //  Table1.Columns["P"].Width = 50;
+                  //  Table1.Columns["D"].Width = 50;
+                   // Table1.Columns["Y"].Width = 50;
                     Table1.Columns["X*X"].ReadOnly = true;
                     Table1.Columns["X*Y"].ReadOnly = true;
+                  //  Table1.Columns["P"].ReadOnly = true;
+                  //  Table1.Columns["D"].ReadOnly = true;
+                   // Table1.Columns["Y"].ReadOnly = true;
                 }
                 catch
                 {
                     Table1.Columns.Add("X*X", "Конц* Конц");
                     Table1.Columns.Add("X*Y", "Конц* Асред");
+                  //  Table1.Columns.Add("P", "P, %");
+                   // Table1.Columns.Add("D", "d, %");
+                  //  Table1.Columns.Add("Y", "Y расчет");
                     Table1.Columns["X*X"].Width = 50;
                     Table1.Columns["X*Y"].Width = 50;
+                 //   Table1.Columns["P"].Width = 50;
+                   // Table1.Columns["D"].Width = 50;
+                   // Table1.Columns["Y"].Width = 50;
                     Table1.Columns["X*X"].ReadOnly = true;
                     Table1.Columns["X*Y"].ReadOnly = true;
+                 //   Table1.Columns["P"].ReadOnly = true;
+                 //   Table1.Columns["D"].ReadOnly = true;
+                 //   Table1.Columns["Y"].ReadOnly = true;
 
                 }
                 chart1.Series[0].Points.Clear();
@@ -6139,6 +6191,7 @@ namespace Analis200
                 XY = 0;
                 SUMMY2 = 0;
                 double SUMMX = 0;
+                
                 if (USE_KO == false)
                 {
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
@@ -6161,16 +6214,18 @@ namespace Analis200
                     }
 
                     SREDSUMMX = SUMMX / (Table1.Rows.Count - 1);
-                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                   for (int i = 0; i < Table1.Rows.Count - 1; i++)
                     {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                         SUMMSer = 0;
                         for (int j = 1; j <= NoCaIzm; j++)
                         {
                             double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
-                            SUMMSer += (Ser - SREDSUMMX) * (Ser - SREDSUMMX);
+                            
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
                         }
-                        double SredOtkl = Math.Sqrt(SUMMSer / NoCaIzm);
-                        double SredOtklProc = (SredOtkl / SREDSUMMX) * 100;
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm-1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
                         SredOtklMatr[i] = SredOtklProc;
                     }
 
@@ -6187,9 +6242,10 @@ namespace Analis200
                             index = i;
                         }
                     }
-                    max = max / 100;
-                   // index = index + 1;
+                   // max = max / 100;
+                    index = index + 1;
                     SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+                   
                 }
 
 
@@ -6206,7 +6262,7 @@ namespace Analis200
 
                         XY += (x - x1) * y;
                         SUMMY2 += y * y;
-                        SUMMX += x;
+                        SUMMX += (x- x1);
 
                         Table1.Rows[i].Cells["X*X"].Value = y * y;
                         Table1.Rows[i].Cells["X*Y"].Value = (x - x1) * y;
@@ -6217,41 +6273,42 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
 
                     }
+                    max = -1;
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        SUMMSer = 0;
+                        for (int j = 1; j <= NoCaIzm; j++)
+                        {
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
+                        }
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
+                        SredOtklMatr[i] = SredOtklProc;
+                    }
+
+                    // Цикл по всем элементам массива
+                    // От 0 до размера массива
+                    for (int i = 0; i < SredOtklMatr.Length; i++)
+                    {
+                        // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                        if (max <= SredOtklMatr[i])
+                        {
+                            // Запоминаем новое максимальное значение
+                            max = SredOtklMatr[i];
+                            // Запоминаем порядковый номер
+                            index = i;
+                        }
+                    }
+                    // max = max / 100;
+                    index = index + 1;
+                    SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                 }
          
                 SREDSUMMX = SUMMX / (Table1.Rows.Count - 1);
-              
-                for (int i = 0; i < Table1.Rows.Count - 1; i++)
-                {
-                    SUMMSer = 0;
-                    double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
-                    for (int j = 1; j <= NoCaIzm; j++)
-                    {
-                        double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
-                        SUMMSer += (Ser - x) * (Ser - x);
-                    }
-                    double SredOtkl = Math.Sqrt(SUMMSer / NoCaIzm);
-                    double SredOtklProc = (SredOtkl / x) * 100;
-                    SredOtklMatr[i] = SredOtklProc;
-                   /// MessageBox.Show(string.Format("{0:0.0000}", SredOtklMatr[i]));
-                }
-
-                // Цикл по всем элементам массива
-                // От 0 до размера массива
-                for (int i = 0; i < SredOtklMatr.Length; i++)
-                {
-                    // Если максимальная стоимость меньше, либо равно текущей проверяемой
-                    if (max <= SredOtklMatr[i])
-                    {
-                        // Запоминаем новое максимальное значение
-                        max = SredOtklMatr[i];
-                        // Запоминаем порядковый номер
-                        index = i;
-                    }
-                }
-              // max = max / 100;
-                //index = index + 1;
-                SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+                
             }
             else
             {
@@ -6285,6 +6342,7 @@ namespace Analis200
                 circle = 0;
                 XY = 0;
                 SUMMY2 = 0;
+
                 if (USE_KO == false)
                 {
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
@@ -6334,8 +6392,40 @@ namespace Analis200
             {
                 if (textBox5.Text != string.Format("{0:0.0000}", 0))
                 {
+                    
                     if (USE_KO == false)
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                     //   index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double x2 = 0;
                         int Table1_Asred = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
@@ -6403,6 +6493,37 @@ namespace Analis200
                     }
                     else
                     {
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        max = -1;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         int Table1_Asred = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C";
                         double x2 = 0;
@@ -6483,6 +6604,39 @@ namespace Analis200
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A";
                     if (USE_KO == false)
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                          //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value)*k1;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                       // index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+                        
+                        
                         double yx = 0;
                         double yx1 = 0;
                         double SREDSUMM = 0;
@@ -6548,6 +6702,37 @@ namespace Analis200
                     }
                     else
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = (Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value)) * k1;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
 
                         Table1_Asred = 0;
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
@@ -6636,6 +6821,36 @@ namespace Analis200
             textBox4.Text = string.Format("{0:0.0000}", 0);
             textBox5.Text = string.Format("{0:0.0000}", 0);
             textBox4.Text = string.Format("{0:0.0000}", 0);
+            max = -1;
+            double[] Table1masStr_1 = new double[NoCaIzm];
+            double[] Table1masStr1_1 = new double[Table1.Rows.Count - 1];
+            for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+            {
+                for (int j = 1; j <= NoCaIzm; j++)
+                {
+                    Table1masStr_1[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+                }
+                Array.Sort(Table1masStr_1);
+                double maxEl = Table1masStr_1[Table1masStr_1.Length - 1];
+                double minEl = Table1masStr_1[0];
+                double p1 = 2 * ((maxEl - minEl) / (maxEl + minEl)) * 100;
+                //  Table1.Rows[i].Cells["P"].Value = string.Format("{0:0.0000}", p1);
+                Table1masStr1_1[i] = p1;
+            }
+            for (int i = 0; i < Table1masStr1_1.Length; i++)
+            {
+                // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                if (max <= Table1masStr1_1[i])
+                {
+                    // Запоминаем новое максимальное значение
+                    max = Table1masStr1_1[i];
+                    // Запоминаем порядковый номер
+                    index = i;
+                }
+            }
+            // max = max / 100;
+            index = index + 1;
+            label21.Text = "P,% = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
             if (radioButton4.Checked == true)
             {
 
@@ -6697,15 +6912,16 @@ namespace Analis200
 
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
                     {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                         SUMMSer = 0;
-                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                         for (int j = 1; j <= NoCaIzm; j++)
                         {
                             double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
-                            SUMMSer += (Ser - x) * (Ser - x);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
                         }
-                        double SredOtkl = Math.Sqrt(SUMMSer / NoCaIzm);
-                        double SredOtklProc = (SredOtkl / x) * 100;
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
                         SredOtklMatr[i] = SredOtklProc;
                     }
 
@@ -6719,12 +6935,13 @@ namespace Analis200
                             // Запоминаем новое максимальное значение
                             max = SredOtklMatr[i];
                             // Запоминаем порядковый номер
-                            index = i+1;
+                            index = i;
                         }
                     }
-                    max = max / 100;
-                    //index = index + 1;
+                    // max = max / 100;
+                    index = index + 1;
                     SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+
                 }
                 else
                 {
@@ -6754,20 +6971,20 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(XY);
                     }
                     SREDSUMMX = SUMMX1 / (Table1.Rows.Count - 1);
-
+                    max = -1;
                     for (int i = 0; i < Table1.Rows.Count - 1; i++)
                     {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         SUMMSer = 0;
-                        double x = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
                         for (int j = 1; j <= NoCaIzm; j++)
                         {
-                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
-                            SUMMSer += (Ser - x) * (Ser - x);
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
                         }
-                        double SredOtkl = Math.Sqrt(SUMMSer / NoCaIzm);
-                        double SredOtklProc = (SredOtkl / x) * 100;
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
                         SredOtklMatr[i] = SredOtklProc;
-                    //  MessageBox.Show(string.Format("{0:0.0000}", SredOtklMatr[i]));
                     }
 
                     // Цикл по всем элементам массива
@@ -6782,12 +6999,13 @@ namespace Analis200
                             // Запоминаем порядковый номер
                             index = i;
                         }
-                       
                     }
-                   // max = max / 100;
-                    //index = index + 1;
+                    // max = max / 100;
+                    index = index + 1;
                     SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+
                 }
+            
             }
             else
             {
@@ -6879,6 +7097,37 @@ namespace Analis200
                 {
                     if (USE_KO == false)
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double xrasch = k1 * x + k0;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double y2 = 0;
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C " + k0.ToString("+ 0.0000 ;- 0.0000 ");
 
@@ -6940,6 +7189,37 @@ namespace Analis200
                     }
                     else
                     {
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        max = -1;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double xrasch = k1 * x + k0;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         label14.Text = "A(C) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*C " + k0.ToString("+ 0.0000 ;- 0.0000 ");
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double yx = 0;
@@ -7004,6 +7284,37 @@ namespace Analis200
                     label14.Text = "C(A) = " + k1.ToString("0.0000 ;- 0.0000 ") + "*A " + k0.ToString("+ 0.0000 ;- 0.0000 ");
                     if (USE_KO == false)
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) * k1 + k0;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double yx = 0;
                         double yx1 = 0;
                         double SREDSUMM = 0;
@@ -7060,6 +7371,38 @@ namespace Analis200
                     }
                     else
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = (Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value)) * k1 + k0;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double yx = 0;
                         double yx1 = 0;
@@ -7283,12 +7626,45 @@ namespace Analis200
 
         public void kvadratichnaya()
         {
+            double max = -1;
+            int index = -1;
+            double[] SredOtklMatr = new double[Table1.Rows.Count - 1];
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
             double x2 = 0; double x3 = 0; double x4 = 0; double xy = 0; double SUMX = 0;
             double SUMY = 0; double x2y = 0;
             double Opred; double OpredA; double OpredB; double OpredC;
             k0 = 0; k1 = 0; k2 = 0;
+            max = -1;
+            double[] Table1masStr_1 = new double[NoCaIzm];
+            double[] Table1masStr1_1 = new double[Table1.Rows.Count - 1];
+            for (int i = 0; i < (Table1.Rows.Count - 1); i++)
+            {
+                for (int j = 1; j <= NoCaIzm; j++)
+                {
+                    Table1masStr_1[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+                }
+                Array.Sort(Table1masStr_1);
+                double maxEl = Table1masStr_1[Table1masStr_1.Length - 1];
+                double minEl = Table1masStr_1[0];
+                double p1 = 2 * ((maxEl - minEl) / (maxEl + minEl)) * 100;
+                //  Table1.Rows[i].Cells["P"].Value = string.Format("{0:0.0000}", p1);
+                Table1masStr1_1[i] = p1;
+            }
+            for (int i = 0; i < Table1masStr1_1.Length; i++)
+            {
+                // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                if (max <= Table1masStr1_1[i])
+                {
+                    // Запоминаем новое максимальное значение
+                    max = Table1masStr1_1[i];
+                    // Запоминаем порядковый номер
+                    index = i;
+                }
+            }
+            // max = max / 100;
+            index = index + 1;
+            label21.Text = "P,% = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
             if (radioButton4.Checked == true)
             {
                 try
@@ -7362,6 +7738,39 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
 
                     }
+                    double SUMMSer = 0;
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        SUMMSer = 0;
+                        for (int j = 1; j <= NoCaIzm; j++)
+                        {
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
+                        }
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
+                        SredOtklMatr[i] = SredOtklProc;
+                    }
+
+                    // Цикл по всем элементам массива
+                    // От 0 до размера массива
+                    for (int i = 0; i < SredOtklMatr.Length; i++)
+                    {
+                        // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                        if (max <= SredOtklMatr[i])
+                        {
+                            // Запоминаем новое максимальное значение
+                            max = SredOtklMatr[i];
+                            // Запоминаем порядковый номер
+                            index = i;
+                        }
+                    }
+                    // max = max / 100;
+                    index = index + 1;
+                    SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+                    
                 }
                 else
                 {
@@ -7393,6 +7802,40 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
 
                     }
+                    double SUMMSer = 0;
+                    max = -1;
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        SUMMSer = 0;
+                        for (int j = 1; j <= NoCaIzm; j++)
+                        {
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
+                        }
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
+                        SredOtklMatr[i] = SredOtklProc;
+                    }
+
+                    // Цикл по всем элементам массива
+                    // От 0 до размера массива
+                    for (int i = 0; i < SredOtklMatr.Length; i++)
+                    {
+                        // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                        if (max <= SredOtklMatr[i])
+                        {
+                            // Запоминаем новое максимальное значение
+                            max = SredOtklMatr[i];
+                            // Запоминаем порядковый номер
+                            index = i;
+                        }
+                    }
+                    // max = max / 100;
+                    index = index + 1;
+                    SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
+
                 }
             }
             else
@@ -7467,6 +7910,37 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*Y"].Value = "СУММА = " + Convert.ToString(x2y);
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
                     }
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                        double SUMMSer = 0;
+                        for (int j = 1; j <= NoCaIzm; j++)
+                        {
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
+                        }
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
+                        SredOtklMatr[i] = SredOtklProc;
+                    }
+
+                    // Цикл по всем элементам массива
+                    // От 0 до размера массива
+                    for (int i = 0; i < SredOtklMatr.Length; i++)
+                    {
+                        // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                        if (max <= SredOtklMatr[i])
+                        {
+                            // Запоминаем новое максимальное значение
+                            max = SredOtklMatr[i];
+                            // Запоминаем порядковый номер
+                            index = i;
+                        }
+                    }
+                    // max = max / 100;
+                    index = index + 1;
+                    SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                 }
                 else
                 {
@@ -7497,6 +7971,37 @@ namespace Analis200
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*X*Y"].Value = "СУММА = " + Convert.ToString(x2y);
                         Table1.Rows[Table1.Rows.Count - 1].Cells["X*Y"].Value = "СУММА = " + Convert.ToString(xy);
                     }
+                    for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                    {
+                        double Ser1 = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value) - Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
+                        double SUMMSer = 0;
+                        for (int j = 1; j <= NoCaIzm; j++)
+                        {
+                            double Ser = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+
+                            SUMMSer += (Ser - Ser1) * (Ser - Ser1);
+                        }
+                        double SredOtkl = Math.Sqrt(SUMMSer / (NoCaIzm - 1));
+                        double SredOtklProc = (SredOtkl / Ser1) * 100;
+                        SredOtklMatr[i] = SredOtklProc;
+                    }
+
+                    // Цикл по всем элементам массива
+                    // От 0 до размера массива
+                    for (int i = 0; i < SredOtklMatr.Length; i++)
+                    {
+                        // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                        if (max <= SredOtklMatr[i])
+                        {
+                            // Запоминаем новое максимальное значение
+                            max = SredOtklMatr[i];
+                            // Запоминаем порядковый номер
+                            index = i;
+                        }
+                    }
+                    // max = max / 100;
+                    index = index + 1;
+                    SKO.Text = "СКО(А) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                 }
             }
             Opred = x2 * x2 * x2 + SUMX * SUMX * x4 + (NoCaSer) * x3 * x3 - (NoCaSer) * x2 * x4 - x2 * SUMX * x3 - SUMX * x3 * x2;
@@ -7517,8 +8022,40 @@ namespace Analis200
                     label14.Text = "A(C) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000 ;- 0.0000 ") + "*C " + k2.ToString("+ 0.0000 ;- 0.0000 ") + "*C^2";
                     if (USE_KO == false)
                     {
+
                         if ((Table1.Rows.Count - 1) > 2)
                         {
+                            max = -1;
+                            double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                            for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                            {
+                                double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                                double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                                double xrasch = k1 * x + k2*x*x + k0;
+                                double[] Table1masStr = new double[NoCaIzm];
+                                for (int j = 1; j <= NoCaIzm; j++)
+                                {
+                                    Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value);
+                                }
+                                Array.Sort(Table1masStr);
+                                double maxEl = Table1masStr[Table1masStr.Length - 1];
+                                Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                                //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                            }
+                            for (int i = 0; i < Table1masStr1.Length; i++)
+                            {
+                                // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                                if (max <= Table1masStr1[i])
+                                {
+                                    // Запоминаем новое максимальное значение
+                                    max = Table1masStr1[i];
+                                    // Запоминаем порядковый номер
+                                    index = i;
+                                }
+                            }
+                            // max = max / 100;
+                            index = index + 1;
+                            label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                             double yx = 0;
                             double yx1 = 0;
                             double SREDSUMM = 0;
@@ -7572,6 +8109,37 @@ namespace Analis200
                     }
                     else
                     {
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        max = -1;
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            double xrasch = k1 * x + k2*x*x + k0;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value);
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - xrasch) * 100) / xrasch;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
                         double yx = 0;
@@ -7634,6 +8202,37 @@ namespace Analis200
                     label14.Text = "C(A) = " + k0.ToString("0.0000 ;- 0.0000 ") + k1.ToString("+ 0.0000;- 0.0000") + "*A " + k2.ToString("+ 0.0000;- 0.0000") + "*A^2";
                     if (USE_KO == false)
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) * k1 + Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value)* Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value)*k2 + k0;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double yx = 0;
                         double yx1 = 0;
                         double SREDSUMM = 0;
@@ -7682,6 +8281,37 @@ namespace Analis200
                     }
                     else
                     {
+                        max = -1;
+                        double[] Table1masStr1 = new double[Table1.Rows.Count - 1];
+                        for (int i = 0; i < Table1.Rows.Count - 1; i++)
+                        {
+                            double x = Convert.ToDouble(Table1.Rows[i].Cells["Concetr"].Value);
+                            //  double y = Convert.ToDouble(Table1.Rows[i].Cells["Asred"].Value);
+                            //double xrasch = k1 * x;
+                            double[] Table1masStr = new double[NoCaIzm];
+                            for (int j = 1; j <= NoCaIzm; j++)
+                            {
+                                Table1masStr[j - 1] = (Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value)- Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value)) * k1 + (Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value)) * (Convert.ToDouble(Table1.Rows[i].Cells["A;Ser (" + j].Value) - Convert.ToDouble(Table1.Rows[0].Cells["A;Ser (" + j].Value)) * k2 + k0;
+                            }
+                            Array.Sort(Table1masStr);
+                            double maxEl = Table1masStr[Table1masStr.Length - 1];
+                            Table1masStr1[i] = ((maxEl - x) * 100) / x;
+                            //label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.0000}", (((maxEl - xrasch) * 100) / xrasch));
+                        }
+                        for (int i = 0; i < Table1masStr1.Length; i++)
+                        {
+                            // Если максимальная стоимость меньше, либо равно текущей проверяемой
+                            if (max <= Table1masStr1[i])
+                            {
+                                // Запоминаем новое максимальное значение
+                                max = Table1masStr1[i];
+                                // Запоминаем порядковый номер
+                                index = i;
+                            }
+                        }
+                        // max = max / 100;
+                        index = index + 1;
+                        label22.Text = "Макс.Ошибка А(С) = " + string.Format("{0:0.00}", max) + "% (CO №" + index + ")";
                         double y0 = Convert.ToDouble(Table1.Rows[0].Cells["Concetr"].Value);
                         double x0 = Convert.ToDouble(Table1.Rows[0].Cells["Asred"].Value);
                         double yx = 0;

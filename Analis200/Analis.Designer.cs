@@ -69,6 +69,9 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.RR = new System.Windows.Forms.Label();
             this.SKO = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -147,7 +150,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.printTable2 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
-            this.RR = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -441,6 +443,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.label21);
             this.tabPage3.Controls.Add(this.RR);
             this.tabPage3.Controls.Add(this.SKO);
             this.tabPage3.Controls.Add(this.richTextBox1);
@@ -469,28 +473,54 @@
             this.tabPage3.Text = "Градуировка";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(597, 270);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(98, 13);
+            this.label22.TabIndex = 22;
+            this.label22.Text = "Макс.ошибка A(C)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(597, 257);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(38, 13);
+            this.label21.TabIndex = 21;
+            this.label21.Text = "P,%(A)";
+            // 
+            // RR
+            // 
+            this.RR.AutoSize = true;
+            this.RR.Location = new System.Drawing.Point(595, 231);
+            this.RR.Name = "RR";
+            this.RR.Size = new System.Drawing.Size(27, 13);
+            this.RR.TabIndex = 20;
+            this.RR.Text = "R^2";
+            // 
             // SKO
             // 
             this.SKO.AutoSize = true;
-            this.SKO.Location = new System.Drawing.Point(595, 248);
+            this.SKO.Location = new System.Drawing.Point(596, 244);
             this.SKO.Name = "SKO";
             this.SKO.Size = new System.Drawing.Size(29, 13);
             this.SKO.TabIndex = 19;
             this.SKO.Text = "СКО";
-            this.SKO.Visible = false;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(582, 217);
+            this.richTextBox1.Location = new System.Drawing.Point(582, 211);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(260, 70);
+            this.richTextBox1.Size = new System.Drawing.Size(295, 83);
             this.richTextBox1.TabIndex = 18;
-            this.richTextBox1.Text = "";
+            this.richTextBox1.Text = "Статистика";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label14);
-            this.groupBox4.Location = new System.Drawing.Point(581, 157);
+            this.groupBox4.Location = new System.Drawing.Point(581, 152);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(296, 54);
             this.groupBox4.TabIndex = 17;
@@ -1287,15 +1317,6 @@
             this.printPreviewTable2.Name = "printPreviewTable2";
             this.printPreviewTable2.Visible = false;
             // 
-            // RR
-            // 
-            this.RR.AutoSize = true;
-            this.RR.Location = new System.Drawing.Point(598, 235);
-            this.RR.Name = "RR";
-            this.RR.Size = new System.Drawing.Size(27, 13);
-            this.RR.TabIndex = 20;
-            this.RR.Text = "R^2";
-            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1474,6 +1495,8 @@
         private System.Windows.Forms.Label SKO;
         public System.Windows.Forms.Button button14;
         private System.Windows.Forms.Label RR;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
     }
 }
 
