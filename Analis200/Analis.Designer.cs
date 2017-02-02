@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,11 +69,6 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.RR = new System.Windows.Forms.Label();
-            this.SKO = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -91,10 +86,6 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.Table1 = new System.Windows.Forms.DataGridView();
-            this.NoCo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concetr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Asred = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -150,6 +141,16 @@
             this.button3 = new System.Windows.Forms.Button();
             this.printTable2 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.RR = new System.Windows.Forms.Label();
+            this.SKO = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.Table1 = new System.Windows.Forms.DataGridView();
+            this.NoCo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concetr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Asred = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -159,10 +160,12 @@
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Table1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Table2)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Table1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -443,17 +446,13 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label22);
-            this.tabPage3.Controls.Add(this.label21);
-            this.tabPage3.Controls.Add(this.RR);
-            this.tabPage3.Controls.Add(this.SKO);
-            this.tabPage3.Controls.Add(this.richTextBox1);
+            this.tabPage3.Controls.Add(this.groupBox6);
+            this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.chart1);
-            this.tabPage3.Controls.Add(this.Table1);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.numericUpDown1);
             this.tabPage3.Controls.Add(this.dateTimePicker1);
@@ -472,50 +471,6 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Градуировка";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(597, 270);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(98, 13);
-            this.label22.TabIndex = 22;
-            this.label22.Text = "Макс.ошибка A(C)";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(597, 257);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(38, 13);
-            this.label21.TabIndex = 21;
-            this.label21.Text = "P,%(A)";
-            // 
-            // RR
-            // 
-            this.RR.AutoSize = true;
-            this.RR.Location = new System.Drawing.Point(595, 231);
-            this.RR.Name = "RR";
-            this.RR.Size = new System.Drawing.Size(27, 13);
-            this.RR.TabIndex = 20;
-            this.RR.Text = "R^2";
-            // 
-            // SKO
-            // 
-            this.SKO.AutoSize = true;
-            this.SKO.Location = new System.Drawing.Point(596, 244);
-            this.SKO.Name = "SKO";
-            this.SKO.Size = new System.Drawing.Size(29, 13);
-            this.SKO.TabIndex = 19;
-            this.SKO.Text = "СКО";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(582, 211);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(295, 83);
-            this.richTextBox1.TabIndex = 18;
-            this.richTextBox1.Text = "Статистика";
             // 
             // groupBox4
             // 
@@ -686,80 +641,39 @@
             // 
             // chart1
             // 
-            chartArea1.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.MinorGrid.Enabled = true;
-            chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.MinorTickMark.Enabled = true;
-            chartArea1.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX.Title = "Оптическая плотность, А";
-            chartArea1.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.Title = "Концетрация";
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea4.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX.MinorGrid.Enabled = true;
+            chartArea4.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX.MinorTickMark.Enabled = true;
+            chartArea4.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX.Title = "Оптическая плотность, А";
+            chartArea4.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisY.Title = "Концетрация";
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.chart1.Location = new System.Drawing.Point(9, 72);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "Series2";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series7.IsVisibleInLegend = false;
+            series7.Name = "Series1";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.IsVisibleInLegend = false;
+            series8.Name = "Series2";
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(566, 321);
             this.chart1.TabIndex = 14;
             this.chart1.Text = "chart1";
-            // 
-            // Table1
-            // 
-            this.Table1.AllowUserToResizeColumns = false;
-            this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Table1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Table1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Table1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NoCo,
-            this.Concetr,
-            this.Asred});
-            this.Table1.Location = new System.Drawing.Point(9, 399);
-            this.Table1.Name = "Table1";
-            this.Table1.Size = new System.Drawing.Size(935, 201);
-            this.Table1.TabIndex = 13;
-            this.Table1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.Table1_CellBeginEdit);
-            this.Table1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table1_CellEndEdit);
-            this.Table1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.Table1_EditingControlShowing);
-            // 
-            // NoCo
-            // 
-            this.NoCo.HeaderText = "№ CO";
-            this.NoCo.Name = "NoCo";
-            this.NoCo.ReadOnly = true;
-            this.NoCo.Width = 45;
-            // 
-            // Concetr
-            // 
-            this.Concetr.HeaderText = "Конц., %";
-            this.Concetr.Name = "Concetr";
-            this.Concetr.ReadOnly = true;
-            this.Concetr.Width = 75;
-            // 
-            // Asred
-            // 
-            this.Asred.HeaderText = "A среднее";
-            this.Asred.Name = "Asred";
-            this.Asred.ReadOnly = true;
-            this.Asred.Width = 90;
             // 
             // label6
             // 
@@ -1317,6 +1231,106 @@
             this.printPreviewTable2.Name = "printPreviewTable2";
             this.printPreviewTable2.Visible = false;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.RR);
+            this.groupBox5.Controls.Add(this.SKO);
+            this.groupBox5.Location = new System.Drawing.Point(581, 212);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(296, 75);
+            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Статистика";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(15, 56);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(98, 13);
+            this.label22.TabIndex = 26;
+            this.label22.Text = "Макс.ошибка A(C)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(15, 43);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(38, 13);
+            this.label21.TabIndex = 25;
+            this.label21.Text = "P,%(A)";
+            // 
+            // RR
+            // 
+            this.RR.AutoSize = true;
+            this.RR.Location = new System.Drawing.Point(13, 17);
+            this.RR.Name = "RR";
+            this.RR.Size = new System.Drawing.Size(27, 13);
+            this.RR.TabIndex = 24;
+            this.RR.Text = "R^2";
+            // 
+            // SKO
+            // 
+            this.SKO.AutoSize = true;
+            this.SKO.Location = new System.Drawing.Point(14, 30);
+            this.SKO.Name = "SKO";
+            this.SKO.Size = new System.Drawing.Size(29, 13);
+            this.SKO.TabIndex = 23;
+            this.SKO.Text = "СКО";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.Table1);
+            this.groupBox6.Location = new System.Drawing.Point(9, 399);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(942, 201);
+            this.groupBox6.TabIndex = 19;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Измерения стандартных образцов";
+            // 
+            // Table1
+            // 
+            this.Table1.AllowUserToResizeColumns = false;
+            this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Table1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Table1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Table1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NoCo,
+            this.Concetr,
+            this.Asred});
+            this.Table1.Location = new System.Drawing.Point(6, 19);
+            this.Table1.Name = "Table1";
+            this.Table1.Size = new System.Drawing.Size(930, 176);
+            this.Table1.TabIndex = 20;
+            // 
+            // NoCo
+            // 
+            this.NoCo.HeaderText = "№ CO";
+            this.NoCo.Name = "NoCo";
+            this.NoCo.ReadOnly = true;
+            this.NoCo.Width = 45;
+            // 
+            // Concetr
+            // 
+            this.Concetr.HeaderText = "Конц., %";
+            this.Concetr.Name = "Concetr";
+            this.Concetr.ReadOnly = true;
+            this.Concetr.Width = 75;
+            // 
+            // Asred
+            // 
+            this.Asred.HeaderText = "A среднее";
+            this.Asred.Name = "Asred";
+            this.Asred.ReadOnly = true;
+            this.Asred.Width = 90;
+            // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1368,11 +1382,14 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Table1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Table2)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Table1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1412,7 +1429,6 @@
         private System.Data.DataSet dataSet1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox4;
         public System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.RadioButton radioButton5;
@@ -1463,7 +1479,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
-        public System.Windows.Forms.DataGridView Table1;
         public System.Windows.Forms.Label label14;
         public System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.TextBox textBox2;
@@ -1485,18 +1500,21 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox OptichPlot;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
         private System.Drawing.Printing.PrintDocument printTable2;
         private System.Windows.Forms.PrintPreviewDialog printPreviewTable2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Obrazec;
-        private System.Windows.Forms.Label SKO;
         public System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Label RR;
+        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label RR;
+        private System.Windows.Forms.Label SKO;
+        private System.Windows.Forms.GroupBox groupBox6;
+        public System.Windows.Forms.DataGridView Table1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
     }
 }
 
