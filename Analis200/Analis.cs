@@ -107,7 +107,12 @@ namespace Analis200
             Zavisimoct = "A(C)";
             aproksim = "Линейная";
             Table1.AllowUserToResizeRows = false;
-
+            Podskazka.Text = "Подключите прибор!";
+            label27.Visible = false;
+            label24.Visible = true;
+            label25.Visible = false;
+            label26.Visible = false;
+            label28.Visible = false;
 
         }
         public int countSA;
@@ -3225,6 +3230,12 @@ namespace Analis200
                     kvadratichnaya();
                 }
             }
+            Podskazka.Text = "Сохраните градуировку!";
+            label27.Visible = true;
+            label24.Visible = false;
+            label25.Visible = false;
+            label26.Visible = false;
+            label28.Visible = false;
         }
 
         public void графикРезультатаОдноволновогоИзмеренияToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5135,7 +5146,7 @@ namespace Analis200
 
                         Array.Sort(El);
                         maxEl = El[El.Length - 1];
-                        minEl = El[1];
+                        minEl = El[0];
                         double a = ((maxEl - minEl) * 100) / Convert.ToDouble(CCR);
                         double b = a;
 
@@ -5381,9 +5392,13 @@ namespace Analis200
                 {
                     button14.Enabled = true;
                 }
+                Podskazka.Text = "Создайте или откройте Градуировку!";
 
-                
-               
+                label27.Visible = false;
+                label24.Visible = false;
+                label25.Visible = true;
+                label26.Visible = true;
+                label28.Visible = false;
             }
             
         }
@@ -6411,6 +6426,12 @@ namespace Analis200
                     radioButton5.Enabled = true;
                     button3.Enabled = true;
                 }
+                Podskazka.Text = "Перейдите в Измерения!";
+                label27.Visible = false;
+                label24.Visible = false;
+                label25.Visible = false;
+                label26.Visible = false;
+                label28.Visible = false;
                 tabPage4.Parent = tabControl2;
             }
             else
@@ -6465,12 +6486,19 @@ namespace Analis200
                         tabPage4.Parent = tabControl2;
 
                     }
+
                 }
                 else
                 {
                     SaveAs1();
                     tabPage4.Parent = tabControl2;
                 }
+                Podskazka.Text = "Перейдите в Измерения!";
+                label27.Visible = false;
+                label24.Visible = false;
+                label25.Visible = false;
+                label26.Visible = false;
+                label28.Visible = false;
             }
             else
             {
@@ -8269,6 +8297,12 @@ namespace Analis200
                     {
                         USE_KO = false;
                     }
+                    Podskazka.Text = "Измерьте СО!";
+                    label27.Visible = false;
+                    label24.Visible = false;
+                    label25.Visible = false;
+                    label26.Visible = false;
+                    label28.Visible = true;
                 };
 
                 _ParametrsGrad.ShowDialog();
@@ -9259,6 +9293,15 @@ namespace Analis200
                     button3.Enabled = true;
                
             }
+            else
+            {
+                Podskazka.Text = "Создайте или откройте Измерение!";
+                label27.Visible = false;
+                label24.Visible = false;
+                label25.Visible = true;
+                label26.Visible = true;
+                label28.Visible = false;
+            }
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -10244,58 +10287,61 @@ namespace Analis200
         {
             cordY = 480;
             e.Graphics.DrawString("Протокол выполнения измерений\n\n", new System.Drawing.Font("Times New Roman", 20, FontStyle.Bold), Brushes.Black, 100, 50);
-            e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 110);
-            e.Graphics.DrawString(filepath2, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 130, 110);
-            e.Graphics.DrawString("Описание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 130);
-            e.Graphics.DrawString(textBox8.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 130, 130);
-            e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 150);
-            e.Graphics.DrawString(dateTimePicker2.Value.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 120, 150);
-            e.Graphics.DrawString("Длина волны:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 250, 150);
-            e.Graphics.DrawString(wavelength1, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 390, 150);
-            e.Graphics.DrawString("Погрешность методики: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 470, 150);
-            e.Graphics.DrawString(textBox7.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 700, 150);
-            e.Graphics.DrawString("Оптическая длина кюветы:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 180);
-            e.Graphics.DrawString(Opt_dlin_cuvet.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 320, 180);
-            e.Graphics.DrawString("F1 = ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 420, 180);
-            e.Graphics.DrawString(F1Text.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 470, 180);
-            e.Graphics.DrawString("F2 = ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 580, 180);
-            e.Graphics.DrawString(F2Text.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 630, 180);
-            //e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
-            e.Graphics.DrawString("Градуировка:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 230);
-         //   e.Graphics.DrawString(textBox8.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 130, 260);
-            e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 260);
-            e.Graphics.DrawString(filepath, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 170, 260);
-            e.Graphics.DrawString("Описание:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 290);
-            e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 170, 290);
-            e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 320);
-            e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 120, 320);
-            e.Graphics.DrawString("Действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 230, 320);
-            e.Graphics.DrawString(dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 405, 320);
-            e.Graphics.DrawString("Погрешность методики:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 505, 320);
-            e.Graphics.DrawString(textBox3.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 730, 320);
-            e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 350);
-            e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 330, 350);
-            e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 60, 380);
-            e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 100, 380);
-            e.Graphics.DrawString("Информация о приборе:\n", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(25, 410));
+            e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 110);
+            e.Graphics.DrawString(filepath2, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 130, 110);
+            e.Graphics.DrawString("Описание:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 130);
+            e.Graphics.DrawString(textBox8.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 130, 130);
+            e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 150);
+            e.Graphics.DrawString(dateTimePicker2.Value.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 120, 150);
+            e.Graphics.DrawString("Длина волны:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 250, 150);
+            e.Graphics.DrawString(wavelength1, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 390, 150);
+            e.Graphics.DrawString("Погрешность методики: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 470, 150);
+            e.Graphics.DrawString(textBox7.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 700, 150);
+            e.Graphics.DrawString("Оптическая длина кюветы:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 180);
+            e.Graphics.DrawString(Opt_dlin_cuvet.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 320, 180);
+            e.Graphics.DrawString("F1 = ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 420, 180);
+            e.Graphics.DrawString(F1Text.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 470, 180);
+            e.Graphics.DrawString("F2 = ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 580, 180);
+            e.Graphics.DrawString(F2Text.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 630, 180);
+            //e.Graphics.DrawString("Таблица исходных данных", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 230);
+            e.Graphics.DrawString("Градуировка:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 210);
+         //   e.Graphics.DrawString(textBox8.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 130, 260);
+            e.Graphics.DrawString("Имя файла:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 230);
+            e.Graphics.DrawString(filepath, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 170, 230);
+            e.Graphics.DrawString("Описание:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 260);
+            e.Graphics.DrawString(Description, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 170, 260);
+            e.Graphics.DrawString("Дата:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 290);
+            e.Graphics.DrawString(DateTime, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 120, 290);
+            e.Graphics.DrawString("Действительна до: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 230, 290);
+            e.Graphics.DrawString(dateTimePicker1.Value.AddDays(Days).ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 405, 290);
+            e.Graphics.DrawString("Погрешность методики:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 505, 290);
+            e.Graphics.DrawString(textBox3.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 730, 290);
+            e.Graphics.DrawString("Градуировочное уравнение:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 320);
+            e.Graphics.DrawString(label14.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 330, 320);
+            e.Graphics.DrawString("НД:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 60, 350);
+            e.Graphics.DrawString(ND, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 100, 350);
+            e.Graphics.DrawString("Статистика:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 380);
+            e.Graphics.DrawString(RR.Text + "                                               " + SKO.Text + "\n" + label21.Text + "          " + label22.Text, new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 140, 380);
+           e.Graphics.DrawString("Информация о приборе:\n", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new Point(25, 430));
+            
             string model = @"pribor/model";
             string SerNomer_Text = @"pribor/SerNomer";
             string InventarNomer_Text = @"pribor/InventarNomer";
             string SrokIstech_Text = @"pribor/SrokIstech";
             string Poveren_Text = @"pribor/Poveren";
             StreamReader fs = new StreamReader(model);
-            e.Graphics.DrawString("Модель: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 440));
-            e.Graphics.DrawString(fs.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(140, 440));
+            e.Graphics.DrawString("Модель: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new Point(60, 450));
+            e.Graphics.DrawString(fs.ReadLine(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new Point(140, 450));
             fs.Close();
 
             StreamReader fs1 = new StreamReader(SerNomer_Text);
-            e.Graphics.DrawString("Серийный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 440));
-            e.Graphics.DrawString(fs1.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(700, 440));
+            e.Graphics.DrawString("Серийный номер: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new Point(500, 450));
+            e.Graphics.DrawString(fs1.ReadLine(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new Point(700, 450));
             fs1.Close();
 
             StreamReader fs2 = new StreamReader(InventarNomer_Text);
-            e.Graphics.DrawString("Инвентарный номер: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(500, 470));
-            e.Graphics.DrawString(fs2.ReadLine(), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(705, 470));
+            e.Graphics.DrawString("Инвентарный номер: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new Point(500, 470));
+            e.Graphics.DrawString(fs2.ReadLine(), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new Point(705, 470));
             fs2.Close();
 
             StreamReader fs3 = new StreamReader(Poveren_Text);
@@ -10304,9 +10350,9 @@ namespace Analis200
             //  MessageBox.Show(Convert.ToString(data));   
             data = data.AddYears(1);
             fs3.Close();
-            e.Graphics.DrawString("Поверка действительна до: ", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, new Point(60, 470));
-            e.Graphics.DrawString(data.Date.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, new Point(315, 470));
-            e.Graphics.DrawString("Данные измерений:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, 500);
+            e.Graphics.DrawString("Поверка действительна до: ", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, new Point(60, 470));
+            e.Graphics.DrawString(data.Date.ToString("dd.MM.yyyy"), new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, new Point(315, 470));
+            e.Graphics.DrawString("Данные измерений:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, 500);
             if (NoCaIzm1 <= 3)
             {
                 Table2PrintViewer1(sender, e);
@@ -10322,12 +10368,12 @@ namespace Analis200
                     Table2PrintViewer3(sender, e);
                 }
             }
-            e.Graphics.DrawString("Измерения выполнил(а):", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 60);
-            e.Graphics.DrawString(" ____________________________________________________", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 250, cordY + 60);
+            e.Graphics.DrawString("Измерения выполнил(а):", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, cordY + 60);
+            e.Graphics.DrawString(" ____________________________________________________", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 250, cordY + 60);
             
 
-             e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 14, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
-             e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 14, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
+             e.Graphics.DrawString("Исполнитель:", new System.Drawing.Font("Times New Roman", 12, FontStyle.Bold), Brushes.Black, 25, cordY + 30);
+             e.Graphics.DrawString(Ispolnitel, new System.Drawing.Font("Times New Roman", 12, FontStyle.Regular), Brushes.Black, 160, cordY + 30);
              
         }
                     ///Если меньше или равно 3
@@ -10936,6 +10982,11 @@ namespace Analis200
            // rowIndex = Table1.CurrentRow.Index;
            // curentIndex = Table1.CurrentCell.ColumnIndex;
            
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
+
         }
 
         iTextSharp.text.Font font1;

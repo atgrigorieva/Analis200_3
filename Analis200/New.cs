@@ -92,7 +92,12 @@ namespace Analis200
                 {
                     _Analis.button14.Enabled = false;
                 }
-                
+               _Analis.Podskazka.Text = "Измеряйте образцы!";
+                _Analis.label27.Visible = false;
+                _Analis.label24.Visible = false;
+                _Analis.label25.Visible = false;
+                _Analis.label26.Visible = false;
+                _Analis.label28.Visible = true;
             }
             this.TopMost = true;
             Close();

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea17 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series33 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series34 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Analis));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,16 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.Table1 = new System.Windows.Forms.DataGridView();
+            this.NoCo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concetr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Asred = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.RR = new System.Windows.Forms.Label();
+            this.SKO = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -130,31 +140,32 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.GEText = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.GWNew = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.GAText = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.OptichPlot = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.printTable2 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewTable2 = new System.Windows.Forms.PrintPreviewDialog();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.RR = new System.Windows.Forms.Label();
-            this.SKO = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.Table1 = new System.Windows.Forms.DataGridView();
-            this.NoCo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concetr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Asred = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Podskazka = new System.Windows.Forms.Label();
+            this.Podskazki = new System.Windows.Forms.GroupBox();
+            this.OptichPlot = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.GAText = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.GEText = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Table1)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -163,9 +174,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Table2)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Table1)).BeginInit();
+            this.Podskazki.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -321,7 +330,7 @@
             // 
             this.подключитьToolStripMenuItem.Image = global::Analis200.Properties.Resources.connect_btn;
             this.подключитьToolStripMenuItem.Name = "подключитьToolStripMenuItem";
-            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.подключитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.подключитьToolStripMenuItem.Text = "Подключить";
             this.подключитьToolStripMenuItem.Click += new System.EventHandler(this.подключитьToolStripMenuItem_Click);
             // 
@@ -329,7 +338,7 @@
             // 
             this.настройкаПортаToolStripMenuItem.Image = global::Analis200.Properties.Resources.ComSetup_btn;
             this.настройкаПортаToolStripMenuItem.Name = "настройкаПортаToolStripMenuItem";
-            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.настройкаПортаToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.настройкаПортаToolStripMenuItem.Text = "Длина Волны";
             this.настройкаПортаToolStripMenuItem.Visible = false;
             this.настройкаПортаToolStripMenuItem.Click += new System.EventHandler(this.длинаволныToolStripMenuItem_Click);
@@ -338,7 +347,7 @@
             // 
             this.информацияToolStripMenuItem.Image = global::Analis200.Properties.Resources.devinfo_btn;
             this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
-            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.информацияToolStripMenuItem.Text = "Информация";
             this.информацияToolStripMenuItem.Visible = false;
             this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
@@ -347,7 +356,7 @@
             // 
             this.калибровкаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
             this.калибровкаToolStripMenuItem.Name = "калибровкаToolStripMenuItem";
-            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.калибровкаToolStripMenuItem.Text = "Калибровка";
             this.калибровкаToolStripMenuItem.Visible = false;
             this.калибровкаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаToolStripMenuItem_Click);
@@ -356,7 +365,7 @@
             // 
             this.темновойТокToolStripMenuItem.Image = global::Analis200.Properties.Resources.Dark_btn;
             this.темновойТокToolStripMenuItem.Name = "темновойТокToolStripMenuItem";
-            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.темновойТокToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.темновойТокToolStripMenuItem.Text = "Темновой ток";
             this.темновойТокToolStripMenuItem.Visible = false;
             // 
@@ -364,7 +373,7 @@
             // 
             this.измеритьToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
             this.измеритьToolStripMenuItem.Name = "измеритьToolStripMenuItem";
-            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.измеритьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.измеритьToolStripMenuItem.Text = "Измерить";
             this.измеритьToolStripMenuItem.Visible = false;
             this.измеритьToolStripMenuItem.Click += new System.EventHandler(this.измеритьToolStripMenuItem_Click);
@@ -373,7 +382,7 @@
             // 
             this.одноволновоеИзмерениеToolStripMenuItem.Image = global::Analis200.Properties.Resources.Meas_btn;
             this.одноволновоеИзмерениеToolStripMenuItem.Name = "одноволновоеИзмерениеToolStripMenuItem";
-            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.одноволновоеИзмерениеToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.одноволновоеИзмерениеToolStripMenuItem.Text = "Измерить";
             this.одноволновоеИзмерениеToolStripMenuItem.Click += new System.EventHandler(this.одноволновоеИзмерениеToolStripMenuItem_Click);
             // 
@@ -381,7 +390,7 @@
             // 
             this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Image = global::Analis200.Properties.Resources.reziro_btn;
             this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Name = "калибровкаДляОдноволновогоАнализаToolStripMenuItem";
-            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Text = "0A/100%T";
             this.калибровкаДляОдноволновогоАнализаToolStripMenuItem.Click += new System.EventHandler(this.калибровкаДляОдноволновогоАнализаToolStripMenuItem_Click);
             // 
@@ -471,6 +480,107 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Градуировка";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.Table1);
+            this.groupBox6.Location = new System.Drawing.Point(9, 399);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(942, 201);
+            this.groupBox6.TabIndex = 19;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Измерения стандартных образцов";
+            // 
+            // Table1
+            // 
+            this.Table1.AllowUserToResizeColumns = false;
+            this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Table1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Table1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Table1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NoCo,
+            this.Concetr,
+            this.Asred});
+            this.Table1.Location = new System.Drawing.Point(6, 19);
+            this.Table1.Name = "Table1";
+            this.Table1.Size = new System.Drawing.Size(930, 176);
+            this.Table1.TabIndex = 20;
+            this.Table1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Table1_CellEndEdit);
+            // 
+            // NoCo
+            // 
+            this.NoCo.HeaderText = "№ CO";
+            this.NoCo.Name = "NoCo";
+            this.NoCo.ReadOnly = true;
+            this.NoCo.Width = 45;
+            // 
+            // Concetr
+            // 
+            this.Concetr.HeaderText = "Конц., %";
+            this.Concetr.Name = "Concetr";
+            this.Concetr.ReadOnly = true;
+            this.Concetr.Width = 75;
+            // 
+            // Asred
+            // 
+            this.Asred.HeaderText = "A среднее";
+            this.Asred.Name = "Asred";
+            this.Asred.ReadOnly = true;
+            this.Asred.Width = 90;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.RR);
+            this.groupBox5.Controls.Add(this.SKO);
+            this.groupBox5.Location = new System.Drawing.Point(581, 212);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(296, 75);
+            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Статистика";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(15, 56);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(98, 13);
+            this.label22.TabIndex = 26;
+            this.label22.Text = "Макс.ошибка A(C)";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(15, 43);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(38, 13);
+            this.label21.TabIndex = 25;
+            this.label21.Text = "P,%(A)";
+            // 
+            // RR
+            // 
+            this.RR.AutoSize = true;
+            this.RR.Location = new System.Drawing.Point(13, 17);
+            this.RR.Name = "RR";
+            this.RR.Size = new System.Drawing.Size(27, 13);
+            this.RR.TabIndex = 24;
+            this.RR.Text = "R^2";
+            // 
+            // SKO
+            // 
+            this.SKO.AutoSize = true;
+            this.SKO.Location = new System.Drawing.Point(14, 30);
+            this.SKO.Name = "SKO";
+            this.SKO.Size = new System.Drawing.Size(29, 13);
+            this.SKO.TabIndex = 23;
+            this.SKO.Text = "СКО";
             // 
             // groupBox4
             // 
@@ -641,36 +751,36 @@
             // 
             // chart1
             // 
-            chartArea4.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX.MinorGrid.Enabled = true;
-            chartArea4.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX.MinorTickMark.Enabled = true;
-            chartArea4.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX.Title = "Оптическая плотность, А";
-            chartArea4.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea4.AxisY.Title = "Концетрация";
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
+            chartArea17.AxisX.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX.MinorGrid.Enabled = true;
+            chartArea17.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX.MinorTickMark.Enabled = true;
+            chartArea17.AxisX.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX.Title = "Оптическая плотность, А";
+            chartArea17.AxisX2.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX2.MajorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX2.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisX2.MinorTickMark.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea17.AxisY.Title = "Концетрация";
+            chartArea17.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea17);
             this.chart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.chart1.Location = new System.Drawing.Point(9, 72);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
             this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series7.IsVisibleInLegend = false;
-            series7.Name = "Series1";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.IsVisibleInLegend = false;
-            series8.Name = "Series2";
-            this.chart1.Series.Add(series7);
-            this.chart1.Series.Add(series8);
+            series33.ChartArea = "ChartArea1";
+            series33.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series33.IsVisibleInLegend = false;
+            series33.Name = "Series1";
+            series34.ChartArea = "ChartArea1";
+            series34.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series34.IsVisibleInLegend = false;
+            series34.Name = "Series2";
+            this.chart1.Series.Add(series33);
+            this.chart1.Series.Add(series34);
             this.chart1.Size = new System.Drawing.Size(566, 321);
             this.chart1.TabIndex = 14;
             this.chart1.Text = "chart1";
@@ -984,9 +1094,9 @@
             // button14
             // 
             this.button14.Image = global::Analis200.Properties.Resources.Meas_btn;
-            this.button14.Location = new System.Drawing.Point(661, 29);
+            this.button14.Location = new System.Drawing.Point(753, 27);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(42, 35);
+            this.button14.Size = new System.Drawing.Size(42, 37);
             this.button14.TabIndex = 33;
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
@@ -994,21 +1104,22 @@
             // 
             // button13
             // 
+            this.button13.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.button13.Image = global::Analis200.Properties.Resources.Dark_btn;
-            this.button13.Location = new System.Drawing.Point(616, 29);
+            this.button13.Location = new System.Drawing.Point(900, 29);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(36, 35);
             this.button13.TabIndex = 32;
-            this.button13.UseVisualStyleBackColor = true;
+            this.button13.UseVisualStyleBackColor = false;
             this.button13.Visible = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button12
             // 
             this.button12.Image = global::Analis200.Properties.Resources.reziro_btn;
-            this.button12.Location = new System.Drawing.Point(571, 29);
+            this.button12.Location = new System.Drawing.Point(708, 27);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(39, 35);
+            this.button12.Size = new System.Drawing.Size(39, 37);
             this.button12.TabIndex = 31;
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
@@ -1017,7 +1128,7 @@
             // button11
             // 
             this.button11.Image = global::Analis200.Properties.Resources.About_btn;
-            this.button11.Location = new System.Drawing.Point(497, 30);
+            this.button11.Location = new System.Drawing.Point(854, 29);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(40, 35);
             this.button11.TabIndex = 30;
@@ -1028,7 +1139,7 @@
             // 
             this.button10.Enabled = false;
             this.button10.Image = global::Analis200.Properties.Resources.setup_btn;
-            this.button10.Location = new System.Drawing.Point(437, 29);
+            this.button10.Location = new System.Drawing.Point(662, 27);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(40, 37);
             this.button10.TabIndex = 29;
@@ -1039,7 +1150,7 @@
             // button9
             // 
             this.button9.Image = global::Analis200.Properties.Resources.pdfIcon;
-            this.button9.Location = new System.Drawing.Point(374, 29);
+            this.button9.Location = new System.Drawing.Point(616, 27);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(40, 37);
             this.button9.TabIndex = 28;
@@ -1050,7 +1161,7 @@
             // button8
             // 
             this.button8.Image = global::Analis200.Properties.Resources.excelicon1;
-            this.button8.Location = new System.Drawing.Point(331, 29);
+            this.button8.Location = new System.Drawing.Point(573, 27);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(37, 37);
             this.button8.TabIndex = 27;
@@ -1061,7 +1172,7 @@
             // button7
             // 
             this.button7.Image = global::Analis200.Properties.Resources.Save_btn;
-            this.button7.Location = new System.Drawing.Point(286, 29);
+            this.button7.Location = new System.Drawing.Point(528, 27);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(39, 37);
             this.button7.TabIndex = 26;
@@ -1072,7 +1183,7 @@
             // button6
             // 
             this.button6.Image = global::Analis200.Properties.Resources.open_btn;
-            this.button6.Location = new System.Drawing.Point(242, 29);
+            this.button6.Location = new System.Drawing.Point(484, 27);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(38, 37);
             this.button6.TabIndex = 25;
@@ -1082,19 +1193,20 @@
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.SystemColors.Control;
             this.button5.Image = global::Analis200.Properties.Resources.NewSetup_btn;
-            this.button5.Location = new System.Drawing.Point(199, 29);
+            this.button5.Location = new System.Drawing.Point(441, 27);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(37, 37);
             this.button5.TabIndex = 24;
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             this.button5.MouseHover += new System.EventHandler(this.button5_MouseHover);
             // 
             // button4
             // 
             this.button4.Image = global::Analis200.Properties.Resources.devinfo_btn;
-            this.button4.Location = new System.Drawing.Point(92, 29);
+            this.button4.Location = new System.Drawing.Point(395, 27);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(40, 37);
             this.button4.TabIndex = 23;
@@ -1104,7 +1216,7 @@
             // button2
             // 
             this.button2.Image = global::Analis200.Properties.Resources.connect_btn;
-            this.button2.Location = new System.Drawing.Point(51, 29);
+            this.button2.Location = new System.Drawing.Point(355, 27);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(34, 37);
             this.button2.TabIndex = 21;
@@ -1116,7 +1228,7 @@
             // 
             this.button1.Enabled = false;
             this.button1.Image = global::Analis200.Properties.Resources.Exit_btn;
-            this.button1.Location = new System.Drawing.Point(13, 29);
+            this.button1.Location = new System.Drawing.Point(317, 27);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(32, 37);
             this.button1.TabIndex = 20;
@@ -1125,95 +1237,38 @@
             this.button1.Click += new System.EventHandler(this.button1_Click);
             this.button1.MouseHover += new System.EventHandler(this.button1_MouseHover);
             // 
-            // GEText
-            // 
-            this.GEText.Location = new System.Drawing.Point(253, 73);
-            this.GEText.Name = "GEText";
-            this.GEText.ReadOnly = true;
-            this.GEText.Size = new System.Drawing.Size(100, 20);
-            this.GEText.TabIndex = 8;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(198, 76);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 13);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Энергия";
-            // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 76);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(14, 36);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(75, 13);
+            this.label9.Size = new System.Drawing.Size(138, 24);
             this.label9.TabIndex = 10;
             this.label9.Text = "Длина волны";
             // 
             // GWNew
             // 
-            this.GWNew.Location = new System.Drawing.Point(92, 73);
+            this.GWNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GWNew.Location = new System.Drawing.Point(158, 32);
             this.GWNew.Name = "GWNew";
             this.GWNew.ReadOnly = true;
-            this.GWNew.Size = new System.Drawing.Size(100, 20);
+            this.GWNew.Size = new System.Drawing.Size(83, 29);
             this.GWNew.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(359, 76);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(145, 13);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Коэффициент пропускания";
-            // 
-            // GAText
-            // 
-            this.GAText.Location = new System.Drawing.Point(510, 73);
-            this.GAText.Name = "GAText";
-            this.GAText.ReadOnly = true;
-            this.GAText.Size = new System.Drawing.Size(100, 20);
-            this.GAText.TabIndex = 13;
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(616, 76);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(122, 13);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Оптическая плотность";
-            // 
-            // OptichPlot
-            // 
-            this.OptichPlot.Location = new System.Drawing.Point(744, 73);
-            this.OptichPlot.Name = "OptichPlot";
-            this.OptichPlot.ReadOnly = true;
-            this.OptichPlot.Size = new System.Drawing.Size(100, 20);
-            this.OptichPlot.TabIndex = 15;
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.SystemColors.Control;
             this.button3.Enabled = false;
             this.button3.Image = global::Analis200.Properties.Resources.print_btn;
-            this.button3.Location = new System.Drawing.Point(734, 30);
+            this.button3.Location = new System.Drawing.Point(801, 27);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(42, 35);
+            this.button3.Size = new System.Drawing.Size(42, 37);
             this.button3.TabIndex = 34;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             this.button3.MouseHover += new System.EventHandler(this.button3_MouseHover);
             // 
@@ -1231,110 +1286,174 @@
             this.printPreviewTable2.Name = "printPreviewTable2";
             this.printPreviewTable2.Visible = false;
             // 
-            // groupBox5
+            // Podskazka
             // 
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Controls.Add(this.RR);
-            this.groupBox5.Controls.Add(this.SKO);
-            this.groupBox5.Location = new System.Drawing.Point(581, 212);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(296, 75);
-            this.groupBox5.TabIndex = 18;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Статистика";
+            this.Podskazka.AutoSize = true;
+            this.Podskazka.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Podskazka.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.Podskazka.Location = new System.Drawing.Point(6, 16);
+            this.Podskazka.Name = "Podskazka";
+            this.Podskazka.Size = new System.Drawing.Size(279, 18);
+            this.Podskazka.TabIndex = 35;
+            this.Podskazka.Text = "Создайте (откройте) градуировку!";
             // 
-            // label22
+            // Podskazki
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(15, 56);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(98, 13);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "Макс.ошибка A(C)";
+            this.Podskazki.Controls.Add(this.Podskazka);
+            this.Podskazki.Location = new System.Drawing.Point(17, 64);
+            this.Podskazki.Name = "Podskazki";
+            this.Podskazki.Size = new System.Drawing.Size(314, 37);
+            this.Podskazki.TabIndex = 36;
+            this.Podskazki.TabStop = false;
+            this.Podskazki.Text = "Подсказки";
             // 
-            // label21
+            // OptichPlot
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(15, 43);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(38, 13);
-            this.label21.TabIndex = 25;
-            this.label21.Text = "P,%(A)";
+            this.OptichPlot.Location = new System.Drawing.Point(767, 0);
+            this.OptichPlot.Name = "OptichPlot";
+            this.OptichPlot.ReadOnly = true;
+            this.OptichPlot.Size = new System.Drawing.Size(100, 20);
+            this.OptichPlot.TabIndex = 15;
+            this.OptichPlot.Visible = false;
             // 
-            // RR
+            // label11
             // 
-            this.RR.AutoSize = true;
-            this.RR.Location = new System.Drawing.Point(13, 17);
-            this.RR.Name = "RR";
-            this.RR.Size = new System.Drawing.Size(27, 13);
-            this.RR.TabIndex = 24;
-            this.RR.Text = "R^2";
-            // 
-            // SKO
-            // 
-            this.SKO.AutoSize = true;
-            this.SKO.Location = new System.Drawing.Point(14, 30);
-            this.SKO.Name = "SKO";
-            this.SKO.Size = new System.Drawing.Size(29, 13);
-            this.SKO.TabIndex = 23;
-            this.SKO.Text = "СКО";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.Controls.Add(this.Table1);
-            this.groupBox6.Location = new System.Drawing.Point(9, 399);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(942, 201);
-            this.groupBox6.TabIndex = 19;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Измерения стандартных образцов";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(639, 3);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(122, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Оптическая плотность";
+            this.label11.Visible = false;
             // 
-            // Table1
+            // GAText
             // 
-            this.Table1.AllowUserToResizeColumns = false;
-            this.Table1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.GAText.Location = new System.Drawing.Point(533, 0);
+            this.GAText.Name = "GAText";
+            this.GAText.ReadOnly = true;
+            this.GAText.Size = new System.Drawing.Size(100, 20);
+            this.GAText.TabIndex = 13;
+            this.GAText.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Table1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Table1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Table1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NoCo,
-            this.Concetr,
-            this.Asred});
-            this.Table1.Location = new System.Drawing.Point(6, 19);
-            this.Table1.Name = "Table1";
-            this.Table1.Size = new System.Drawing.Size(930, 176);
-            this.Table1.TabIndex = 20;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(382, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(145, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Коэффициент пропускания";
+            this.label10.Visible = false;
             // 
-            // NoCo
+            // GEText
             // 
-            this.NoCo.HeaderText = "№ CO";
-            this.NoCo.Name = "NoCo";
-            this.NoCo.ReadOnly = true;
-            this.NoCo.Width = 45;
+            this.GEText.Location = new System.Drawing.Point(276, 0);
+            this.GEText.Name = "GEText";
+            this.GEText.ReadOnly = true;
+            this.GEText.Size = new System.Drawing.Size(100, 20);
+            this.GEText.TabIndex = 8;
+            this.GEText.Visible = false;
             // 
-            // Concetr
+            // label8
             // 
-            this.Concetr.HeaderText = "Конц., %";
-            this.Concetr.Name = "Concetr";
-            this.Concetr.ReadOnly = true;
-            this.Concetr.Width = 75;
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(221, 3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(49, 13);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Энергия";
+            this.label8.Visible = false;
             // 
-            // Asred
+            // label23
             // 
-            this.Asred.HeaderText = "A среднее";
-            this.Asred.Name = "Asred";
-            this.Asred.ReadOnly = true;
-            this.Asred.Width = 90;
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label23.Location = new System.Drawing.Point(246, 35);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(36, 24);
+            this.label23.TabIndex = 37;
+            this.label23.Text = "нм";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label24.Location = new System.Drawing.Point(359, 67);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(26, 29);
+            this.label24.TabIndex = 38;
+            this.label24.Text = "↑";
+            this.label24.Click += new System.EventHandler(this.label24_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label25.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label25.Location = new System.Drawing.Point(449, 69);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(26, 29);
+            this.label25.TabIndex = 39;
+            this.label25.Text = "↑";
+            this.label25.Visible = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label26.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label26.Location = new System.Drawing.Point(490, 69);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(26, 29);
+            this.label26.TabIndex = 40;
+            this.label26.Text = "↑";
+            this.label26.Visible = false;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label27.Location = new System.Drawing.Point(536, 69);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(26, 29);
+            this.label27.TabIndex = 41;
+            this.label27.Text = "↑";
+            this.label27.Visible = false;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label28.Location = new System.Drawing.Point(762, 67);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(26, 29);
+            this.label28.TabIndex = 42;
+            this.label28.Text = "↑";
+            this.label28.Visible = false;
             // 
             // Analis
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1009, 741);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label23);
+            this.Controls.Add(this.Podskazki);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.button13);
@@ -1373,6 +1492,10 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Table1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1386,10 +1509,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Table2)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Table1)).EndInit();
+            this.Podskazki.ResumeLayout(false);
+            this.Podskazki.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1491,14 +1612,8 @@
         public System.Windows.Forms.Button button10;
         public System.Windows.Forms.TabControl tabControl2;
         public System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TextBox GEText;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.TextBox GWNew;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox GAText;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox OptichPlot;
         private System.Windows.Forms.Button button3;
         private System.Drawing.Printing.PrintDocument printTable2;
         private System.Windows.Forms.PrintPreviewDialog printPreviewTable2;
@@ -1515,6 +1630,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NoCo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concetr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Asred;
+        private System.Windows.Forms.GroupBox Podskazki;
+        public System.Windows.Forms.Label Podskazka;
+        private System.Windows.Forms.TextBox OptichPlot;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox GAText;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox GEText;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label23;
+        public System.Windows.Forms.Label label24;
+        public System.Windows.Forms.Label label25;
+        public System.Windows.Forms.Label label26;
+        public System.Windows.Forms.Label label27;
+        public System.Windows.Forms.Label label28;
     }
 }
 
