@@ -4945,7 +4945,7 @@ namespace Analis200
                                             serValue = 0;
                                             if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
                                             {
-                                                MessageBox.Show("Измерьте Контрольый образец!");
+                                                MessageBox.Show("Измерьте Контрольный образец!");
                                                 return;
 
 
@@ -4964,7 +4964,7 @@ namespace Analis200
                                             serValue = 0;
                                             if (Table2.Rows[0].Cells["A;Ser" + i1].Value.ToString() == null)
                                             {
-                                                MessageBox.Show("Измерьте Контрольый образец!");
+                                                MessageBox.Show("Измерьте Контрольный образец!");
                                                 return;
 
 
@@ -5284,6 +5284,24 @@ namespace Analis200
                         Table2.Rows[0].Cells["d%"].Value = "";
                     }*/
                 }
+            }
+           doNotWrite = false;
+            for (int j = 0; j < Table2.Rows.Count - 1; j++)
+            {
+
+                for (int i = 2; i < Table2.Rows[j].Cells.Count; i++)
+                {
+                    if (Table2.Rows[j].Cells[i].Value == null)
+                    {
+                        doNotWrite = true;
+                        break;
+
+                    }
+                }
+            }
+            if (doNotWrite == true)
+            {
+                button3.Enabled = true;
             }
         }
 
